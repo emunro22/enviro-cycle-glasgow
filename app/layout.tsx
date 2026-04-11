@@ -3,8 +3,14 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Envirocycle Glasgow | Waste Management, Uplifts & Recycling",
-  description: "Professional waste management, uplift services and recycling solutions for Glasgow and surrounding areas. Commercial and residential waste collection.",
-  keywords: "waste management Glasgow, uplift services Glasgow, recycling Glasgow, commercial waste collection, residential waste removal",
+  description: "Professional waste management...",
+  
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
+
   openGraph: {
     title: "Envirocycle Glasgow",
     description: "Efficient Waste Solutions, Sustainable Future",
