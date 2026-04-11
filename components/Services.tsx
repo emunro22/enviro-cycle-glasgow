@@ -85,14 +85,15 @@ export default function Services() {
     <section
       id="services"
       ref={sectionRef}
-      className="py-20 md:py-32 px-5 md:px-12"
+      /* TIGHTENED SPACING: Reduced pt-20 to pt-10 and md:pt-32 to md:pt-16 */
+      className="pt-10 pb-20 md:pt-16 md:pb-32 px-5 md:px-12"
       style={{ background: "var(--forest-dark)" }}
     >
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-14 md:mb-20 animate-on-scroll">
-          <p className="section-label mb-4">What We Do</p>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+        {/* Header - Reduced mb-14 to mb-8 */}
+        <div className="mb-8 md:mb-16 animate-on-scroll">
+          <p className="section-label mb-3">What We Do</p>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <h2
               className="leading-none"
               style={{

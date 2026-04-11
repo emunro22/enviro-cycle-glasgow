@@ -21,8 +21,9 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#0a1f0b]">
+    <section className="relative min-h-[85vh] md:min-h-screen flex items-start md:items-center overflow-hidden bg-[#0a1f0b]">
       
+      {/* Background image */}
       <div className="absolute inset-0">
         <Image
           src="/images/before-pallets.jpg"
@@ -34,30 +35,13 @@ export default function Hero() {
         />
       </div>
 
+      {/* Gradient overlay */}
       <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(160deg,rgba(10,31,11,0.93)_0%,rgba(10,31,11,0.78)_50%,rgba(10,31,11,0.93)_100%)]" />
 
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: `
-            radial-gradient(ellipse 80% 60% at 50% 0%, rgba(51,134,56,0.1) 0%, transparent 70%),
-            radial-gradient(ellipse 40% 30% at 80% 80%, rgba(212,160,23,0.06) 0%, transparent 60%)
-          `,
-        }}
-      />
-
-      <div
-        className="absolute inset-0 pointer-events-none opacity-5"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(212,160,23,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(212,160,23,0.5) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
-
-      {/* FIXED PADDING: Reduced pt-24 to pt-12 for mobile */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pt-12 md:pt-32">
+      {/* Content container - REMOVED EXCESS PADDING */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pt-20 md:pt-32">
         
+        {/* Heading - MOVED UP */}
         <h1
           className="leading-none mb-3 md:mb-4"
           style={{
@@ -78,6 +62,7 @@ export default function Hero() {
           </span>
         </h1>
 
+        {/* Badge */}
         <div
           className="inline-flex items-center gap-2 mb-4 md:mb-5 px-4 py-2 rounded-full border max-w-full"
           style={{
@@ -91,6 +76,7 @@ export default function Hero() {
           </span>
         </div>        
             
+        {/* Rotating word */}
         <div className="flex items-center gap-3 mb-4 md:mb-5">
           <div className="w-10 h-[1px] bg-[var(--gold)] opacity-40" />
           <span
@@ -109,6 +95,7 @@ export default function Hero() {
           </span>
         </div>
 
+        {/* Description */}
         <p
           className="mb-6 md:mb-8 max-w-[26rem] md:max-w-[30rem]"
           style={{
@@ -121,13 +108,10 @@ export default function Hero() {
           for residential and commercial clients across Glasgow.
         </p>
 
+        {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-3">
           <a
             href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-            }}
             className="inline-flex items-center justify-center gap-3 font-semibold px-6 py-3 md:px-8 md:py-4 rounded-full"
             style={{
               background: "linear-gradient(135deg, #d4a017, #f0c040)",
@@ -151,7 +135,7 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* TRUST BADGES: Added SEPA registration here */}
+        {/* Trust badges with SEPA */}
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-8 text-sm text-[rgba(245,240,232,0.45)]">
           <div className="flex items-center gap-2">
             <span className="text-[var(--gold)]">✓</span>
