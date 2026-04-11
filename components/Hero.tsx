@@ -23,7 +23,6 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-[#0a1f0b]">
       
-      {/* Background image */}
       <div className="absolute inset-0">
         <Image
           src="/images/before-pallets.jpg"
@@ -35,10 +34,8 @@ export default function Hero() {
         />
       </div>
 
-      {/* Gradient overlay */}
       <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(160deg,rgba(10,31,11,0.93)_0%,rgba(10,31,11,0.78)_50%,rgba(10,31,11,0.93)_100%)]" />
 
-      {/* Accent overlays */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -49,7 +46,6 @@ export default function Hero() {
         }}
       />
 
-      {/* Grid */}
       <div
         className="absolute inset-0 pointer-events-none opacity-5"
         style={{
@@ -59,10 +55,9 @@ export default function Hero() {
         }}
       />
 
-      {/* Content container */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pt-24 md:pt-32">
+      {/* FIXED PADDING: Reduced pt-24 to pt-12 for mobile */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pt-12 md:pt-32">
         
-        {/* Heading */}
         <h1
           className="leading-none mb-3 md:mb-4"
           style={{
@@ -83,24 +78,19 @@ export default function Hero() {
           </span>
         </h1>
 
-        {/* Badge */}
         <div
-              className="inline-flex items-center gap-2 mb-4 md:mb-5 px-4 py-2 rounded-full border max-w-full"
-              style={{
-                background: "rgba(51,134,56,0.15)",
-                borderColor: "rgba(51,134,56,0.3)",
-              }}
-            >
-              <span className="w-2 h-2 rounded-full bg-[#57a45b] shadow-[0_0_8px_#57a45b] shrink-0" />
-
-              <span
-                className="text-[0.65rem] md:text-[0.7rem] font-semibold tracking-[0.18em] text-[#8ac48d] leading-tight break-words"
-              >
-                GLASGOW & SURROUNDING AREAS
-              </span>
-            </div>        
+          className="inline-flex items-center gap-2 mb-4 md:mb-5 px-4 py-2 rounded-full border max-w-full"
+          style={{
+            background: "rgba(51,134,56,0.15)",
+            borderColor: "rgba(51,134,56,0.3)",
+          }}
+        >
+          <span className="w-2 h-2 rounded-full bg-[#57a45b] shadow-[0_0_8px_#57a45b] shrink-0" />
+          <span className="text-[0.65rem] md:text-[0.7rem] font-semibold tracking-[0.18em] text-[#8ac48d] leading-tight break-words">
+            GLASGOW & SURROUNDING AREAS
+          </span>
+        </div>        
             
-        {/* Rotating word */}
         <div className="flex items-center gap-3 mb-4 md:mb-5">
           <div className="w-10 h-[1px] bg-[var(--gold)] opacity-40" />
           <span
@@ -114,12 +104,11 @@ export default function Hero() {
           >
             {words[wordIndex]}
           </span>
-          <span className="text-[0.85rem] tracking-[0.1em] text-[rgba(245,240,232,0.4)]">
+          <span className="text-[0.85rem] tracking-[0.1em] text-[rgba(245,240,232,0.45)]">
             WASTE SOLUTIONS
           </span>
         </div>
 
-        {/* Description */}
         <p
           className="mb-6 md:mb-8 max-w-[26rem] md:max-w-[30rem]"
           style={{
@@ -132,7 +121,6 @@ export default function Hero() {
           for residential and commercial clients across Glasgow.
         </p>
 
-        {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-3">
           <a
             href="#contact"
@@ -163,14 +151,20 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* Trust badges */}
-        <div className="flex flex-wrap items-center gap-5 mt-8 text-sm text-[rgba(245,240,232,0.45)]">
-          {["Licensed & Insured", "Same-Day Available", "Eco-Friendly"].map((b) => (
-            <div key={b} className="flex items-center gap-2">
-              <span className="text-[var(--gold)]">✓</span>
-              {b}
-            </div>
-          ))}
+        {/* TRUST BADGES: Added SEPA registration here */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-8 text-sm text-[rgba(245,240,232,0.45)]">
+          <div className="flex items-center gap-2">
+            <span className="text-[var(--gold)]">✓</span>
+            Licensed & Insured
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[var(--gold)]">✓</span>
+            SEPA: WCR/R/3021188
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-[var(--gold)]">✓</span>
+            Same-Day Available
+          </div>
         </div>
       </div>
 
