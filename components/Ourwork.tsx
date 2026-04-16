@@ -4,14 +4,14 @@ import { useState } from "react";
 import Image from "next/image";
 
 const projects = [
-  { src: "/images/work1.jpg", title: "Heap Garbage Removal", category: "Removal" },
-  { src: "/images/work2.jpg", title: "After Heap Garbage Removal", category: "Removal" },
-  { src: "/images/work3.jpg", title: "Garden Clean", category: "Landscaping" },
-  { src: "/images/work4.jpg", title: "Deep Back Garden Clean", category: "Landscaping" },
-  { src: "/images/work5.jpg", title: "Pallet/Dump Removal", category: "Removal" },
-  { src: "/images/work6.jpg", title: "After Pallet/Dump Removal", category: "Removal" },
-  { src: "/images/work7.jpg", title: "Deep Interior Clean", category: "Specialist" },
-  { src: "/images/work8.jpg", title: "After Deep Interior Clean", category: "Specialist" },
+  { src: "/images/work1.jpg", title: "Trade Waste Removal", category: "Removal" },
+  { src: "/images/work2.jpg", title: "After Trade Waste Removal", category: "Removal" },
+  { src: "/images/work3.jpg", title: "Garden Clearance", category: "Landscaping" },
+  { src: "/images/work4.jpg", title: "After Garden Clearance", category: "Landscaping" },
+  { src: "/images/work5.jpg", title: "End Of Tenancy Clearance", category: "Removal" },
+  { src: "/images/work6.jpg", title: "After End Of Tenancy Clearance", category: "Removal" },
+  { src: "/images/work7.jpg", title: "Trade Waste Clearance", category: "Specialist" },
+  { src: "/images/work8.jpg", title: "After Trade Waste Clearance", category: "Specialist" },
 
 ];
 
