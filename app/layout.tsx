@@ -3,12 +3,14 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Envirocycle Glasgow | Waste Management, Uplifts & Recycling",
-  description: "Professional waste management...",
-  
+  description: "Professional waste management services in Glasgow.",
+
   icons: {
-    icon: "/icon.png",
-    shortcut: "/icon.png",
-    apple: "/icon.png",
+    icon: [
+      { url: "/favicon.ico" },
+    ],
+    shortcut: ["/favicon.ico"],
+    apple: ["/favicon.ico"],
   },
 
   openGraph: {

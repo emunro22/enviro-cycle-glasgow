@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -110,27 +111,13 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 mb-12">
             {/* Brand col */}
             <div>
-              <div className="flex items-center gap-3 mb-5">
-                <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center"
-                  style={{
-                    background: "linear-gradient(135deg, #1e5522, #338638)",
-                    border: "1.5px solid rgba(212,160,23,0.4)",
-                  }}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
-                      fill="rgba(212,160,23,0.3)"
-                    />
-                    <path
-                      d="M8 12l-2-2 2-2M16 12l2-2-2-2M12 8v8"
-                      stroke="#d4a017"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                </div>
+                            <Image
+                src="/images/logo.png"
+                alt="Envirocycle logo"
+                width={60}
+                height={60}
+              />
+              <div>   
                 <span
                   className="text-xl tracking-widest"
                   style={{
