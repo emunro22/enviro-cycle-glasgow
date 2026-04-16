@@ -5,13 +5,11 @@ export const metadata: Metadata = {
   title: "Envirocycle Glasgow | Waste Management, Uplifts & Recycling",
   description: "Professional waste management services in Glasgow.",
 
-  icons: {
-    icon: [
-      { url: "/images/favicon.ico" },
-    ],
-    shortcut: ["/images/favicon.ico"],
-    apple: ["/images/favicon.ico"],
-  },
+icons: {
+  icon: "/favicon.ico",
+  shortcut: "/favicon.ico",
+  apple: "/favicon.ico",
+},
 
   openGraph: {
     title: "Envirocycle Glasgow",
