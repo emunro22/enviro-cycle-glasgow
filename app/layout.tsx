@@ -7,10 +7,10 @@ export const metadata: Metadata = {
 
   icons: {
     icon: [
-      { url: "/favicon.ico" },
+      { url: "/images/favicon.ico" },
     ],
-    shortcut: ["/favicon.ico"],
-    apple: ["/favicon.ico"],
+    shortcut: ["/images/favicon.ico"],
+    apple: ["/images/favicon.ico"],
   },
 
   openGraph: {
