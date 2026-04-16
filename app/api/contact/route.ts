@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     }
 
     await resend.emails.send({
-      from: "Envirocycle Website <noreply@envirocycleglasgow.co.uk>",
+      from: "Envirocycle Website <noreply@envirocycleglasgow.com>",
       to: ["envirocycleglasgow@outlook.com"],
       subject: `New Enquiry from ${firstName} ${lastName} - ${service || "General"}`,
       html: `
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
               </div>
             </div>
             <div class="footer">
-              <p>Sent from envirocycleglasgow.co.uk</p>
+              <p>Sent from envirocycleglasgow.com></p>
             </div>
           </div>
         </body>
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
 
     // Send confirmation to customer
     await resend.emails.send({
-      from: "Envirocycle Glasgow <noreply@envirocycleglasgow.co.uk>",
+      from: "Envirocycle Glasgow <noreply@envirocycleglasgow.com>",
       to: [email],
       subject: "We've received your enquiry — Envirocycle Glasgow",
       html: `
