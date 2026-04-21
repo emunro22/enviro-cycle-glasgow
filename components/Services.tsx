@@ -40,25 +40,24 @@ const services = [
       "Heavy-duty capable",
     ],
   },
-  {
-    icon: (
-      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M12 2L8 8H4l4 4-2 6 6-3 6 3-2-6 4-4h-4L12 2z" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="12" cy="12" r="2" strokeWidth="1.5"/>
-      </svg>
-    ),
-    title: "Trade Waste Clearance",
-    subtitle: "Certified & Sustainable",
-    description:
-      "Committed to sustainability through responsible recycling. By sorting and processing recyclable materials, we reduce landfill waste and promote the reuse of valuable resources. Focused towards Businesses and Tradesmen",
-    features: [
-      "Paper, plastic, metal & glass",
-      "Business recycling programmes",
-      "Waste certification provided",
-      "Carbon footprint reduction",
-    ],
-  },
-];
+{
+  icon: (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M12 2L8 8H4l4 4-2 6 6-3 6 3-2-6 4-4h-4L12 2z" strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx="12" cy="12" r="2" strokeWidth="1.5"/>
+    </svg>
+  ),
+  title: "Trade Waste Clearance",
+  subtitle: "Reliable & Fully Compliant",
+  description:
+    "Efficient and responsible waste clearance tailored for businesses and trades across Scotland. We handle collection, sorting, and recycling with full compliance, helping you stay focused on the job while we take care of the waste.",
+  features: [
+    "Flexible collections for businesses & trades",
+    "Full waste transfer notes & compliance",
+    "Recycling-focused waste management",
+    "Fast, reliable service with minimal disruption",
+  ],
+}];
 
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
