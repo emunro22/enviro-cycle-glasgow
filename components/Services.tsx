@@ -47,10 +47,10 @@ const services = [
         <circle cx="12" cy="12" r="2" strokeWidth="1.5"/>
       </svg>
     ),
-    title: "Recycling",
+    title: "Trade Waste Clearance",
     subtitle: "Certified & Sustainable",
     description:
-      "Committed to sustainability through responsible recycling. By sorting and processing recyclable materials, we reduce landfill waste and promote the reuse of valuable resources.",
+      "Committed to sustainability through responsible recycling. By sorting and processing recyclable materials, we reduce landfill waste and promote the reuse of valuable resources. Focused towards Businesses and Tradesmen",
     features: [
       "Paper, plastic, metal & glass",
       "Business recycling programmes",
