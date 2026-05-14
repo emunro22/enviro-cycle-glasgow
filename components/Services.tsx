@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 
 const services = [
   {
+    slug: "/services/waste-management",
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6" strokeLinecap="round" strokeLinejoin="round"/>
@@ -22,6 +24,7 @@ const services = [
     ],
   },
   {
+    slug: "/services/bulky-waste-uplifts",
     icon: (
       <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
         <path d="M5 8l7-5 7 5v11a1 1 0 01-1 1H6a1 1 0 01-1-1V8z" strokeLinecap="round" strokeLinejoin="round"/>
@@ -40,24 +43,26 @@ const services = [
       "Heavy-duty capable",
     ],
   },
-{
-  icon: (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-      <path d="M12 2L8 8H4l4 4-2 6 6-3 6 3-2-6 4-4h-4L12 2z" strokeLinecap="round" strokeLinejoin="round"/>
-      <circle cx="12" cy="12" r="2" strokeWidth="1.5"/>
-    </svg>
-  ),
-  title: "Trade Waste Clearance",
-  subtitle: "Reliable & Fully Compliant",
-  description:
-    "Efficient and responsible waste clearance tailored for businesses and trades across Scotland. We handle collection, sorting, and recycling with full compliance, helping you stay focused on the job while we take care of the waste.",
-  features: [
-    "Flexible collections for businesses & trades",
-    "Full waste transfer notes & compliance",
-    "Recycling-focused waste management",
-    "Fast, reliable service with minimal disruption",
-  ],
-}];
+  {
+    slug: "/services/trade-waste-clearance",
+    icon: (
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M12 2L8 8H4l4 4-2 6 6-3 6 3-2-6 4-4h-4L12 2z" strokeLinecap="round" strokeLinejoin="round"/>
+        <circle cx="12" cy="12" r="2" strokeWidth="1.5"/>
+      </svg>
+    ),
+    title: "Trade Waste Clearance",
+    subtitle: "Reliable & Fully Compliant",
+    description:
+      "Efficient and responsible waste clearance tailored for businesses and trades across Scotland. We handle collection, sorting, and recycling with full compliance, helping you stay focused on the job while we take care of the waste.",
+    features: [
+      "Flexible collections for businesses & trades",
+      "Full waste transfer notes & compliance",
+      "Recycling-focused waste management",
+      "Fast, reliable service with minimal disruption",
+    ],
+  },
+];
 
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -167,16 +172,22 @@ export default function Services() {
               >
                 {service.subtitle}
               </p>
+              {/* Title links to the dedicated service page (internal linking for SEO) */}
               <h3
                 className="text-2xl mb-4"
                 style={{
                   fontFamily: "var(--font-heading)",
-                  color: "var(--cream)",
                   letterSpacing: "0.06em",
                   fontSize: "1.7rem",
                 }}
               >
-                {service.title}
+                <Link
+                  href={service.slug}
+                  className="transition-colors duration-200"
+                  style={{ color: "var(--cream)" }}
+                >
+                  {service.title}
+                </Link>
               </h3>
               <p
                 className="text-sm leading-relaxed mb-6"
@@ -209,21 +220,17 @@ export default function Services() {
                 ))}
               </ul>
 
-              {/* CTA */}
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                }}
+              {/* CTA — now links to the dedicated service page */}
+              <Link
+                href={service.slug}
                 className="inline-flex items-center gap-2 text-sm font-semibold transition-colors duration-200"
                 style={{ color: "var(--gold)" }}
               >
-                Enquire Now
+                Learn More
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-              </a>
+              </Link>
             </div>
           ))}
         </div>

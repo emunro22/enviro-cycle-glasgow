@@ -1,6 +1,3 @@
-"use client";
-
-import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
@@ -11,30 +8,18 @@ import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import OurWork from "@/components/Ourwork";
+import ScrollAnimations from "@/components/ScrollAnimations";
+
+// This is now a Server Component — no "use client".
+// That's what lets metadata (in layout.tsx) and structured data be picked
+// up cleanly by search engine crawlers.
 
 export default function Home() {
-  // Intersection Observer for the scroll animations defined in your globals.css
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("in-view");
-        }
-      });
-    }, observerOptions);
-
-    const elements = document.querySelectorAll(".animate-on-scroll, .animate-on-scroll-left, .animate-on-scroll-right");
-    elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <main className="min-h-screen">
+      {/* Drives the .in-view scroll animations from globals.css */}
+      <ScrollAnimations />
+
       <Navbar />
       <Hero />
       <Services />
