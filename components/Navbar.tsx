@@ -10,6 +10,7 @@ const navLinks = [
   { href: "#our-work", label: "Our Work" },
   { href: "#packages", label: "Packages" },
   { href: "#contact", label: "Contact" },
+  { href: "/tip-finder", label: "Tip Finder" },
   { href: "/terms", label: "T&Cs" },
 ];
 
@@ -49,20 +50,14 @@ export default function Navbar() {
         <div className="h-full max-w-7xl mx-auto px-5 md:px-8 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <div className="relative w-[45px] h-[45px] md:w-[55px] md:h-[55px] transition-all duration-300">
-              <Image
-                src="/images/logo.png"
-                alt="Envirocycle"
-                fill
-                className="object-contain"
-                priority
-              />
+              <Image src="/images/logo.png" alt="Envirocycle" fill className="object-contain" priority />
             </div>
             <span className="hidden sm:block font-heading text-cream tracking-widest text-lg uppercase" style={{ fontFamily: 'var(--font-heading)' }}>
               Envirocycle
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-8 text-sm">
+          <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -78,14 +73,7 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="https://www.instagram.com/envirocycleglasgow_ltd/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2 rounded-full border border-[rgba(212,160,23,0.3)] text-xs font-bold text-[var(--gold-light)] bg-[rgba(212,160,23,0.1)] hover:scale-105 transition-all"
-            >
-              INSTAGRAM
-            </a>
+            <a href="https://www.instagram.com/envirocycleglasgow_ltd/" target="_blank" rel="noopener noreferrer" className="px-5 py-2 rounded-full border border-[rgba(212,160,23,0.3)] text-xs font-bold text-[var(--gold-light)] bg-[rgba(212,160,23,0.1)] hover:scale-105 transition-all">INSTAGRAM</a>
           </div>
 
           <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden flex flex-col gap-1.5 z-50 p-2">
@@ -98,11 +86,7 @@ export default function Navbar() {
 
       <div
         className="fixed inset-0 z-40 md:hidden bg-[var(--forest-dark)] flex flex-col items-center justify-center transition-all duration-500"
-        style={{ 
-          opacity: menuOpen ? 1 : 0, 
-          pointerEvents: menuOpen ? "all" : "none",
-          backdropFilter: "blur(20px)" 
-        }}
+        style={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "all" : "none", backdropFilter: "blur(20px)" }}
       >
         <div className="flex flex-col gap-6 text-center">
           {navLinks.map((link) => (
