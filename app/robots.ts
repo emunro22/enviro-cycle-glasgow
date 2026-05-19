@@ -1,13 +1,16 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = "https://envirocycleglasgow.com";
+const SITE = "https://envirocycleglasgow.com";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-    },
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/tip-finder", "/tip-finder/login", "/api/"],
+      },
+    ],
+    sitemap: `${SITE}/sitemap.xml`,
   };
 }

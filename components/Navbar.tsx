@@ -9,6 +9,7 @@ const navLinks = [
   { href: "#services", label: "Services" },
   { href: "#our-work", label: "Our Work" },
   { href: "#packages", label: "Packages" },
+  { href: "/areas", label: "Areas" },
   { href: "#contact", label: "Contact" },
   { href: "/tip-finder", label: "Tip Finder" },
   { href: "/terms", label: "T&Cs" },
@@ -41,23 +42,35 @@ export default function Navbar() {
       <nav
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
         style={{
-          height: scrolled ? 65 : 80,
+          height: scrolled ? 80 : 100,
           background: scrolled ? "rgba(10,31,11,0.96)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           borderBottom: scrolled ? "1px solid rgba(212,160,23,0.15)" : "none",
         }}
       >
-        <div className="h-full max-w-7xl mx-auto px-5 md:px-8 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3">
-            <div className="relative w-[45px] h-[45px] md:w-[55px] md:h-[55px] transition-all duration-300">
+        <div className="h-full max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-4">
+            <div
+              className="relative transition-all duration-300"
+              style={{
+                width: scrolled ? 55 : 70,
+                height: scrolled ? 55 : 70,
+              }}
+            >
               <Image src="/images/logo.png" alt="Envirocycle" fill className="object-contain" priority />
             </div>
-            <span className="hidden sm:block font-heading text-cream tracking-widest text-lg uppercase" style={{ fontFamily: 'var(--font-heading)' }}>
+            <span
+              className="hidden sm:block font-heading text-cream tracking-widest uppercase transition-all duration-300"
+              style={{
+                fontFamily: 'var(--font-heading)',
+                fontSize: scrolled ? '1.25rem' : '1.5rem',
+              }}
+            >
               Envirocycle
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-6 lg:gap-8 text-sm">
+          <div className="hidden md:flex items-center gap-5 lg:gap-7 text-[15px]">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -73,7 +86,7 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <a href="https://www.instagram.com/envirocycleglasgow_ltd/" target="_blank" rel="noopener noreferrer" className="px-5 py-2 rounded-full border border-[rgba(212,160,23,0.3)] text-xs font-bold text-[var(--gold-light)] bg-[rgba(212,160,23,0.1)] hover:scale-105 transition-all">INSTAGRAM</a>
+            <a href="https://www.instagram.com/envirocycleglasgow_ltd/" target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 rounded-full border border-[rgba(212,160,23,0.3)] text-xs font-bold text-[var(--gold-light)] bg-[rgba(212,160,23,0.1)] hover:scale-105 transition-all">INSTAGRAM</a>
           </div>
 
           <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden flex flex-col gap-1.5 z-50 p-2">

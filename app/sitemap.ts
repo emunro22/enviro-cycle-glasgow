@@ -1,31 +1,27 @@
+import { getAllSlugCombos } from "@/lib/areas";
 import type { MetadataRoute } from "next";
 
-const SITE_URL = "https://envirocycleglasgow.com";
+const SITE = "https://envirocycleglasgow.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  const now = new Date();
 
-  const staticRoutes = [
-    { path: "/", priority: 1, changeFrequency: "weekly" as const },
-    { path: "/terms", priority: 0.3, changeFrequency: "yearly" as const },
+  // Update these to match your real top-level pages
+  const staticRoutes: MetadataRoute.Sitemap = [
+    { url: `${SITE}/`,                                    lastModified: now, changeFrequency: "weekly",  priority: 1.0 },
+    { url: `${SITE}/areas`,                               lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE}/services/waste-management`,           lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE}/services/bulky-waste-uplifts`,        lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE}/services/trade-waste-clearance`,      lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE}/terms`,                               lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
   ];
 
-  const serviceRoutes = [
-    "/services/waste-management",
-    "/services/bulky-waste-uplifts",
-    "/services/recycling",
-    "/services/site-clearance",
-    "/services/trade-waste-clearance",
-  ].map((path) => ({
-    path,
-    priority: 0.8,
+  const seoPages: MetadataRoute.Sitemap = getAllSlugCombos().map((c) => ({
+    url: `${SITE}/${c.slug}`,
+    lastModified: now,
     changeFrequency: "monthly" as const,
+    priority: 0.7,
   }));
 
-  return [...staticRoutes, ...serviceRoutes].map((route) => ({
-    url: `${SITE_URL}${route.path}`,
-    lastModified,
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-  }));
+  return [...staticRoutes, ...seoPages];
 }
