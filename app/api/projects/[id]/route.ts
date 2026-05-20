@@ -2,13 +2,20 @@ import { NextResponse } from 'next/server';
 import { sql, type Project } from '@/lib/db';
 import { del } from '@vercel/blob';
 import { isAdmin } from '@/lib/auth';
+import { revalidatePath } from 'next/cache';
+
+const noStore = {
+  'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+  'CDN-Cache-Control': 'no-store',
+  'Vercel-CDN-Cache-Control': 'no-store',
+};
 
 export async function DELETE(
   _req: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   if (!(await isAdmin())) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401, headers: noStore });
   }
 
   const { id } = await params;
@@ -16,10 +23,9 @@ export async function DELETE(
   const rows = (await sql`SELECT * FROM projects WHERE id = ${id}`) as Project[];
   const project = rows[0];
   if (!project) {
-    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+    return NextResponse.json({ error: 'Not found' }, { status: 404, headers: noStore });
   }
 
-  // Only delete from blob if it's actually a blob URL (skip legacy /images/ paths)
   if (project.image_url.includes('blob.vercel-storage.com')) {
     try {
       await del(project.image_url);
@@ -29,7 +35,11 @@ export async function DELETE(
   }
 
   await sql`DELETE FROM projects WHERE id = ${id}`;
-  return NextResponse.json({ success: true });
+
+  revalidatePath('/');
+  revalidatePath('/admin');
+
+  return NextResponse.json({ success: true }, { headers: noStore });
 }
 
 export async function PATCH(
@@ -37,7 +47,7 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   if (!(await isAdmin())) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401, headers: noStore });
   }
 
   const { id } = await params;
@@ -52,5 +62,8 @@ export async function PATCH(
     RETURNING *
   `) as Project[];
 
-  return NextResponse.json(result[0]);
+  revalidatePath('/');
+  revalidatePath('/admin');
+
+  return NextResponse.json(result[0], { headers: noStore });
 }

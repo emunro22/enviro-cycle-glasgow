@@ -12,56 +12,88 @@ type Project = {
 };
 
 export default function OurWork() {
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<Project[] | null>(null);
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/api/projects")
-      .then((r) => r.json())
-      .then(setProjects)
+    // Cache-bust with a timestamp so CDN/browser cache can never hold onto an old payload
+    fetch(`/api/projects?t=${Date.now()}`, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data) => setProjects(Array.isArray(data) ? data : []))
       .catch(() => setProjects([]));
   }, []);
 
+  // Lock body scroll while modal open
+  useEffect(() => {
+    if (selectedImg) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedImg]);
+
   return (
-    <section id="our-work" className="py-24 bg-[var(--forest-dark)] relative">
-      <div className="max-w-7xl mx-auto px-6">
+    <section id="our-work" className="py-16 md:py-24 bg-[var(--forest-dark)] relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         
-        <div className="text-center mb-16 animate-on-scroll">
+        <div className="text-center mb-10 md:mb-16 animate-on-scroll">
           <span className="section-label">Portfolio</span>
-          <h2 className="text-5xl md:text-7xl font-heading gold-text mt-4">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-heading gold-text mt-4">
             Recent Projects
           </h2>
           <div className="w-20 h-1 bg-gold mx-auto mt-6"></div>
-          <p className="text-cream/50 mt-4 uppercase tracking-widest text-xs">Click any image to expand</p>
+          <p className="text-cream/50 mt-4 uppercase tracking-widest text-xs">
+            Tap any image to expand
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {projects.map((project, index) => (
-            <div 
-              key={project.id} 
-              onClick={() => setSelectedImg(project.image_url)}
-              className="group relative h-[400px] overflow-hidden rounded-sm gold-card animate-on-scroll cursor-zoom-in"
-              style={{ transitionDelay: `${index * 0.05}s` }}
-            >
-              <Image
-                src={project.image_url}
-                alt={project.title}
-                fill
-                className="object-cover transition-transform duration-1000 group-hover:scale-110"
+        {projects === null ? (
+          // Loading skeleton — keeps the section from collapsing
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div
+                key={i}
+                className="h-[280px] sm:h-[360px] lg:h-[400px] bg-black/20 rounded-sm animate-pulse"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[var(--forest-dark)] via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
-              
-              <div className="absolute bottom-0 left-0 p-8 w-full">
-                <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-2">
-                  {project.category}
-                </p>
-                <h3 className="text-2xl font-heading text-cream uppercase">
-                  {project.title}
-                </h3>
+            ))}
+          </div>
+        ) : projects.length === 0 ? (
+          <p className="text-center text-cream/50 uppercase tracking-widest text-xs">
+            Gallery coming soon
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
+            {projects.map((project, index) => (
+              <div 
+                key={project.id} 
+                onClick={() => setSelectedImg(project.image_url)}
+                className="group relative h-[280px] sm:h-[360px] lg:h-[400px] overflow-hidden rounded-sm gold-card animate-on-scroll cursor-zoom-in"
+                style={{ transitionDelay: `${index * 0.05}s` }}
+              >
+                <Image
+                  src={project.image_url}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--forest-dark)] via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
+                
+                <div className="absolute bottom-0 left-0 p-5 sm:p-6 md:p-8 w-full">
+                  <p className="text-[var(--gold)] text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-2">
+                    {project.category}
+                  </p>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-heading text-cream uppercase leading-tight">
+                    {project.title}
+                  </h3>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* FULL SCREEN MODAL */}
@@ -71,8 +103,12 @@ export default function OurWork() {
           onClick={() => setSelectedImg(null)}
         >
           <button 
-            className="absolute top-10 right-10 text-cream text-4xl hover:text-[var(--gold)] z-[110] transition-colors"
-            onClick={() => setSelectedImg(null)}
+            className="absolute top-4 right-4 md:top-10 md:right-10 w-12 h-12 flex items-center justify-center text-cream text-4xl hover:text-[var(--gold)] z-[110] transition-colors bg-black/40 rounded-full"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedImg(null);
+            }}
+            aria-label="Close"
           >
             &times;
           </button>
@@ -82,13 +118,14 @@ export default function OurWork() {
               src={selectedImg}
               alt="Full screen preview"
               fill
+              sizes="100vw"
               className="object-contain"
               priority
             />
           </div>
           
-          <p className="absolute bottom-10 text-cream/50 font-medium tracking-widest uppercase text-sm">
-            Click anywhere to close
+          <p className="absolute bottom-6 md:bottom-10 text-cream/50 font-medium tracking-widest uppercase text-[10px] sm:text-sm px-4 text-center">
+            Tap anywhere to close
           </p>
         </div>
       )}
