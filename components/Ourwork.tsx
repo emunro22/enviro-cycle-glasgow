@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 
 type Project = {
   id: number;
@@ -16,14 +15,12 @@ export default function OurWork() {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
 
   useEffect(() => {
-    // Cache-bust with a timestamp so CDN/browser cache can never hold onto an old payload
     fetch(`/api/projects?t=${Date.now()}`, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : []))
       .then((data) => setProjects(Array.isArray(data) ? data : []))
       .catch(() => setProjects([]));
   }, []);
 
-  // Lock body scroll while modal open
   useEffect(() => {
     if (selectedImg) {
       document.body.style.overflow = "hidden";
@@ -51,7 +48,6 @@ export default function OurWork() {
         </div>
 
         {projects === null ? (
-          // Loading skeleton — keeps the section from collapsing
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {Array.from({ length: 4 }).map((_, i) => (
               <div
@@ -73,16 +69,16 @@ export default function OurWork() {
                 className="group relative h-[280px] sm:h-[360px] lg:h-[400px] overflow-hidden rounded-sm gold-card animate-on-scroll cursor-zoom-in"
                 style={{ transitionDelay: `${index * 0.05}s` }}
               >
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={project.image_url}
                   alt={project.title}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--forest-dark)] via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[var(--forest-dark)] via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none" />
                 
-                <div className="absolute bottom-0 left-0 p-5 sm:p-6 md:p-8 w-full">
+                <div className="absolute bottom-0 left-0 p-5 sm:p-6 md:p-8 w-full pointer-events-none">
                   <p className="text-[var(--gold)] text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-2">
                     {project.category}
                   </p>
@@ -113,16 +109,12 @@ export default function OurWork() {
             &times;
           </button>
 
-          <div className="relative w-full h-full max-w-5xl max-h-[80vh]">
-            <Image
-              src={selectedImg}
-              alt="Full screen preview"
-              fill
-              sizes="100vw"
-              className="object-contain"
-              priority
-            />
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={selectedImg}
+            alt="Full screen preview"
+            className="max-w-5xl max-h-[80vh] w-auto h-auto object-contain"
+          />
           
           <p className="absolute bottom-6 md:bottom-10 text-cream/50 font-medium tracking-widest uppercase text-[10px] sm:text-sm px-4 text-center">
             Tap anywhere to close
