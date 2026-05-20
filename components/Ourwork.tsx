@@ -1,22 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
-const projects = [
-  { src: "/images/work1.jpg", title: "Trade Waste Removal", category: "Removal" },
-  { src: "/images/work2.jpg", title: "After Trade Waste Removal", category: "Removal" },
-  { src: "/images/work3.jpg", title: "Garden Clearance", category: "Landscaping" },
-  { src: "/images/work4.jpg", title: "After Garden Clearance", category: "Landscaping" },
-  { src: "/images/work5.jpg", title: "End Of Tenancy Clearance", category: "Removal" },
-  { src: "/images/work6.jpg", title: "After End Of Tenancy Clearance", category: "Removal" },
-  { src: "/images/work7.jpg", title: "Trade Waste Clearance", category: "Specialist" },
-  { src: "/images/work8.jpg", title: "After Trade Waste Clearance", category: "Specialist" },
-
-];
+type Project = {
+  id: number;
+  title: string;
+  category: string;
+  image_url: string;
+  display_order: number;
+};
 
 export default function OurWork() {
+  const [projects, setProjects] = useState<Project[]>([]);
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/api/projects")
+      .then((r) => r.json())
+      .then(setProjects)
+      .catch(() => setProjects([]));
+  }, []);
 
   return (
     <section id="our-work" className="py-24 bg-[var(--forest-dark)] relative">
@@ -34,13 +38,13 @@ export default function OurWork() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {projects.map((project, index) => (
             <div 
-              key={index} 
-              onClick={() => setSelectedImg(project.src)}
+              key={project.id} 
+              onClick={() => setSelectedImg(project.image_url)}
               className="group relative h-[400px] overflow-hidden rounded-sm gold-card animate-on-scroll cursor-zoom-in"
               style={{ transitionDelay: `${index * 0.05}s` }}
             >
               <Image
-                src={project.src}
+                src={project.image_url}
                 alt={project.title}
                 fill
                 className="object-cover transition-transform duration-1000 group-hover:scale-110"
@@ -66,7 +70,6 @@ export default function OurWork() {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 md:p-10 transition-all duration-300"
           onClick={() => setSelectedImg(null)}
         >
-          {/* Close Button */}
           <button 
             className="absolute top-10 right-10 text-cream text-4xl hover:text-[var(--gold)] z-[110] transition-colors"
             onClick={() => setSelectedImg(null)}
