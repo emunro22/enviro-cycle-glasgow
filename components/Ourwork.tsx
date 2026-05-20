@@ -66,7 +66,7 @@ export default function OurWork() {
               <div 
                 key={project.id} 
                 onClick={() => setSelectedImg(project.image_url)}
-                className="group relative h-[280px] sm:h-[360px] lg:h-[400px] overflow-hidden rounded-sm gold-card animate-on-scroll cursor-zoom-in"
+                className="group relative h-[280px] sm:h-[360px] lg:h-[400px] overflow-hidden rounded-sm gold-card cursor-zoom-in"
                 style={{ transitionDelay: `${index * 0.05}s` }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
