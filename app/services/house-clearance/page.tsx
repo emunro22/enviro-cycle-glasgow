@@ -5,26 +5,26 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SERVICE HUB CONFIG
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants â€” everything below the line is shared.
+// service hubs are these constants — everything below the line is shared.
 
 const SERVICE_PREFIX = "house-clearance";
 const SERVICE_NAME = "House Clearance";
 const SERVICE_H1 = "HOUSE CLEARANCE";
-const HERO_TAGLINE = "Full or partial house clearances. Probate, end-of-tenancy, downsizing â€” handled with care, discretion, and zero fuss.";
+const HERO_TAGLINE = "Full or partial house clearances. Probate, end-of-tenancy, downsizing — handled with care, discretion, and zero fuss.";
 
 const META_TITLE = "House Clearance Glasgow | Probate, End of Tenancy & Downsizing | Envirocycle";
 const META_DESCRIPTION = "Full and part house clearances across Glasgow. Probate, end-of-tenancy, downsizing. Discreet, licensed, and reusable items go to local charities.";
 
 const WHAT_WE_TAKE = [
-  "Whole-house clearances â€” front room to attic",
-  "Single rooms â€” bedrooms, lounges, kitchens",
+  "Whole-house clearances — front room to attic",
+  "Single rooms — bedrooms, lounges, kitchens",
   "Lofts, garages, and outbuildings",
   "Furniture, white goods, mattresses, carpets",
-  "Personal effects â€” sorted with care for probate jobs",
+  "Personal effects — sorted with care for probate jobs",
   "End-of-tenancy clutter and tenant abandonments",
 ];
 
@@ -32,12 +32,12 @@ const HOW_IT_WORKS = [
   {
     step: "01",
     title: "Walk-through",
-    body: "Free in-person or video walk-through so we can give a firm quote and plan the job â€” especially important for larger or sensitive clearances.",
+    body: "Free in-person or video walk-through so we can give a firm quote and plan the job — especially important for larger or sensitive clearances.",
   },
   {
     step: "02",
     title: "Plan the day",
-    body: "We'll agree a date and time that suits. Keys-in-hand for landlords and solicitors handling probate is fine â€” we don't need you on-site if you'd rather not be.",
+    body: "We'll agree a date and time that suits. Keys-in-hand for landlords and solicitors handling probate is fine — we don't need you on-site if you'd rather not be.",
   },
   {
     step: "03",
@@ -54,7 +54,7 @@ const HOW_IT_WORKS = [
 const FAQ = [
   {
     q: "How much does a house clearance cost?",
-    a: "Depends on volume and access. A small flat clearance might be Â£300â€“Â£500. A full 3-bed house with garage and shed could be Â£900â€“Â£1,400. We always quote up-front after a quick look at what's involved.",
+    a: "Depends on volume and access. A small flat clearance might be £300–£500. A full 3-bed house with garage and shed could be £900–£1,400. We always quote up-front after a quick look at what's involved.",
   },
   {
     q: "Can you handle probate clearances?",
@@ -62,7 +62,7 @@ const FAQ = [
   },
   {
     q: "What happens to items in good condition?",
-    a: "Reusable furniture, clothes, kitchenware, and books go to local charities â€” we work with several across Glasgow. We can provide a list of what was donated if you'd like one.",
+    a: "Reusable furniture, clothes, kitchenware, and books go to local charities — we work with several across Glasgow. We can provide a list of what was donated if you'd like one.",
   },
   {
     q: "Can you clear a property if I don't live in Glasgow?",
@@ -70,12 +70,12 @@ const FAQ = [
   },
   {
     q: "Do you take mattresses?",
-    a: "Yes â€” mattresses, bedframes, and divans. They go to a licensed disposal route as they can't be tipped at standard transfer stations.",
+    a: "Yes — mattresses, bedframes, and divans. They go to a licensed disposal route as they can't be tipped at standard transfer stations.",
   },
 ];
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SHARED HUB TEMPLATE (don't change below this line when cloning)
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: META_TITLE,
@@ -112,7 +112,7 @@ export default function ServiceHubPage() {
     <main className="min-h-screen">
       <Navbar />
 
-      {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-5 md:px-8 max-w-7xl mx-auto">
         <nav
           className="mb-6 text-xs tracking-widest uppercase"
@@ -174,7 +174,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ What we take â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── What we take ───────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}
@@ -199,7 +199,7 @@ export default function ServiceHubPage() {
                   className="flex items-start gap-3 text-base"
                   style={{ color: "rgba(245,240,232,0.75)" }}
                 >
-                  <span className="mt-1 text-[var(--gold)] shrink-0">âœ“</span>
+                  <span className="mt-1 text-[var(--gold)] shrink-0">✓</span>
                   {line}
                 </li>
               ))}
@@ -248,7 +248,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ Areas covered â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Areas covered ──────────────────────────────────────────────────── */}
       <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
         <p className="section-label mb-3">Coverage</p>
         <h2
@@ -296,7 +296,7 @@ export default function ServiceHubPage() {
                           color: hasCombo ? "var(--gold-light)" : "rgba(245,240,232,0.7)",
                         }}
                       >
-                        {area.name} â†’
+                        {area.name} →
                       </Link>
                     );
                   })}
@@ -307,7 +307,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── FAQ ────────────────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}

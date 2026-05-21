@@ -5,11 +5,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SERVICE HUB CONFIG
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants â€” everything below the line is shared.
+// service hubs are these constants — everything below the line is shared.
 
 const SERVICE_PREFIX = "waste-removal";
 const SERVICE_NAME = "Waste Removal";
@@ -17,15 +17,15 @@ const SERVICE_H1 = "WASTE REMOVAL";
 const HERO_TAGLINE = "Licensed waste removal for homes, businesses, and trades. Sorted properly, recycled where possible, full paperwork on every job.";
 
 const META_TITLE = "Waste Removal Glasgow | Licensed Carrier | Envirocycle Glasgow";
-const META_DESCRIPTION = "Licensed waste removal across Glasgow. Domestic, commercial, and trade â€” sorted at a licensed transfer station, transfer note included on every job.";
+const META_DESCRIPTION = "Licensed waste removal across Glasgow. Domestic, commercial, and trade — sorted at a licensed transfer station, transfer note included on every job.";
 
 const WHAT_WE_TAKE = [
-  "Household waste â€” bulky items, single bags, full clearances",
-  "Commercial waste â€” offices, shops, hospitality, light industrial",
-  "Trade waste â€” renovation, fit-out, and demolition uplifts",
-  "Garden waste â€” green waste, soil, turf, hedge cuttings",
-  "Electricals (WEEE) â€” collected and processed under UK regs",
-  "Mixed loads â€” sorted at a licensed transfer station",
+  "Household waste — bulky items, single bags, full clearances",
+  "Commercial waste — offices, shops, hospitality, light industrial",
+  "Trade waste — renovation, fit-out, and demolition uplifts",
+  "Garden waste — green waste, soil, turf, hedge cuttings",
+  "Electricals (WEEE) — collected and processed under UK regs",
+  "Mixed loads — sorted at a licensed transfer station",
 ];
 
 const HOW_IT_WORKS = [
@@ -54,28 +54,28 @@ const HOW_IT_WORKS = [
 const FAQ = [
   {
     q: "Are you a licensed waste carrier?",
-    a: "Yes â€” SEPA WCR/R/3021188. Every collection comes with a waste transfer note so you've got a full audit trail. This matters especially for trade and commercial work where you're legally responsible for proving where your waste ended up.",
+    a: "Yes — SEPA WCR/R/3021188. Every collection comes with a waste transfer note so you've got a full audit trail. This matters especially for trade and commercial work where you're legally responsible for proving where your waste ended up.",
   },
   {
     q: "What's the difference between waste removal and rubbish removal?",
-    a: "They're often the same thing in practice. Strictly, 'rubbish removal' is more of a domestic phrase and 'waste removal' is broader â€” covering trade, commercial, and licensed disposal. Most jobs we do fit under both labels.",
+    a: "They're often the same thing in practice. Strictly, 'rubbish removal' is more of a domestic phrase and 'waste removal' is broader — covering trade, commercial, and licensed disposal. Most jobs we do fit under both labels.",
   },
   {
     q: "Can you collect from a commercial property?",
-    a: "Yes. We work with shops, offices, hospitality, and light industrial sites across Glasgow. Ad-hoc collections, scheduled regular uplifts, or one-off site clearances â€” all handled.",
+    a: "Yes. We work with shops, offices, hospitality, and light industrial sites across Glasgow. Ad-hoc collections, scheduled regular uplifts, or one-off site clearances — all handled.",
   },
   {
     q: "Do you provide invoices for businesses?",
-    a: "Yes â€” VAT-registered invoices on request, payable by card, transfer, or 14-day terms for established trade accounts.",
+    a: "Yes — VAT-registered invoices on request, payable by card, transfer, or 14-day terms for established trade accounts.",
   },
   {
     q: "What can't you take?",
     a: "We can't take asbestos, clinical/medical waste, chemicals, or hazardous liquids. For those we can point you toward the right specialist disposal route.",
   },
 ];
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SHARED HUB TEMPLATE (don't change below this line when cloning)
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: META_TITLE,
@@ -112,7 +112,7 @@ export default function ServiceHubPage() {
     <main className="min-h-screen">
       <Navbar />
 
-      {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-5 md:px-8 max-w-7xl mx-auto">
         <nav
           className="mb-6 text-xs tracking-widest uppercase"
@@ -174,7 +174,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ What we take â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── What we take ───────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}
@@ -199,7 +199,7 @@ export default function ServiceHubPage() {
                   className="flex items-start gap-3 text-base"
                   style={{ color: "rgba(245,240,232,0.75)" }}
                 >
-                  <span className="mt-1 text-[var(--gold)] shrink-0">âœ“</span>
+                  <span className="mt-1 text-[var(--gold)] shrink-0">✓</span>
                   {line}
                 </li>
               ))}
@@ -248,7 +248,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ Areas covered â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Areas covered ──────────────────────────────────────────────────── */}
       <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
         <p className="section-label mb-3">Coverage</p>
         <h2
@@ -296,7 +296,7 @@ export default function ServiceHubPage() {
                           color: hasCombo ? "var(--gold-light)" : "rgba(245,240,232,0.7)",
                         }}
                       >
-                        {area.name} â†’
+                        {area.name} →
                       </Link>
                     );
                   })}
@@ -307,7 +307,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── FAQ ────────────────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}

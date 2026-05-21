@@ -1,6 +1,6 @@
 // Mobile-only sticky contact bar pinned to the bottom of the viewport.
 // Combines a primary "Call now" button with a secondary WhatsApp tap target.
-// Hides above 768px â€” desktop uses the floating WhatsAppButton FAB instead.
+// Hides above 768px — desktop uses the floating WhatsAppButton FAB instead.
 
 const PHONE_DISPLAY = "07450 435 241";
 const PHONE_TEL = "+447450435241";

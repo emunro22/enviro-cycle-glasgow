@@ -110,7 +110,7 @@ export default function OurWork() {
                   }}
                 >
                   View All {totalCount} Projects
-                  <span aria-hidden="true">â†’</span>
+                  <span aria-hidden="true">→</span>
                 </Link>
               </div>
             )}

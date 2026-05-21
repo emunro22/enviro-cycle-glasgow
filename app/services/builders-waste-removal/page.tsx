@@ -5,11 +5,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SERVICE HUB CONFIG
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants â€” everything below the line is shared.
+// service hubs are these constants — everything below the line is shared.
 
 const SERVICE_PREFIX = "builders-waste-removal";
 const SERVICE_NAME = "Builders Waste Removal";
@@ -20,24 +20,24 @@ const META_TITLE = "Builders Waste Removal Glasgow | Trade Uplifts | Envirocycle
 const META_DESCRIPTION = "Builders waste removal across Glasgow for trades and homeowners. Renovation, kitchen, bathroom, and extension waste. Plasterboard kept separate as required.";
 
 const WHAT_WE_TAKE = [
-  "Kitchen rip-outs â€” units, worktops, white goods, tiling",
-  "Bathroom strip-outs â€” sanitaryware, tiles, old pipework",
-  "Plasterboard â€” kept separate as required by law",
-  "Inert rubble â€” bricks, concrete, hardcore (priced lower)",
+  "Kitchen rip-outs — units, worktops, white goods, tiling",
+  "Bathroom strip-outs — sanitaryware, tiles, old pipework",
+  "Plasterboard — kept separate as required by law",
+  "Inert rubble — bricks, concrete, hardcore (priced lower)",
   "Wood, MDF, skirting, doors, and frames",
-  "Mixed renovation waste â€” sorted at a licensed transfer station",
+  "Mixed renovation waste — sorted at a licensed transfer station",
 ];
 
 const HOW_IT_WORKS = [
   {
     step: "01",
     title: "Trade quote",
-    body: "Most trades just want a price per van load up-front. We do that â€” single van, double van, scheduled regular pickups, all priced clearly.",
+    body: "Most trades just want a price per van load up-front. We do that — single van, double van, scheduled regular pickups, all priced clearly.",
   },
   {
     step: "02",
     title: "Flexible collection",
-    body: "We can come back as often as the job needs â€” daily during a full kitchen fit-out is fine, or just at the end. Kerbside or driveway loading.",
+    body: "We can come back as often as the job needs — daily during a full kitchen fit-out is fine, or just at the end. Kerbside or driveway loading.",
   },
   {
     step: "03",
@@ -47,18 +47,18 @@ const HOW_IT_WORKS = [
   {
     step: "04",
     title: "Compliance for clients",
-    body: "Waste transfer notes provided for every load â€” useful when your customer asks where the waste went, or when you need it for VAT receipts.",
+    body: "Waste transfer notes provided for every load — useful when your customer asks where the waste went, or when you need it for VAT receipts.",
   },
 ];
 
 const FAQ = [
   {
     q: "How much for builders waste?",
-    a: "Roughly Â£180â€“Â£250 per van for mixed renovation waste. Inert-only loads (rubble, brick, concrete) are cheaper at Â£150â€“Â£180 per van because of where it goes. Plasterboard is priced separately as it has its own disposal route.",
+    a: "Roughly £180–£250 per van for mixed renovation waste. Inert-only loads (rubble, brick, concrete) are cheaper at £150–£180 per van because of where it goes. Plasterboard is priced separately as it has its own disposal route.",
   },
   {
     q: "Why is plasterboard priced separately?",
-    a: "Plasterboard can't be tipped with general waste â€” it has to go to a specialist gypsum recycling facility. We bag it separately, weigh it, and price accordingly. Required by law for any UK-licensed waste carrier.",
+    a: "Plasterboard can't be tipped with general waste — it has to go to a specialist gypsum recycling facility. We bag it separately, weigh it, and price accordingly. Required by law for any UK-licensed waste carrier.",
   },
   {
     q: "Do you offer trade accounts?",
@@ -70,12 +70,12 @@ const FAQ = [
   },
   {
     q: "Same-day for emergency clearance?",
-    a: "Often yes, especially if your job's overrunning and you need the waste off-site before another trade arrives. Call us â€” most weekdays we can fit emergency uplifts in.",
+    a: "Often yes, especially if your job's overrunning and you need the waste off-site before another trade arrives. Call us — most weekdays we can fit emergency uplifts in.",
   },
 ];
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SHARED HUB TEMPLATE (don't change below this line when cloning)
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: META_TITLE,
@@ -112,7 +112,7 @@ export default function ServiceHubPage() {
     <main className="min-h-screen">
       <Navbar />
 
-      {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-5 md:px-8 max-w-7xl mx-auto">
         <nav
           className="mb-6 text-xs tracking-widest uppercase"
@@ -174,7 +174,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ What we take â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── What we take ───────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}
@@ -199,7 +199,7 @@ export default function ServiceHubPage() {
                   className="flex items-start gap-3 text-base"
                   style={{ color: "rgba(245,240,232,0.75)" }}
                 >
-                  <span className="mt-1 text-[var(--gold)] shrink-0">âœ“</span>
+                  <span className="mt-1 text-[var(--gold)] shrink-0">✓</span>
                   {line}
                 </li>
               ))}
@@ -248,7 +248,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ Areas covered â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Areas covered ──────────────────────────────────────────────────── */}
       <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
         <p className="section-label mb-3">Coverage</p>
         <h2
@@ -296,7 +296,7 @@ export default function ServiceHubPage() {
                           color: hasCombo ? "var(--gold-light)" : "rgba(245,240,232,0.7)",
                         }}
                       >
-                        {area.name} â†’
+                        {area.name} →
                       </Link>
                     );
                   })}
@@ -307,7 +307,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── FAQ ────────────────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}

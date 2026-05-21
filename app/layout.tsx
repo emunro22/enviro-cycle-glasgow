@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   },
 };
 
-// LocalBusiness structured data â€” helps Google show you in local/map results
+// LocalBusiness structured data — helps Google show you in local/map results
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -85,7 +85,7 @@ const localBusinessSchema = {
   telephone: "+447450435241",
   email: "envirocycleglasgow@outlook.com",
   image: `${SITE_URL}/images/logo.png`,
-  priceRange: "Â£Â£",
+  priceRange: "££",
   areaServed: {
     "@type": "City",
     name: "Glasgow",

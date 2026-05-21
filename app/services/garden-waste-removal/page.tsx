@@ -5,16 +5,16 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SERVICE HUB CONFIG
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants â€” everything below the line is shared.
+// service hubs are these constants — everything below the line is shared.
 
 const SERVICE_PREFIX = "garden-waste-removal";
 const SERVICE_NAME = "Garden Waste Removal";
 const SERVICE_H1 = "GARDEN WASTE REMOVAL";
-const HERO_TAGLINE = "Branches, hedge cuttings, turf, soil, decking. Composted or recovered â€” never landfilled.";
+const HERO_TAGLINE = "Branches, hedge cuttings, turf, soil, decking. Composted or recovered — never landfilled.";
 
 const META_TITLE = "Garden Waste Removal Glasgow | Same-Day Uplifts | Envirocycle";
 const META_DESCRIPTION = "Garden waste removal across Glasgow. Branches, turf, hedge cuttings, soil, decking. Green waste composted at licensed facilities. Same-day available.";
@@ -25,14 +25,14 @@ const WHAT_WE_TAKE = [
   "Decking, fence panels, sheds",
   "Garden furniture (broken or unwanted)",
   "Old planters, gravel, and rockery stone",
-  "Mixed garden waste â€” sorted at a licensed facility",
+  "Mixed garden waste — sorted at a licensed facility",
 ];
 
 const HOW_IT_WORKS = [
   {
     step: "01",
     title: "Photo quote",
-    body: "Send a photo of what's in the garden â€” pile in the corner, bagged-up cuttings, whatever it is â€” and we'll quote within minutes.",
+    body: "Send a photo of what's in the garden — pile in the corner, bagged-up cuttings, whatever it is — and we'll quote within minutes.",
   },
   {
     step: "02",
@@ -54,11 +54,11 @@ const HOW_IT_WORKS = [
 const FAQ = [
   {
     q: "How much for a typical garden clear-out?",
-    a: "A 'sticking up out of the brown bin' top-up is around Â£40. A summer hedge-cut pile or a small turf removal job is Â£80â€“Â£120. A full garden strip-out (decking, fences, shed) is Â£200â€“Â£350 depending on volume.",
+    a: "A 'sticking up out of the brown bin' top-up is around £40. A summer hedge-cut pile or a small turf removal job is £80–£120. A full garden strip-out (decking, fences, shed) is £200–£350 depending on volume.",
   },
   {
     q: "Do I need to bag it up first?",
-    a: "Not unless you want to. We bring our own contractor bags and tarps. If you've already bagged it that's fine too â€” we'll take the bags as part of the job.",
+    a: "Not unless you want to. We bring our own contractor bags and tarps. If you've already bagged it that's fine too — we'll take the bags as part of the job.",
   },
   {
     q: "Can you take old turf and soil?",
@@ -66,16 +66,16 @@ const FAQ = [
   },
   {
     q: "What about Japanese knotweed?",
-    a: "We can't take Japanese knotweed â€” it requires a specialist licensed disposal route. If you've got it, call us and we can point you toward the right contractor.",
+    a: "We can't take Japanese knotweed — it requires a specialist licensed disposal route. If you've got it, call us and we can point you toward the right contractor.",
   },
   {
     q: "Do you cover commercial grounds maintenance?",
-    a: "Yes â€” we work with landscapers, grounds maintenance contractors, and groundskeepers across Glasgow. Scheduled tip runs available, with VAT invoices for trade accounts.",
+    a: "Yes — we work with landscapers, grounds maintenance contractors, and groundskeepers across Glasgow. Scheduled tip runs available, with VAT invoices for trade accounts.",
   },
 ];
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SHARED HUB TEMPLATE (don't change below this line when cloning)
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: META_TITLE,
@@ -112,7 +112,7 @@ export default function ServiceHubPage() {
     <main className="min-h-screen">
       <Navbar />
 
-      {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-5 md:px-8 max-w-7xl mx-auto">
         <nav
           className="mb-6 text-xs tracking-widest uppercase"
@@ -174,7 +174,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ What we take â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── What we take ───────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}
@@ -199,7 +199,7 @@ export default function ServiceHubPage() {
                   className="flex items-start gap-3 text-base"
                   style={{ color: "rgba(245,240,232,0.75)" }}
                 >
-                  <span className="mt-1 text-[var(--gold)] shrink-0">âœ“</span>
+                  <span className="mt-1 text-[var(--gold)] shrink-0">✓</span>
                   {line}
                 </li>
               ))}
@@ -248,7 +248,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ Areas covered â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Areas covered ──────────────────────────────────────────────────── */}
       <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
         <p className="section-label mb-3">Coverage</p>
         <h2
@@ -296,7 +296,7 @@ export default function ServiceHubPage() {
                           color: hasCombo ? "var(--gold-light)" : "rgba(245,240,232,0.7)",
                         }}
                       >
-                        {area.name} â†’
+                        {area.name} →
                       </Link>
                     );
                   })}
@@ -307,7 +307,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── FAQ ────────────────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}

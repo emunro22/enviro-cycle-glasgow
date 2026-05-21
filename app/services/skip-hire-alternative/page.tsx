@@ -5,25 +5,25 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SERVICE HUB CONFIG
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants â€” everything below the line is shared.
+// service hubs are these constants — everything below the line is shared.
 
 const SERVICE_PREFIX = "skip-hire-alternative";
 const SERVICE_NAME = "Skip Hire Alternative";
 const SERVICE_H1 = "SKIP HIRE ALTERNATIVE";
-const HERO_TAGLINE = "Don't need a skip blocking the driveway for a week. We turn up, load, and leave â€” pay for what we actually take.";
+const HERO_TAGLINE = "Don't need a skip blocking the driveway for a week. We turn up, load, and leave — pay for what we actually take.";
 
 const META_TITLE = "Skip Hire Alternative Glasgow | No Permit Needed | Envirocycle";
-const META_DESCRIPTION = "Skip hire alternative across Glasgow. Pay for what you throw out â€” no permits, no skip blocking the driveway. Often cheaper than a small skip.";
+const META_DESCRIPTION = "Skip hire alternative across Glasgow. Pay for what you throw out — no permits, no skip blocking the driveway. Often cheaper than a small skip.";
 
 const WHAT_WE_TAKE = [
   "Everything you'd put in a small or midi skip",
   "Mixed household waste, garden waste, builders waste",
   "Furniture, white goods, mattresses",
-  "Renovation waste â€” kitchen, bathroom, plasterboard",
+  "Renovation waste — kitchen, bathroom, plasterboard",
   "Soil, turf, rubble, hardcore",
   "Single items to multiple van loads",
 ];
@@ -42,7 +42,7 @@ const HOW_IT_WORKS = [
   {
     step: "03",
     title: "Load and go",
-    body: "Whole job typically done in 30â€“60 minutes. No skip dropped, no permit, no neighbours grumbling about a yellow skip outside your house for a week.",
+    body: "Whole job typically done in 30–60 minutes. No skip dropped, no permit, no neighbours grumbling about a yellow skip outside your house for a week.",
   },
   {
     step: "04",
@@ -54,28 +54,28 @@ const HOW_IT_WORKS = [
 const FAQ = [
   {
     q: "How does this compare to a skip in cost?",
-    a: "For most small-to-midi jobs, we work out cheaper. A 4-yard skip is around Â£250â€“Â£300 plus Â£80â€“Â£150 for a road permit if it can't go on your drive. We're typically Â£180â€“Â£250 with no permit, no permit hassle, and no daily hire charges if it sits there for a week.",
+    a: "For most small-to-midi jobs, we work out cheaper. A 4-yard skip is around £250–£300 plus £80–£150 for a road permit if it can't go on your drive. We're typically £180–£250 with no permit, no permit hassle, and no daily hire charges if it sits there for a week.",
   },
   {
     q: "What about really big jobs?",
-    a: "For bigger projects (full renovations, large site clearances) where you're producing waste over multiple days, a skip might still make more sense. We can come back multiple times if you'd rather avoid the skip altogether â€” works well when you're filling gradually.",
+    a: "For bigger projects (full renovations, large site clearances) where you're producing waste over multiple days, a skip might still make more sense. We can come back multiple times if you'd rather avoid the skip altogether — works well when you're filling gradually.",
   },
   {
     q: "Do I need a permit?",
-    a: "No â€” we're a van, not a skip. No road permit, no driveway permit, no council paperwork. We park briefly to load and we're gone within the hour.",
+    a: "No — we're a van, not a skip. No road permit, no driveway permit, no council paperwork. We park briefly to load and we're gone within the hour.",
   },
   {
     q: "Same as a 'man and van' service?",
-    a: "Similar idea, but with full waste-carrier licensing. The risk with unlicensed man-and-van rubbish removal is fly-tipping â€” if your waste gets dumped in a layby with your address on it, you can be fined. We're fully licensed (SEPA WCR/R/3021188) with a transfer note on every job.",
+    a: "Similar idea, but with full waste-carrier licensing. The risk with unlicensed man-and-van rubbish removal is fly-tipping — if your waste gets dumped in a layby with your address on it, you can be fined. We're fully licensed (SEPA WCR/R/3021188) with a transfer note on every job.",
   },
   {
     q: "Can you take heavy stuff like rubble?",
-    a: "Yes. Rubble, soil, and hardcore are fine â€” sometimes priced slightly lower than mixed waste because of where they go. Weight matters more than volume for these so we'll quote based on a photo.",
+    a: "Yes. Rubble, soil, and hardcore are fine — sometimes priced slightly lower than mixed waste because of where they go. Weight matters more than volume for these so we'll quote based on a photo.",
   },
 ];
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SHARED HUB TEMPLATE (don't change below this line when cloning)
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: META_TITLE,
@@ -112,7 +112,7 @@ export default function ServiceHubPage() {
     <main className="min-h-screen">
       <Navbar />
 
-      {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-5 md:px-8 max-w-7xl mx-auto">
         <nav
           className="mb-6 text-xs tracking-widest uppercase"
@@ -174,7 +174,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ What we take â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── What we take ───────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}
@@ -199,7 +199,7 @@ export default function ServiceHubPage() {
                   className="flex items-start gap-3 text-base"
                   style={{ color: "rgba(245,240,232,0.75)" }}
                 >
-                  <span className="mt-1 text-[var(--gold)] shrink-0">âœ“</span>
+                  <span className="mt-1 text-[var(--gold)] shrink-0">✓</span>
                   {line}
                 </li>
               ))}
@@ -248,7 +248,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ Areas covered â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Areas covered ──────────────────────────────────────────────────── */}
       <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
         <p className="section-label mb-3">Coverage</p>
         <h2
@@ -296,7 +296,7 @@ export default function ServiceHubPage() {
                           color: hasCombo ? "var(--gold-light)" : "rgba(245,240,232,0.7)",
                         }}
                       >
-                        {area.name} â†’
+                        {area.name} →
                       </Link>
                     );
                   })}
@@ -307,7 +307,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── FAQ ────────────────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}

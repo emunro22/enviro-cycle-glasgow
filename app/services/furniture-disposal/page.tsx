@@ -5,11 +5,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SERVICE HUB CONFIG
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants â€” everything below the line is shared.
+// service hubs are these constants — everything below the line is shared.
 
 const SERVICE_PREFIX = "furniture-disposal";
 const SERVICE_NAME = "Furniture Disposal";
@@ -25,14 +25,14 @@ const WHAT_WE_TAKE = [
   "Wardrobes, chests of drawers, bedside tables",
   "Dining tables, chairs, sideboards",
   "Fridges, freezers, washing machines, dryers",
-  "Cookers, ovens, dishwashers â€” disconnected and removed",
+  "Cookers, ovens, dishwashers — disconnected and removed",
 ];
 
 const HOW_IT_WORKS = [
   {
     step: "01",
     title: "Photo + postcode",
-    body: "Send us a photo of the item and your postcode. We'll quote in minutes â€” no site visit needed.",
+    body: "Send us a photo of the item and your postcode. We'll quote in minutes — no site visit needed.",
   },
   {
     step: "02",
@@ -42,40 +42,40 @@ const HOW_IT_WORKS = [
   {
     step: "03",
     title: "Two-person uplift",
-    body: "We carry from any floor of any building â€” stairs, lifts, tight corners are all fine. We also disconnect appliances safely.",
+    body: "We carry from any floor of any building — stairs, lifts, tight corners are all fine. We also disconnect appliances safely.",
   },
   {
     step: "04",
     title: "Reused or recycled",
-    body: "Items in good condition go to local charities â€” we work with several across Glasgow. Everything else is processed at licensed disposal facilities.",
+    body: "Items in good condition go to local charities — we work with several across Glasgow. Everything else is processed at licensed disposal facilities.",
   },
 ];
 
 const FAQ = [
   {
     q: "How much to remove a sofa?",
-    a: "Â£40â€“Â£60 for a single sofa depending on size and access. Two-piece suites are usually Â£80â€“Â£100. Add a small extra if it needs disassembly to get out of the room or building.",
+    a: "£40–£60 for a single sofa depending on size and access. Two-piece suites are usually £80–£100. Add a small extra if it needs disassembly to get out of the room or building.",
   },
   {
     q: "Do you take mattresses?",
-    a: "Yes â€” single, double, king, super-king. Mattresses go to a licensed disposal route (they can't be tipped at standard transfer stations). Around Â£40 for a single mattress, Â£50 for a double.",
+    a: "Yes — single, double, king, super-king. Mattresses go to a licensed disposal route (they can't be tipped at standard transfer stations). Around £40 for a single mattress, £50 for a double.",
   },
   {
     q: "Can you take a fridge or freezer?",
-    a: "Yes. Fridges and freezers need special handling because of the refrigerant gases â€” we take them to a licensed WEEE facility where they're processed correctly. Â£45â€“Â£55 per unit.",
+    a: "Yes. Fridges and freezers need special handling because of the refrigerant gases — we take them to a licensed WEEE facility where they're processed correctly. £45–£55 per unit.",
   },
   {
     q: "Will it go to a charity?",
-    a: "Where possible, yes. If a sofa or wardrobe is in good condition we'll get it to a local charity â€” Glasgow has several that take furniture donations. We can let you know where yours went if you'd like.",
+    a: "Where possible, yes. If a sofa or wardrobe is in good condition we'll get it to a local charity — Glasgow has several that take furniture donations. We can let you know where yours went if you'd like.",
   },
   {
     q: "Can you collect from a flat?",
-    a: "Yes â€” flats are fine. Tight closes, no lift, top floor â€” all standard for us. We bring two people and the right equipment. Just let us know which floor when you book so we can plan.",
+    a: "Yes — flats are fine. Tight closes, no lift, top floor — all standard for us. We bring two people and the right equipment. Just let us know which floor when you book so we can plan.",
   },
 ];
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SHARED HUB TEMPLATE (don't change below this line when cloning)
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: META_TITLE,
@@ -112,7 +112,7 @@ export default function ServiceHubPage() {
     <main className="min-h-screen">
       <Navbar />
 
-      {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-5 md:px-8 max-w-7xl mx-auto">
         <nav
           className="mb-6 text-xs tracking-widest uppercase"
@@ -174,7 +174,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ What we take â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── What we take ───────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}
@@ -199,7 +199,7 @@ export default function ServiceHubPage() {
                   className="flex items-start gap-3 text-base"
                   style={{ color: "rgba(245,240,232,0.75)" }}
                 >
-                  <span className="mt-1 text-[var(--gold)] shrink-0">âœ“</span>
+                  <span className="mt-1 text-[var(--gold)] shrink-0">✓</span>
                   {line}
                 </li>
               ))}
@@ -248,7 +248,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ Areas covered â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Areas covered ──────────────────────────────────────────────────── */}
       <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
         <p className="section-label mb-3">Coverage</p>
         <h2
@@ -296,7 +296,7 @@ export default function ServiceHubPage() {
                           color: hasCombo ? "var(--gold-light)" : "rgba(245,240,232,0.7)",
                         }}
                       >
-                        {area.name} â†’
+                        {area.name} →
                       </Link>
                     );
                   })}
@@ -307,7 +307,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── FAQ ────────────────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}

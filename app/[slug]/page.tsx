@@ -58,7 +58,7 @@ export default async function WorkPage({ searchParams }: PageProps) {
     <main className="min-h-screen">
       <Navbar />
 
-      {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Hero ───────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-5 md:px-8 max-w-7xl mx-auto">
         <nav
           className="mb-6 text-xs tracking-widest uppercase"
@@ -95,7 +95,7 @@ export default async function WorkPage({ searchParams }: PageProps) {
         </p>
       </section>
 
-      {/* â”€â”€ Gallery â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Gallery ────────────────────────────────────────────────────── */}
       <section
         className="py-12 md:py-16 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}
@@ -138,7 +138,7 @@ export default async function WorkPage({ searchParams }: PageProps) {
                 ))}
               </div>
 
-              {/* â”€â”€ Pagination â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+              {/* ── Pagination ─────────────────────────────────────────── */}
               {totalPages > 1 && (
                 <nav
                   className="flex items-center justify-center gap-2 sm:gap-3 mt-12 md:mt-16 flex-wrap"
@@ -149,7 +149,7 @@ export default async function WorkPage({ searchParams }: PageProps) {
                     disabled={!hasPrev}
                     ariaLabel="Previous page"
                   >
-                    <span aria-hidden="true">â†</span>
+                    <span aria-hidden="true">←</span>
                     <span className="hidden sm:inline">Previous</span>
                   </PaginationLink>
 
@@ -161,7 +161,7 @@ export default async function WorkPage({ searchParams }: PageProps) {
                           className="px-2 text-cream/40"
                           aria-hidden="true"
                         >
-                          â€¦
+                          …
                         </span>
                       ) : (
                         <PaginationNumber
@@ -180,7 +180,7 @@ export default async function WorkPage({ searchParams }: PageProps) {
                     ariaLabel="Next page"
                   >
                     <span className="hidden sm:inline">Next</span>
-                    <span aria-hidden="true">â†’</span>
+                    <span aria-hidden="true">→</span>
                   </PaginationLink>
                 </nav>
               )}
@@ -195,7 +195,7 @@ export default async function WorkPage({ searchParams }: PageProps) {
   );
 }
 
-// â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Helpers ─────────────────────────────────────────────────────────────
 
 function pageHref(n: number): string {
   return n === 1 ? "/work" : `/work?page=${n}`;
@@ -220,7 +220,7 @@ function buildPageNumbers(
   return pages;
 }
 
-// â”€â”€ Pagination components â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Pagination components ───────────────────────────────────────────────
 
 function PaginationLink({
   href,

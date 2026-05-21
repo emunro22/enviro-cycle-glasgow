@@ -5,34 +5,34 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SERVICE HUB CONFIG
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants â€” everything below the line is shared.
+// service hubs are these constants — everything below the line is shared.
 
 const SERVICE_PREFIX = "rubbish-removal";
 const SERVICE_NAME = "Rubbish Removal";
 const SERVICE_H1 = "RUBBISH REMOVAL";
-const HERO_TAGLINE = "Single items to full van loads â€” cheaper than a skip, faster than the council.";
+const HERO_TAGLINE = "Single items to full van loads — cheaper than a skip, faster than the council.";
 
-const META_TITLE = "Rubbish Removal Glasgow | Same-Day Service from Â£40 | Envirocycle";
+const META_TITLE = "Rubbish Removal Glasgow | Same-Day Service from £40 | Envirocycle";
 const META_DESCRIPTION = "Licensed rubbish removal across Glasgow and surrounding areas. Single sofas to full house clearances. Same-day available, transfer note included.";
 
 const WHAT_WE_TAKE = [
-  "Furniture â€” sofas, beds, wardrobes, dining sets",
-  "White goods â€” fridges, washing machines, dryers",
-  "Garden waste â€” branches, hedge cuttings, soil, turf",
-  "Builders' waste â€” kitchens, bathrooms, plasterboard",
-  "Office equipment â€” desks, chairs, filing cabinets, IT (WEEE)",
-  "General clutter â€” boxes, bags, broken items, end-of-tenancy",
+  "Furniture — sofas, beds, wardrobes, dining sets",
+  "White goods — fridges, washing machines, dryers",
+  "Garden waste — branches, hedge cuttings, soil, turf",
+  "Builders' waste — kitchens, bathrooms, plasterboard",
+  "Office equipment — desks, chairs, filing cabinets, IT (WEEE)",
+  "General clutter — boxes, bags, broken items, end-of-tenancy",
 ];
 
 const HOW_IT_WORKS = [
   {
     step: "01",
     title: "Quick quote",
-    body: "Send a photo of what needs to go and your postcode. We'll quote in minutes â€” no site visit needed for most jobs.",
+    body: "Send a photo of what needs to go and your postcode. We'll quote in minutes — no site visit needed for most jobs.",
   },
   {
     step: "02",
@@ -54,7 +54,7 @@ const HOW_IT_WORKS = [
 const FAQ = [
   {
     q: "How much does rubbish removal cost?",
-    a: "Pricing is by volume (van space) rather than per item, so larger jobs work out cheaper. A single mattress is around Â£40; a full van load is Â£200â€“Â£280 depending on what's in it. We always quote up front â€” no surprises.",
+    a: "Pricing is by volume (van space) rather than per item, so larger jobs work out cheaper. A single mattress is around £40; a full van load is £200–£280 depending on what's in it. We always quote up front — no surprises.",
   },
   {
     q: "Can you come today?",
@@ -66,17 +66,17 @@ const FAQ = [
   },
   {
     q: "What about hazardous waste?",
-    a: "We can take most household items including paints, batteries, and electricals (WEEE). We can't take asbestos, clinical waste, or chemicals â€” call us if you're unsure and we'll point you in the right direction.",
+    a: "We can take most household items including paints, batteries, and electricals (WEEE). We can't take asbestos, clinical waste, or chemicals — call us if you're unsure and we'll point you in the right direction.",
   },
   {
     q: "Is it cheaper than a skip?",
-    a: "For most domestic jobs, yes â€” by quite a bit. A skip is the same price whether full or half-empty, and you need a permit if it's on the road. We turn up, load, and leave â€” you pay for what we actually take.",
+    a: "For most domestic jobs, yes — by quite a bit. A skip is the same price whether full or half-empty, and you need a permit if it's on the road. We turn up, load, and leave — you pay for what we actually take.",
   },
 ];
 
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 // SHARED HUB TEMPLATE (don't change below this line when cloning)
-// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
   title: META_TITLE,
@@ -113,7 +113,7 @@ export default function ServiceHubPage() {
     <main className="min-h-screen">
       <Navbar />
 
-      {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-5 md:px-8 max-w-7xl mx-auto">
         <nav
           className="mb-6 text-xs tracking-widest uppercase"
@@ -175,7 +175,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ What we take â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── What we take ───────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}
@@ -200,7 +200,7 @@ export default function ServiceHubPage() {
                   className="flex items-start gap-3 text-base"
                   style={{ color: "rgba(245,240,232,0.75)" }}
                 >
-                  <span className="mt-1 text-[var(--gold)] shrink-0">âœ“</span>
+                  <span className="mt-1 text-[var(--gold)] shrink-0">✓</span>
                   {line}
                 </li>
               ))}
@@ -249,7 +249,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ Areas covered â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── Areas covered ──────────────────────────────────────────────────── */}
       <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
         <p className="section-label mb-3">Coverage</p>
         <h2
@@ -297,7 +297,7 @@ export default function ServiceHubPage() {
                           color: hasCombo ? "var(--gold-light)" : "rgba(245,240,232,0.7)",
                         }}
                       >
-                        {area.name} â†’
+                        {area.name} →
                       </Link>
                     );
                   })}
@@ -308,7 +308,7 @@ export default function ServiceHubPage() {
         </div>
       </section>
 
-      {/* â”€â”€ FAQ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* ── FAQ ────────────────────────────────────────────────────────────── */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}

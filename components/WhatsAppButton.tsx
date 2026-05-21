@@ -1,5 +1,5 @@
 // Desktop floating WhatsApp button.
-// On mobile (â‰¤768px) this hides itself and the StickyContactBar takes over â€”
+// On mobile (≤768px) this hides itself and the StickyContactBar takes over —
 // a single combined Call + WhatsApp bar across the bottom is more usable
 // than a floating button on small screens.
 

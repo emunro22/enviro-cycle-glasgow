@@ -27,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  // New service hub pages â€” one per servicePrefix (rubbish-removal etc.)
+  // New service hub pages — one per servicePrefix (rubbish-removal etc.)
   const newServiceHubs: MetadataRoute.Sitemap = servicePrefixes.map((s) => ({
     url: `${SITE}/services/${s.prefix}`,
     lastModified: now,
@@ -35,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  // Area landing pages â€” one per area
+  // Area landing pages — one per area
   const areaPages: MetadataRoute.Sitemap = areas.map((a) => ({
     url: `${SITE}/areas/${a.slug}`,
     lastModified: now,
@@ -43,7 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Combo pages â€” only those in the current tier (per getAllSlugCombos)
+  // Combo pages — only those in the current tier (per getAllSlugCombos)
   const comboPages: MetadataRoute.Sitemap = getAllSlugCombos().map((c) => ({
     url: `${SITE}/${c.slug}`,
     lastModified: now,
