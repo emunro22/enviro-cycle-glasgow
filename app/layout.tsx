@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import StickyContactBar from "@/components/StickyContactBar";
 
 const SITE_URL = "https://envirocycleglasgow.com";
 
@@ -71,7 +73,7 @@ export const metadata: Metadata = {
   },
 };
 
-// LocalBusiness structured data — helps Google show you in local/map results
+// LocalBusiness structured data â€” helps Google show you in local/map results
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -83,7 +85,7 @@ const localBusinessSchema = {
   telephone: "+447450435241",
   email: "envirocycleglasgow@outlook.com",
   image: `${SITE_URL}/images/logo.png`,
-  priceRange: "££",
+  priceRange: "Â£Â£",
   areaServed: {
     "@type": "City",
     name: "Glasgow",
@@ -119,6 +121,8 @@ export default function RootLayout({
           }}
         />
         {children}
+        <WhatsAppButton />
+        <StickyContactBar />
       </body>
     </html>
   );

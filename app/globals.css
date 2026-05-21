@@ -174,3 +174,164 @@ body::before {
   z-index: 11;
   box-shadow: 0 0 20px rgba(212, 160, 23, 0.5);
 }
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/*  WhatsApp button + sticky contact bar                                    */
+/*  Append this block to the end of your existing globals.css               */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+/* â”€â”€ Desktop floating WhatsApp FAB â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.whatsapp-fab {
+  position: fixed;
+  bottom: 2.4rem;
+  right: 2.4rem;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 6px 24px rgba(37, 211, 102, 0.45),
+    0 2px 6px rgba(0, 0, 0, 0.25);
+  z-index: 998;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: whatsapp-pulse 2.6s ease-in-out infinite;
+  text-decoration: none;
+}
+
+.whatsapp-fab:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 10px 32px rgba(37, 211, 102, 0.6),
+    0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.whatsapp-fab:hover .whatsapp-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.whatsapp-tooltip {
+  position: absolute;
+  right: calc(100% + 1.2rem);
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  background: var(--forest-dark);
+  color: var(--cream);
+  padding: 0.7rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  border: 1px solid rgba(212, 160, 23, 0.25);
+}
+
+@keyframes whatsapp-pulse {
+  0%, 100% {
+    box-shadow:
+      0 6px 24px rgba(37, 211, 102, 0.45),
+      0 2px 6px rgba(0, 0, 0, 0.25),
+      0 0 0 0 rgba(37, 211, 102, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 6px 24px rgba(37, 211, 102, 0.45),
+      0 2px 6px rgba(0, 0, 0, 0.25),
+      0 0 0 16px rgba(37, 211, 102, 0);
+  }
+}
+
+/* Hide the FAB on mobile â€” the sticky bar takes over below 768px */
+@media (max-width: 768px) {
+  .whatsapp-fab {
+    display: none;
+  }
+}
+
+/* â”€â”€ Mobile sticky contact bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.sticky-contact-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sticky-contact-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    align-items: stretch;
+    background: rgba(10, 31, 11, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(212, 160, 23, 0.3);
+    padding-bottom: env(safe-area-inset-bottom);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Lift the page content above the bar so the footer/CTAs aren't hidden */
+  body {
+    padding-bottom: calc(6.4rem + env(safe-area-inset-bottom));
+  }
+}
+
+.sticky-contact-call {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.4rem;
+  text-decoration: none;
+  color: var(--forest-dark);
+  background: linear-gradient(135deg, #d4a017, #f0c040);
+  transition: opacity 0.2s;
+  min-height: 56px;
+}
+
+.sticky-contact-call:active {
+  opacity: 0.85;
+}
+
+.sticky-contact-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.sticky-contact-label {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.sticky-contact-call strong {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.sticky-contact-whatsapp {
+  width: 6.4rem;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.sticky-contact-whatsapp:active {
+  opacity: 0.85;
+}

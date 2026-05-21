@@ -3,8 +3,9 @@ import {
   servicePrefixes,
   getAllSlugCombos,
   parseSlug,
+  isComboInCurrentTier,
 } from "@/lib/areas";
-import { notFound } from "next/navigation";
+import { notFound, redirect, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -23,6 +24,7 @@ const RESERVED_SLUGS = new Set([
   "terms",
   "areas",
   "api",
+  "admin",
   "sitemap.xml",
   "robots.txt",
   "favicon.ico",
@@ -39,9 +41,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const combo = parseSlug(params.slug);
   if (!combo) return {};
 
+  // For retired combos (e.g. /office-clearance-paisley) we'll redirect at
+  // render time, but to be safe set the canonical to the area landing page.
+  if (!isComboInCurrentTier(combo.area, combo.service.prefix)) {
+    return {
+      alternates: { canonical: `/areas/${combo.area.slug}` },
+    };
+  }
+
   const { area, service } = combo;
   const title = `${service.searchPhrase} ${area.name} | Envirocycle Glasgow`;
-  const description = `${service.searchPhrase} in ${area.name} (${area.postcodes.join(", ")}). Licensed, insured, same-day where possible. Free quote — Glasgow-based team.`;
+  const description = `${service.searchPhrase} in ${area.name} (${area.postcodes.join(", ")}). Licensed, insured, same-day where possible. Free quote â€” Glasgow-based team.`;
 
   return {
     title,
@@ -63,26 +73,33 @@ export default function SeoPage({ params }: PageProps) {
   const combo = parseSlug(params.slug);
   if (!combo) notFound();
 
+  // If this combo was previously generated but is no longer in the active
+  // tier, 308-redirect to the area landing page. Preserves SEO value from
+  // any existing inbound links.
+  if (!isComboInCurrentTier(combo.area, combo.service.prefix)) {
+    permanentRedirect(`/areas/${combo.area.slug}`);
+  }
+
   const { area, service } = combo;
 
-  // Other service variants for this same area
-  const sameAreaOthers = area.services
+  // Other service variants for this same area (only ones we still generate)
+  const sameAreaOthers = getCurrentServicesForArea(area)
     .filter((p) => p !== service.prefix)
     .map((p) => servicePrefixes.find((s) => s.prefix === p))
     .filter((s): s is NonNullable<typeof s> => s !== undefined)
     .slice(0, 5);
 
-  // Same service in nearby areas (same council)
+  // Same service in nearby areas (same council) â€” only ones we still generate
   const sameServiceNearby = areas
     .filter(
       (a) =>
         a.slug !== area.slug &&
         a.council === area.council &&
-        a.services.includes(service.prefix),
+        isComboInCurrentTier(a, service.prefix),
     )
     .slice(0, 6);
 
-  // Structured data — helps with rich snippets and local pack
+  // Structured data â€” helps with rich snippets and local pack
   const schema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -118,7 +135,7 @@ export default function SeoPage({ params }: PageProps) {
       />
       <Navbar />
 
-      {/* ── Hero ───────────────────────────────────────────────────────────── */}
+      {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-5 md:px-8 max-w-7xl mx-auto">
         <nav
           className="mb-6 text-xs tracking-widest uppercase"
@@ -128,13 +145,20 @@ export default function SeoPage({ params }: PageProps) {
             Areas
           </Link>
           {" / "}
+          <Link
+            href={`/areas/${area.slug}`}
+            className="hover:text-[var(--gold-light)]"
+          >
+            {area.name}
+          </Link>
+          {" / "}
           <span style={{ color: "var(--gold)" }}>
-            {service.searchPhrase} {area.name}
+            {service.searchPhrase}
           </span>
         </nav>
 
         <p className="section-label mb-3">
-          {service.searchPhrase} · {area.name}
+          {service.searchPhrase} Â· {area.name}
         </p>
         <h1
           className="leading-none mb-6"
@@ -188,7 +212,7 @@ export default function SeoPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* ── Detail ─────────────────────────────────────────────────────────── */}
+      {/* â”€â”€ Detail â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section
         className="py-16 md:py-24 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}
@@ -217,7 +241,7 @@ export default function SeoPage({ params }: PageProps) {
               style={{ color: "rgba(245,240,232,0.6)" }}
             >
               We cover all of {area.name} ({area.postcodes.join(", ")}) and
-              surrounding {area.council} — typically on-site within{" "}
+              surrounding {area.council} â€” typically on-site within{" "}
               {area.travelMinutes} minutes of dispatch. We're familiar with the
               area around {area.landmarks.slice(0, 2).join(" and ")}, including
               parking and access constraints.
@@ -239,7 +263,7 @@ export default function SeoPage({ params }: PageProps) {
                   className="flex items-start gap-3 text-sm md:text-base"
                   style={{ color: "rgba(245,240,232,0.75)" }}
                 >
-                  <span className="mt-1 text-[var(--gold)] shrink-0">✓</span>
+                  <span className="mt-1 text-[var(--gold)] shrink-0">âœ“</span>
                   {line}
                 </li>
               ))}
@@ -260,66 +284,94 @@ export default function SeoPage({ params }: PageProps) {
                 Local Landmarks We Cover Near
               </p>
               <p style={{ color: "rgba(245,240,232,0.7)" }}>
-                {area.landmarks.join(" · ")}
+                {area.landmarks.join(" Â· ")}
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Other services in same area ────────────────────────────────────── */}
-      {sameAreaOthers.length > 0 && (
-        <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
-          <p className="section-label mb-3">Other Services</p>
-          <h2
-            className="leading-none mb-8"
+      {/* â”€â”€ Why us in this area â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
+        <p className="section-label mb-3">Why Envirocycle</p>
+        <h2
+          className="leading-none mb-8"
+          style={{
+            fontFamily: "var(--font-heading)",
+            fontSize: "clamp(1.8rem, 4vw, 3rem)",
+            color: "var(--cream)",
+          }}
+        >
+          {service.searchPhrase.toUpperCase()} IN{" "}
+          <span className="gold-text">{area.name.toUpperCase()}</span> â€” DONE
+          PROPERLY
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div
+            className="p-6 rounded-2xl"
             style={{
-              fontFamily: "var(--font-heading)",
-              fontSize: "clamp(1.8rem, 4vw, 3rem)",
-              color: "var(--cream)",
+              background: "rgba(255,255,255,0.03)",
+              border: "1px solid rgba(212,160,23,0.15)",
             }}
           >
-            MORE IN <span className="gold-text">{area.name.toUpperCase()}</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {sameAreaOthers.map((other) => (
-              <Link
-                key={other.prefix}
-                href={`/${other.prefix}-${area.slug}`}
-                className="block rounded-2xl p-5 transition-all"
-                style={{
-                  background:
-                    "linear-gradient(145deg, rgba(26,68,29,0.5), rgba(10,31,11,0.7))",
-                  border: "1px solid rgba(212,160,23,0.15)",
-                }}
-              >
-                <h3
-                  className="text-lg mb-1"
-                  style={{
-                    fontFamily: "var(--font-heading)",
-                    letterSpacing: "0.04em",
-                    color: "var(--cream)",
-                  }}
-                >
-                  {other.searchPhrase} in {area.name}
-                </h3>
-                <p className="text-sm" style={{ color: "rgba(245,240,232,0.55)" }}>
-                  {other.intro}
-                </p>
-              </Link>
-            ))}
+            <p
+              className="text-xs tracking-widest uppercase mb-3"
+              style={{ color: "var(--gold)" }}
+            >
+              Local Knowledge
+            </p>
+            <p style={{ color: "rgba(245,240,232,0.75)" }}>
+              We work {area.name} most weeks â€” we know the access roads, the
+              parking, and the local council ({area.council}) rules.
+            </p>
           </div>
-        </section>
-      )}
+          <div
+            className="p-6 rounded-2xl"
+            style={{
+              background: "rgba(255,255,255,0.03)",
+              border: "1px solid rgba(212,160,23,0.15)",
+            }}
+          >
+            <p
+              className="text-xs tracking-widest uppercase mb-3"
+              style={{ color: "var(--gold)" }}
+            >
+              Fast Response
+            </p>
+            <p style={{ color: "rgba(245,240,232,0.75)" }}>
+              {area.travelMinutes} minutes from our base. Same-day uplifts
+              are usually available across {area.postcodes.join(", ")}.
+            </p>
+          </div>
+          <div
+            className="p-6 rounded-2xl"
+            style={{
+              background: "rgba(255,255,255,0.03)",
+              border: "1px solid rgba(212,160,23,0.15)",
+            }}
+          >
+            <p
+              className="text-xs tracking-widest uppercase mb-3"
+              style={{ color: "var(--gold)" }}
+            >
+              Fully Compliant
+            </p>
+            <p style={{ color: "rgba(245,240,232,0.75)" }}>
+              Licensed SEPA waste carrier. Every job comes with a transfer note
+              and full audit trail â€” important for trade and commercial work.
+            </p>
+          </div>
+        </div>
+      </section>
 
-      {/* ── Same service in nearby areas ───────────────────────────────────── */}
-      {sameServiceNearby.length > 0 && (
+      {/* â”€â”€ Other services in same area â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {sameAreaOthers.length > 0 && (
         <section
           className="py-16 px-5 md:px-8"
           style={{ background: "rgba(26,68,29,0.15)" }}
         >
           <div className="max-w-7xl mx-auto">
-            <p className="section-label mb-3">Nearby Areas</p>
+            <p className="section-label mb-3">Other Services</p>
             <h2
               className="leading-none mb-8"
               style={{
@@ -328,36 +380,90 @@ export default function SeoPage({ params }: PageProps) {
                 color: "var(--cream)",
               }}
             >
-              {service.h1Verb}{" "}
-              <span className="gold-text">NEARBY</span>
+              MORE IN <span className="gold-text">{area.name.toUpperCase()}</span>
             </h2>
-            <div className="flex flex-wrap gap-2">
-              {sameServiceNearby.map((other) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {sameAreaOthers.map((other) => (
                 <Link
-                  key={other.slug}
-                  href={`/${service.prefix}-${other.slug}`}
-                  className="px-4 py-2 rounded-full text-sm font-semibold transition-all"
+                  key={other.prefix}
+                  href={`/${other.prefix}-${area.slug}`}
+                  className="block rounded-2xl p-5 transition-all"
                   style={{
-                    background: "rgba(255,255,255,0.04)",
-                    border: "1px solid rgba(212,160,23,0.2)",
-                    color: "var(--cream)",
+                    background:
+                      "linear-gradient(145deg, rgba(26,68,29,0.5), rgba(10,31,11,0.7))",
+                    border: "1px solid rgba(212,160,23,0.15)",
                   }}
                 >
-                  {service.searchPhrase} {other.name} →
+                  <h3
+                    className="text-lg mb-1"
+                    style={{
+                      fontFamily: "var(--font-heading)",
+                      letterSpacing: "0.04em",
+                      color: "var(--cream)",
+                    }}
+                  >
+                    {other.searchPhrase} in {area.name}
+                  </h3>
+                  <p className="text-sm" style={{ color: "rgba(245,240,232,0.55)" }}>
+                    {other.intro}
+                  </p>
                 </Link>
               ))}
+            </div>
+            <div className="mt-6">
               <Link
-                href="/areas"
-                className="px-4 py-2 rounded-full text-sm font-semibold"
-                style={{
-                  background: "rgba(212,160,23,0.12)",
-                  border: "1px solid rgba(212,160,23,0.3)",
-                  color: "var(--gold-light)",
-                }}
+                href={`/areas/${area.slug}`}
+                className="inline-flex items-center gap-2 text-sm font-semibold"
+                style={{ color: "var(--gold-light)" }}
               >
-                View all areas →
+                See everything we do in {area.name} â†’
               </Link>
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* â”€â”€ Same service in nearby areas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {sameServiceNearby.length > 0 && (
+        <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
+          <p className="section-label mb-3">Nearby Areas</p>
+          <h2
+            className="leading-none mb-8"
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontSize: "clamp(1.8rem, 4vw, 3rem)",
+              color: "var(--cream)",
+            }}
+          >
+            {service.h1Verb}{" "}
+            <span className="gold-text">NEARBY</span>
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {sameServiceNearby.map((other) => (
+              <Link
+                key={other.slug}
+                href={`/${service.prefix}-${other.slug}`}
+                className="px-4 py-2 rounded-full text-sm font-semibold transition-all"
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(212,160,23,0.2)",
+                  color: "var(--cream)",
+                }}
+              >
+                {service.searchPhrase} {other.name} â†’
+              </Link>
+            ))}
+            <Link
+              href="/areas"
+              className="px-4 py-2 rounded-full text-sm font-semibold"
+              style={{
+                background: "rgba(212,160,23,0.12)",
+                border: "1px solid rgba(212,160,23,0.3)",
+                color: "var(--gold-light)",
+              }}
+            >
+              View all areas â†’
+            </Link>
           </div>
         </section>
       )}
@@ -366,4 +472,11 @@ export default function SeoPage({ params }: PageProps) {
       <Footer />
     </main>
   );
+}
+
+// Helper used above
+function getCurrentServicesForArea(area: typeof areas[number]): string[] {
+  return getAllSlugCombos()
+    .filter((c) => c.area.slug === area.slug)
+    .map((c) => c.service.prefix);
 }

@@ -1,4 +1,4 @@
-import { getAllSlugCombos } from "@/lib/areas";
+import { areas, getAllSlugCombos, servicePrefixes } from "@/lib/areas";
 import type { MetadataRoute } from "next";
 
 const SITE = "https://envirocycleglasgow.com";
@@ -6,22 +6,56 @@ const SITE = "https://envirocycleglasgow.com";
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  // Update these to match your real top-level pages
+  // Static / top-level pages
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${SITE}/`,                                    lastModified: now, changeFrequency: "weekly",  priority: 1.0 },
     { url: `${SITE}/areas`,                               lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${SITE}/services/waste-management`,           lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${SITE}/services/bulky-waste-uplifts`,        lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${SITE}/services/trade-waste-clearance`,      lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE}/terms`,                               lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
   ];
 
-  const seoPages: MetadataRoute.Sitemap = getAllSlugCombos().map((c) => ({
+  // Existing service hub pages (the ones already in /services/*)
+  const existingServiceHubs: MetadataRoute.Sitemap = [
+    `${SITE}/services/waste-management`,
+    `${SITE}/services/bulky-waste-uplifts`,
+    `${SITE}/services/trade-waste-clearance`,
+    `${SITE}/services/recycling`,
+    `${SITE}/services/site-clearance`,
+  ].map((url) => ({
+    url,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  // New service hub pages â€” one per servicePrefix (rubbish-removal etc.)
+  const newServiceHubs: MetadataRoute.Sitemap = servicePrefixes.map((s) => ({
+    url: `${SITE}/services/${s.prefix}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  // Area landing pages â€” one per area
+  const areaPages: MetadataRoute.Sitemap = areas.map((a) => ({
+    url: `${SITE}/areas/${a.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
+  // Combo pages â€” only those in the current tier (per getAllSlugCombos)
+  const comboPages: MetadataRoute.Sitemap = getAllSlugCombos().map((c) => ({
     url: `${SITE}/${c.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...seoPages];
+  return [
+    ...staticRoutes,
+    ...existingServiceHubs,
+    ...newServiceHubs,
+    ...areaPages,
+    ...comboPages,
+  ];
 }
