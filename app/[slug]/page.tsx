@@ -1,64 +1,113 @@
-import { sql, type Project } from "@/lib/db";
-import { notFound } from "next/navigation";
-import Link from "next/link";
+import {
+  getAllSlugCombos,
+  parseSlug,
+  isComboInCurrentTier,
+  areas,
+  servicePrefixes,
+  getCombosForArea,
+} from "@/lib/areas";
+import { notFound, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 
-export const metadata: Metadata = {
-  title: "Our Work | Envirocycle Glasgow",
-  description:
-    "Browse Envirocycle Glasgow's recent waste management, clearance, and recycling projects across Glasgow and surrounding areas.",
-  alternates: { canonical: "/work" },
-};
-
-export const dynamic = "force-dynamic";
-export const revalidate = 0;
-
-const PAGE_SIZE = 12;
-
 interface PageProps {
-  searchParams?: { page?: string };
+  params: { slug: string };
 }
 
-export default async function WorkPage({ searchParams }: PageProps) {
-  let projects: Project[] = [];
-  try {
-    projects = (await sql`
-      SELECT * FROM projects ORDER BY display_order ASC, created_at DESC
-    `) as Project[];
-  } catch (err) {
-    console.error("Failed to load projects", err);
+export function generateStaticParams() {
+  return getAllSlugCombos().map((c) => ({ slug: c.slug }));
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const combo = parseSlug(params.slug);
+  if (!combo) return {};
+  if (!isComboInCurrentTier(combo.area, combo.service.prefix)) return {};
+
+  const { area, service } = combo;
+  const title = `${service.searchPhrase} in ${area.name} | Envirocycle Glasgow`;
+  const description = `${service.intro} Covering ${area.name} (${area.postcodes.join(", ")}). Free quotes, same-day where possible.`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: `/${combo.slug}` },
+    openGraph: {
+      title,
+      description,
+      url: `/${combo.slug}`,
+      siteName: "Envirocycle Glasgow",
+      locale: "en_GB",
+      type: "website",
+    },
+  };
+}
+
+export default function SlugPage({ params }: PageProps) {
+  const combo = parseSlug(params.slug);
+
+  // Unknown slug entirely
+  if (!combo) notFound();
+
+  const { area, service } = combo;
+
+  // Retired combo — 308 to the area landing page
+  if (!isComboInCurrentTier(area, service.prefix)) {
+    permanentRedirect(`/areas/${area.slug}`);
   }
 
-  // Parse and validate the page param
-  const pageParam = searchParams?.page;
-  const rawPage = pageParam ? Number.parseInt(pageParam, 10) : 1;
-  const totalPages = Math.max(1, Math.ceil(projects.length / PAGE_SIZE));
+  // Nearby services for this area (other combos in the same tier)
+  const nearbyServices = getCombosForArea(area)
+    .filter((p) => p !== service.prefix)
+    .map((p) => servicePrefixes.find((s) => s.prefix === p))
+    .filter((s): s is NonNullable<typeof s> => s !== undefined)
+    .slice(0, 4);
 
-  if (
-    Number.isNaN(rawPage) ||
-    rawPage < 1 ||
-    (projects.length > 0 && rawPage > totalPages)
-  ) {
-    notFound();
-  }
+  // Same service in nearby areas
+  const nearbyAreas = areas
+    .filter(
+      (a) =>
+        a.slug !== area.slug &&
+        getCombosForArea(a).includes(service.prefix),
+    )
+    .sort((a, b) => a.travelMinutes - b.travelMinutes)
+    .slice(0, 6);
 
-  const currentPage = rawPage;
-  const startIndex = (currentPage - 1) * PAGE_SIZE;
-  const pageProjects = projects.slice(startIndex, startIndex + PAGE_SIZE);
-
-  const hasPrev = currentPage > 1;
-  const hasNext = currentPage < totalPages;
-
-  const pageNumbers = buildPageNumbers(currentPage, totalPages);
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: `${service.searchPhrase} in ${area.name}`,
+    provider: {
+      "@type": "LocalBusiness",
+      name: "Envirocycle Glasgow",
+      telephone: "+447450435241",
+      url: "https://envirocycleglasgow.com",
+    },
+    areaServed: {
+      "@type": "Place",
+      name: area.name,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: area.name,
+        addressRegion: area.council,
+        postalCode: area.postcodes.join(", "),
+        addressCountry: "GB",
+      },
+    },
+    description: service.intro,
+  };
 
   return (
     <main className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <Navbar />
 
-      {/* ── Hero ───────────────────────────────────────────────────────── */}
+      {/* ── Hero ───────────────────────────────────────────────────────────── */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-5 md:px-8 max-w-7xl mx-auto">
         <nav
           className="mb-6 text-xs tracking-widest uppercase"
@@ -68,10 +117,16 @@ export default async function WorkPage({ searchParams }: PageProps) {
             Home
           </Link>
           {" / "}
-          <span style={{ color: "var(--gold)" }}>Our Work</span>
+          <Link href={`/areas/${area.slug}`} className="hover:text-[var(--gold-light)]">
+            {area.name}
+          </Link>
+          {" / "}
+          <span style={{ color: "var(--gold)" }}>{service.searchPhrase}</span>
         </nav>
 
-        <p className="section-label mb-3">Portfolio</p>
+        <p className="section-label mb-3">
+          {service.searchPhrase} · {area.name}
+        </p>
         <h1
           className="leading-none mb-6"
           style={{
@@ -81,229 +136,272 @@ export default async function WorkPage({ searchParams }: PageProps) {
             letterSpacing: "0.02em",
           }}
         >
-          ALL OUR <span className="gold-text">RECENT WORK</span>
+          {service.h1Verb}{" "}
+          <span className="gold-text">{area.name.toUpperCase()}</span>
         </h1>
+
         <p
-          className="max-w-2xl text-base md:text-lg"
+          className="max-w-2xl text-base md:text-lg mb-8"
           style={{ color: "rgba(245,240,232,0.75)", lineHeight: 1.7 }}
         >
-          Every job handled professionally and discreetly. Browse our recent
-          waste management, clearance, and recycling work across Glasgow.
-          {projects.length > 0 && (
-            <> Showing {pageProjects.length} of {projects.length} total.</>
-          )}
+          {service.intro}
         </p>
-      </section>
 
-      {/* ── Gallery ────────────────────────────────────────────────────── */}
-      <section
-        className="py-12 md:py-16 px-5 md:px-8"
-        style={{ background: "rgba(26,68,29,0.15)" }}
-      >
-        <div className="max-w-7xl mx-auto">
-          {projects.length === 0 ? (
-            <p
-              className="text-center py-16 uppercase tracking-widest text-xs"
-              style={{ color: "rgba(245,240,232,0.5)" }}
-            >
-              Gallery coming soon
-            </p>
-          ) : (
-            <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                {pageProjects.map((project) => (
-                  <div
-                    key={project.id}
-                    className="group relative h-[280px] sm:h-[340px] lg:h-[380px] overflow-hidden rounded-sm gold-card"
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={project.image_url}
-                      alt={project.title}
-                      loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                    />
-                    <div
-                      className="absolute inset-0 bg-gradient-to-t from-[var(--forest-dark)] via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none"
-                    />
-                    <div className="absolute bottom-0 left-0 p-5 sm:p-6 md:p-7 w-full pointer-events-none">
-                      <p className="text-[var(--gold)] text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-2">
-                        {project.category}
-                      </p>
-                      <h3 className="text-lg sm:text-xl font-heading text-cream uppercase leading-tight">
-                        {project.title}
-                      </h3>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* ── Pagination ─────────────────────────────────────────── */}
-              {totalPages > 1 && (
-                <nav
-                  className="flex items-center justify-center gap-2 sm:gap-3 mt-12 md:mt-16 flex-wrap"
-                  aria-label="Gallery pagination"
-                >
-                  <PaginationLink
-                    href={pageHref(currentPage - 1)}
-                    disabled={!hasPrev}
-                    ariaLabel="Previous page"
-                  >
-                    <span aria-hidden="true">←</span>
-                    <span className="hidden sm:inline">Previous</span>
-                  </PaginationLink>
-
-                  <div className="flex items-center gap-1.5 sm:gap-2">
-                    {pageNumbers.map((n, i) =>
-                      n === "ellipsis" ? (
-                        <span
-                          key={`e-${i}`}
-                          className="px-2 text-cream/40"
-                          aria-hidden="true"
-                        >
-                          …
-                        </span>
-                      ) : (
-                        <PaginationNumber
-                          key={n}
-                          href={pageHref(n)}
-                          number={n}
-                          isActive={n === currentPage}
-                        />
-                      ),
-                    )}
-                  </div>
-
-                  <PaginationLink
-                    href={pageHref(currentPage + 1)}
-                    disabled={!hasNext}
-                    ariaLabel="Next page"
-                  >
-                    <span className="hidden sm:inline">Next</span>
-                    <span aria-hidden="true">→</span>
-                  </PaginationLink>
-                </nav>
-              )}
-            </>
-          )}
+        <div className="flex flex-col sm:flex-row gap-3">
+          <a
+            href="#contact"
+            className="inline-flex items-center justify-center gap-3 font-semibold px-8 py-4 rounded-full"
+            style={{
+              background: "linear-gradient(135deg, #d4a017, #f0c040)",
+              color: "#0a1f0b",
+              boxShadow: "0 8px 32px rgba(212,160,23,0.3)",
+            }}
+          >
+            Get a Free Quote
+          </a>
+          <a
+            href="tel:+447450435241"
+            className="inline-flex items-center justify-center gap-3 font-semibold px-8 py-4 rounded-full border"
+            style={{
+              background: "rgba(255,255,255,0.05)",
+              borderColor: "rgba(245,240,232,0.18)",
+              color: "var(--cream)",
+            }}
+          >
+            +44 7450 435241
+          </a>
         </div>
       </section>
+
+      {/* ── About the area ─────────────────────────────────────────────────── */}
+      <section
+        className="py-16 md:py-24 px-5 md:px-8"
+        style={{ background: "rgba(26,68,29,0.15)" }}
+      >
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+          <div>
+            <p className="section-label mb-3">About {area.name}</p>
+            <h2
+              className="leading-none mb-6"
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontSize: "clamp(1.8rem, 4vw, 3rem)",
+                color: "var(--cream)",
+              }}
+            >
+              LOCAL TO{" "}
+              <span className="gold-text">{area.name.toUpperCase()}</span>
+            </h2>
+            <div
+              className="space-y-4 text-base md:text-lg"
+              style={{ color: "rgba(245,240,232,0.75)", lineHeight: 1.7 }}
+            >
+              <p>{area.localHook}</p>
+              <p>{service.body}</p>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div
+              className="p-6 rounded-2xl"
+              style={{
+                background: "rgba(255,255,255,0.03)",
+                border: "1px solid rgba(212,160,23,0.15)",
+              }}
+            >
+              <p
+                className="text-xs tracking-widest uppercase mb-3"
+                style={{ color: "var(--gold)" }}
+              >
+                Coverage Details
+              </p>
+              <dl className="space-y-3">
+                <div>
+                  <dt className="text-sm" style={{ color: "rgba(245,240,232,0.5)" }}>
+                    Postcodes
+                  </dt>
+                  <dd style={{ color: "var(--cream)" }}>
+                    {area.postcodes.join(", ")}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-sm" style={{ color: "rgba(245,240,232,0.5)" }}>
+                    Council Area
+                  </dt>
+                  <dd style={{ color: "var(--cream)" }}>{area.council}</dd>
+                </div>
+                <div>
+                  <dt className="text-sm" style={{ color: "rgba(245,240,232,0.5)" }}>
+                    Response Time
+                  </dt>
+                  <dd style={{ color: "var(--cream)" }}>
+                    ~{area.travelMinutes} minutes from base
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-sm" style={{ color: "rgba(245,240,232,0.5)" }}>
+                    Landmarks
+                  </dt>
+                  <dd style={{ color: "var(--cream)" }}>
+                    {area.landmarks.join(", ")}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+
+            <div
+              className="p-6 rounded-2xl"
+              style={{
+                background:
+                  "linear-gradient(145deg, rgba(26,68,29,0.5), rgba(10,31,11,0.7))",
+                border: "1px solid rgba(212,160,23,0.2)",
+              }}
+            >
+              <p
+                className="text-xs tracking-widest uppercase mb-4"
+                style={{ color: "var(--gold)" }}
+              >
+                Why Choose Envirocycle
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "SEPA-licensed waste carrier",
+                  "Waste transfer note on every job",
+                  "Reusable items donated to local charities",
+                  "Same-day uplifts where possible",
+                  "Fixed pricing — no hidden charges",
+                ].map((point) => (
+                  <li
+                    key={point}
+                    className="flex items-start gap-2 text-sm"
+                    style={{ color: "rgba(245,240,232,0.75)" }}
+                  >
+                    <span style={{ color: "var(--gold)" }}>✓</span>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Other services in this area ────────────────────────────────────── */}
+      {nearbyServices.length > 0 && (
+        <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
+          <p className="section-label mb-3">More Services in {area.name}</p>
+          <h2
+            className="leading-none mb-8"
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontSize: "clamp(1.8rem, 4vw, 3rem)",
+              color: "var(--cream)",
+            }}
+          >
+            OTHER SERVICES IN{" "}
+            <span className="gold-text">{area.name.toUpperCase()}</span>
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {nearbyServices.map((s) => (
+              <Link
+                key={s.prefix}
+                href={`/${s.prefix}-${area.slug}`}
+                className="block rounded-2xl p-6 transition-all"
+                style={{
+                  background:
+                    "linear-gradient(145deg, rgba(26,68,29,0.5), rgba(10,31,11,0.7))",
+                  border: "1px solid rgba(212,160,23,0.15)",
+                }}
+              >
+                <h3
+                  className="text-xl mb-2"
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    letterSpacing: "0.04em",
+                    color: "var(--cream)",
+                  }}
+                >
+                  {s.searchPhrase}
+                </h3>
+                <p
+                  className="text-sm mb-3"
+                  style={{ color: "rgba(245,240,232,0.6)" }}
+                >
+                  {s.intro}
+                </p>
+                <span
+                  className="inline-flex items-center gap-2 text-sm font-semibold"
+                  style={{ color: "var(--gold-light)" }}
+                >
+                  View details →
+                </span>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-6">
+            <Link
+              href={`/areas/${area.slug}`}
+              className="inline-flex items-center gap-2 text-sm font-semibold"
+              style={{ color: "var(--gold-light)" }}
+            >
+              All services in {area.name} →
+            </Link>
+          </div>
+        </section>
+      )}
+
+      {/* ── Same service, nearby areas ──────────────────────────────────────── */}
+      {nearbyAreas.length > 0 && (
+        <section
+          className="py-16 px-5 md:px-8"
+          style={{ background: "rgba(26,68,29,0.15)" }}
+        >
+          <div className="max-w-7xl mx-auto">
+            <p className="section-label mb-3">{service.searchPhrase} Nearby</p>
+            <h2
+              className="leading-none mb-8"
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontSize: "clamp(1.8rem, 4vw, 3rem)",
+                color: "var(--cream)",
+              }}
+            >
+              ALSO COVERING{" "}
+              <span className="gold-text">NEARBY AREAS</span>
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {nearbyAreas.map((a) => (
+                <Link
+                  key={a.slug}
+                  href={`/${service.prefix}-${a.slug}`}
+                  className="px-4 py-2 rounded-full text-sm font-semibold transition-all"
+                  style={{
+                    background: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(212,160,23,0.2)",
+                    color: "var(--cream)",
+                  }}
+                >
+                  {service.searchPhrase} in {a.name} →
+                </Link>
+              ))}
+              <Link
+                href={`/services/${service.prefix}`}
+                className="px-4 py-2 rounded-full text-sm font-semibold"
+                style={{
+                  background: "rgba(212,160,23,0.12)",
+                  border: "1px solid rgba(212,160,23,0.3)",
+                  color: "var(--gold-light)",
+                }}
+              >
+                View all {service.searchPhrase} areas →
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       <Contact />
       <Footer />
     </main>
-  );
-}
-
-// ── Helpers ─────────────────────────────────────────────────────────────
-
-function pageHref(n: number): string {
-  return n === 1 ? "/work" : `/work?page=${n}`;
-}
-
-function buildPageNumbers(
-  current: number,
-  total: number,
-): Array<number | "ellipsis"> {
-  if (total <= 7) {
-    return Array.from({ length: total }, (_, i) => i + 1);
-  }
-
-  const pages: Array<number | "ellipsis"> = [];
-  pages.push(1);
-  if (current > 3) pages.push("ellipsis");
-  const start = Math.max(2, current - 1);
-  const end = Math.min(total - 1, current + 1);
-  for (let i = start; i <= end; i++) pages.push(i);
-  if (current < total - 2) pages.push("ellipsis");
-  pages.push(total);
-  return pages;
-}
-
-// ── Pagination components ───────────────────────────────────────────────
-
-function PaginationLink({
-  href,
-  disabled,
-  ariaLabel,
-  children,
-}: {
-  href: string;
-  disabled: boolean;
-  ariaLabel: string;
-  children: React.ReactNode;
-}) {
-  const baseClass =
-    "inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full font-semibold text-sm transition-all";
-  const enabledClass = "text-cream hover:text-[var(--gold-light)]";
-  const disabledClass = "opacity-30 cursor-not-allowed";
-  const baseStyle = {
-    background: "rgba(255,255,255,0.04)",
-    border: "1px solid rgba(212,160,23,0.2)",
-  };
-
-  if (disabled) {
-    return (
-      <span
-        className={`${baseClass} ${disabledClass}`}
-        style={baseStyle}
-        aria-disabled="true"
-        aria-label={ariaLabel}
-      >
-        {children}
-      </span>
-    );
-  }
-
-  return (
-    <Link
-      href={href}
-      className={`${baseClass} ${enabledClass}`}
-      style={baseStyle}
-      aria-label={ariaLabel}
-    >
-      {children}
-    </Link>
-  );
-}
-
-function PaginationNumber({
-  href,
-  number,
-  isActive,
-}: {
-  href: string;
-  number: number;
-  isActive: boolean;
-}) {
-  if (isActive) {
-    return (
-      <span
-        className="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full font-bold text-sm cursor-default"
-        style={{
-          background: "linear-gradient(135deg, #d4a017, #f0c040)",
-          color: "#0a1f0b",
-          boxShadow: "0 4px 16px rgba(212,160,23,0.3)",
-        }}
-        aria-current="page"
-        aria-label={`Page ${number}`}
-      >
-        {number}
-      </span>
-    );
-  }
-
-  return (
-    <Link
-      href={href}
-      className="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full font-semibold text-sm text-cream transition-all hover:text-[var(--gold-light)]"
-      style={{
-        background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(212,160,23,0.2)",
-      }}
-      aria-label={`Page ${number}`}
-    >
-      {number}
-    </Link>
   );
 }
