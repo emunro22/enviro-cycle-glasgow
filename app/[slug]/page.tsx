@@ -1,165 +1,77 @@
-import {
-  areas,
-  servicePrefixes,
-  getAllSlugCombos,
-  parseSlug,
-  isComboInCurrentTier,
-} from "@/lib/areas";
-import { notFound, redirect, permanentRedirect } from "next/navigation";
-import type { Metadata } from "next";
+import { sql, type Project } from "@/lib/db";
+import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 
+export const metadata: Metadata = {
+  title: "Our Work | Envirocycle Glasgow",
+  description:
+    "Browse Envirocycle Glasgow's recent waste management, clearance, and recycling projects across Glasgow and surrounding areas.",
+  alternates: { canonical: "/work" },
+};
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+const PAGE_SIZE = 12;
+
 interface PageProps {
-  params: { slug: string };
+  searchParams?: { page?: string };
 }
 
-// Reserved root-level slugs that must NOT be intercepted by this catch-all.
-// If you add new top-level pages (e.g. /pricing, /about) put their slugs here.
-const RESERVED_SLUGS = new Set([
-  "services",
-  "tip-finder",
-  "terms",
-  "areas",
-  "api",
-  "admin",
-  "sitemap.xml",
-  "robots.txt",
-  "favicon.ico",
-  "images",
-  "_next",
-]);
-
-export function generateStaticParams() {
-  return getAllSlugCombos().map((c) => ({ slug: c.slug }));
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  if (RESERVED_SLUGS.has(params.slug)) return {};
-  const combo = parseSlug(params.slug);
-  if (!combo) return {};
-
-  // For retired combos (e.g. /office-clearance-paisley) we'll redirect at
-  // render time, but to be safe set the canonical to the area landing page.
-  if (!isComboInCurrentTier(combo.area, combo.service.prefix)) {
-    return {
-      alternates: { canonical: `/areas/${combo.area.slug}` },
-    };
+export default async function WorkPage({ searchParams }: PageProps) {
+  let projects: Project[] = [];
+  try {
+    projects = (await sql`
+      SELECT * FROM projects ORDER BY display_order ASC, created_at DESC
+    `) as Project[];
+  } catch (err) {
+    console.error("Failed to load projects", err);
   }
 
-  const { area, service } = combo;
-  const title = `${service.searchPhrase} ${area.name} | Envirocycle Glasgow`;
-  const description = `${service.searchPhrase} in ${area.name} (${area.postcodes.join(", ")}). Licensed, insured, same-day where possible. Free quote â€” Glasgow-based team.`;
+  // Parse and validate the page param
+  const pageParam = searchParams?.page;
+  const rawPage = pageParam ? Number.parseInt(pageParam, 10) : 1;
+  const totalPages = Math.max(1, Math.ceil(projects.length / PAGE_SIZE));
 
-  return {
-    title,
-    description,
-    alternates: { canonical: `/${params.slug}` },
-    openGraph: {
-      title,
-      description,
-      url: `/${params.slug}`,
-      siteName: "Envirocycle Glasgow",
-      locale: "en_GB",
-      type: "website",
-    },
-  };
-}
-
-export default function SeoPage({ params }: PageProps) {
-  if (RESERVED_SLUGS.has(params.slug)) notFound();
-  const combo = parseSlug(params.slug);
-  if (!combo) notFound();
-
-  // If this combo was previously generated but is no longer in the active
-  // tier, 308-redirect to the area landing page. Preserves SEO value from
-  // any existing inbound links.
-  if (!isComboInCurrentTier(combo.area, combo.service.prefix)) {
-    permanentRedirect(`/areas/${combo.area.slug}`);
+  if (
+    Number.isNaN(rawPage) ||
+    rawPage < 1 ||
+    (projects.length > 0 && rawPage > totalPages)
+  ) {
+    notFound();
   }
 
-  const { area, service } = combo;
+  const currentPage = rawPage;
+  const startIndex = (currentPage - 1) * PAGE_SIZE;
+  const pageProjects = projects.slice(startIndex, startIndex + PAGE_SIZE);
 
-  // Other service variants for this same area (only ones we still generate)
-  const sameAreaOthers = getCurrentServicesForArea(area)
-    .filter((p) => p !== service.prefix)
-    .map((p) => servicePrefixes.find((s) => s.prefix === p))
-    .filter((s): s is NonNullable<typeof s> => s !== undefined)
-    .slice(0, 5);
+  const hasPrev = currentPage > 1;
+  const hasNext = currentPage < totalPages;
 
-  // Same service in nearby areas (same council) â€” only ones we still generate
-  const sameServiceNearby = areas
-    .filter(
-      (a) =>
-        a.slug !== area.slug &&
-        a.council === area.council &&
-        isComboInCurrentTier(a, service.prefix),
-    )
-    .slice(0, 6);
-
-  // Structured data â€” helps with rich snippets and local pack
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: `${service.searchPhrase} in ${area.name}`,
-    serviceType: service.searchPhrase,
-    description: `${service.searchPhrase} services in ${area.name}, ${area.council}.`,
-    provider: {
-      "@type": "LocalBusiness",
-      name: "Envirocycle Glasgow",
-      telephone: "+447450435241",
-      email: "envirocycleglasgow@outlook.com",
-      url: "https://envirocycleglasgow.com",
-      image: "https://envirocycleglasgow.com/images/logo.png",
-    },
-    areaServed: {
-      "@type": "Place",
-      name: area.name,
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: area.name,
-        addressRegion: area.council,
-        addressCountry: "GB",
-        postalCode: area.postcodes.join(", "),
-      },
-    },
-  };
+  const pageNumbers = buildPageNumbers(currentPage, totalPages);
 
   return (
     <main className="min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
       <Navbar />
 
-      {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-5 md:px-8 max-w-7xl mx-auto">
         <nav
           className="mb-6 text-xs tracking-widest uppercase"
           style={{ color: "rgba(245,240,232,0.45)" }}
         >
-          <Link href="/areas" className="hover:text-[var(--gold-light)]">
-            Areas
+          <Link href="/" className="hover:text-[var(--gold-light)]">
+            Home
           </Link>
           {" / "}
-          <Link
-            href={`/areas/${area.slug}`}
-            className="hover:text-[var(--gold-light)]"
-          >
-            {area.name}
-          </Link>
-          {" / "}
-          <span style={{ color: "var(--gold)" }}>
-            {service.searchPhrase}
-          </span>
+          <span style={{ color: "var(--gold)" }}>Our Work</span>
         </nav>
 
-        <p className="section-label mb-3">
-          {service.searchPhrase} Â· {area.name}
-        </p>
+        <p className="section-label mb-3">Portfolio</p>
         <h1
           className="leading-none mb-6"
           style={{
@@ -169,304 +81,113 @@ export default function SeoPage({ params }: PageProps) {
             letterSpacing: "0.02em",
           }}
         >
-          {service.h1Verb}{" "}
-          <span className="gold-text">{area.name.toUpperCase()}</span>
+          ALL OUR <span className="gold-text">RECENT WORK</span>
         </h1>
-
         <p
-          className="max-w-2xl text-base md:text-lg mb-5"
-          style={{ color: "rgba(245,240,232,0.75)" }}
+          className="max-w-2xl text-base md:text-lg"
+          style={{ color: "rgba(245,240,232,0.75)", lineHeight: 1.7 }}
         >
-          {service.intro}
+          Every job handled professionally and discreetly. Browse our recent
+          waste management, clearance, and recycling work across Glasgow.
+          {projects.length > 0 && (
+            <> Showing {pageProjects.length} of {projects.length} total.</>
+          )}
         </p>
-        <p
-          className="max-w-2xl text-sm md:text-base mb-8"
-          style={{ color: "rgba(245,240,232,0.6)" }}
-        >
-          {area.localHook}
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-3">
-          <a
-            href="#contact"
-            className="inline-flex items-center justify-center gap-3 font-semibold px-8 py-4 rounded-full"
-            style={{
-              background: "linear-gradient(135deg, #d4a017, #f0c040)",
-              color: "#0a1f0b",
-              boxShadow: "0 8px 32px rgba(212,160,23,0.3)",
-            }}
-          >
-            Get a Free Quote
-          </a>
-          <a
-            href="tel:+447450435241"
-            className="inline-flex items-center justify-center gap-3 font-semibold px-8 py-4 rounded-full border"
-            style={{
-              background: "rgba(255,255,255,0.05)",
-              borderColor: "rgba(245,240,232,0.18)",
-              color: "var(--cream)",
-            }}
-          >
-            +44 7450 435241
-          </a>
-        </div>
       </section>
 
-      {/* â”€â”€ Detail â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+      {/* â”€â”€ Gallery â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section
-        className="py-16 md:py-24 px-5 md:px-8"
+        className="py-12 md:py-16 px-5 md:px-8"
         style={{ background: "rgba(26,68,29,0.15)" }}
       >
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div>
-            <p className="section-label mb-3">How It Works</p>
-            <h2
-              className="leading-none mb-6"
-              style={{
-                fontFamily: "var(--font-heading)",
-                fontSize: "clamp(1.8rem, 4vw, 3rem)",
-                color: "var(--cream)",
-              }}
-            >
-              {service.h1Verb} IN {area.name.toUpperCase()}
-            </h2>
+        <div className="max-w-7xl mx-auto">
+          {projects.length === 0 ? (
             <p
-              className="text-base md:text-lg mb-6"
-              style={{ color: "rgba(245,240,232,0.75)", lineHeight: 1.7 }}
+              className="text-center py-16 uppercase tracking-widest text-xs"
+              style={{ color: "rgba(245,240,232,0.5)" }}
             >
-              {service.body}
+              Gallery coming soon
             </p>
-            <p
-              className="text-sm md:text-base"
-              style={{ color: "rgba(245,240,232,0.6)" }}
-            >
-              We cover all of {area.name} ({area.postcodes.join(", ")}) and
-              surrounding {area.council} â€” typically on-site within{" "}
-              {area.travelMinutes} minutes of dispatch. We're familiar with the
-              area around {area.landmarks.slice(0, 2).join(" and ")}, including
-              parking and access constraints.
-            </p>
-          </div>
-          <div>
-            <p className="section-label mb-3">What's Included</p>
-            <ul className="space-y-3">
-              {[
-                "Free quote, no obligation",
-                "Licensed & insured (SEPA WCR/R/3021188)",
-                "Waste transfer note on every job",
-                "Reusable items go to local charities",
-                "Photos before and after on request",
-                "Cash, card, or invoice payment",
-              ].map((line) => (
-                <li
-                  key={line}
-                  className="flex items-start gap-3 text-sm md:text-base"
-                  style={{ color: "rgba(245,240,232,0.75)" }}
-                >
-                  <span className="mt-1 text-[var(--gold)] shrink-0">âœ“</span>
-                  {line}
-                </li>
-              ))}
-            </ul>
-
-            <div
-              className="mt-8 p-5 rounded-2xl"
-              style={{
-                background:
-                  "linear-gradient(145deg, rgba(26,68,29,0.5), rgba(10,31,11,0.7))",
-                border: "1px solid rgba(212,160,23,0.2)",
-              }}
-            >
-              <p
-                className="text-xs tracking-widest uppercase mb-2"
-                style={{ color: "var(--gold)" }}
-              >
-                Local Landmarks We Cover Near
-              </p>
-              <p style={{ color: "rgba(245,240,232,0.7)" }}>
-                {area.landmarks.join(" Â· ")}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* â”€â”€ Why us in this area â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
-        <p className="section-label mb-3">Why Envirocycle</p>
-        <h2
-          className="leading-none mb-8"
-          style={{
-            fontFamily: "var(--font-heading)",
-            fontSize: "clamp(1.8rem, 4vw, 3rem)",
-            color: "var(--cream)",
-          }}
-        >
-          {service.searchPhrase.toUpperCase()} IN{" "}
-          <span className="gold-text">{area.name.toUpperCase()}</span> â€” DONE
-          PROPERLY
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div
-            className="p-6 rounded-2xl"
-            style={{
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(212,160,23,0.15)",
-            }}
-          >
-            <p
-              className="text-xs tracking-widest uppercase mb-3"
-              style={{ color: "var(--gold)" }}
-            >
-              Local Knowledge
-            </p>
-            <p style={{ color: "rgba(245,240,232,0.75)" }}>
-              We work {area.name} most weeks â€” we know the access roads, the
-              parking, and the local council ({area.council}) rules.
-            </p>
-          </div>
-          <div
-            className="p-6 rounded-2xl"
-            style={{
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(212,160,23,0.15)",
-            }}
-          >
-            <p
-              className="text-xs tracking-widest uppercase mb-3"
-              style={{ color: "var(--gold)" }}
-            >
-              Fast Response
-            </p>
-            <p style={{ color: "rgba(245,240,232,0.75)" }}>
-              {area.travelMinutes} minutes from our base. Same-day uplifts
-              are usually available across {area.postcodes.join(", ")}.
-            </p>
-          </div>
-          <div
-            className="p-6 rounded-2xl"
-            style={{
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(212,160,23,0.15)",
-            }}
-          >
-            <p
-              className="text-xs tracking-widest uppercase mb-3"
-              style={{ color: "var(--gold)" }}
-            >
-              Fully Compliant
-            </p>
-            <p style={{ color: "rgba(245,240,232,0.75)" }}>
-              Licensed SEPA waste carrier. Every job comes with a transfer note
-              and full audit trail â€” important for trade and commercial work.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* â”€â”€ Other services in same area â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      {sameAreaOthers.length > 0 && (
-        <section
-          className="py-16 px-5 md:px-8"
-          style={{ background: "rgba(26,68,29,0.15)" }}
-        >
-          <div className="max-w-7xl mx-auto">
-            <p className="section-label mb-3">Other Services</p>
-            <h2
-              className="leading-none mb-8"
-              style={{
-                fontFamily: "var(--font-heading)",
-                fontSize: "clamp(1.8rem, 4vw, 3rem)",
-                color: "var(--cream)",
-              }}
-            >
-              MORE IN <span className="gold-text">{area.name.toUpperCase()}</span>
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {sameAreaOthers.map((other) => (
-                <Link
-                  key={other.prefix}
-                  href={`/${other.prefix}-${area.slug}`}
-                  className="block rounded-2xl p-5 transition-all"
-                  style={{
-                    background:
-                      "linear-gradient(145deg, rgba(26,68,29,0.5), rgba(10,31,11,0.7))",
-                    border: "1px solid rgba(212,160,23,0.15)",
-                  }}
-                >
-                  <h3
-                    className="text-lg mb-1"
-                    style={{
-                      fontFamily: "var(--font-heading)",
-                      letterSpacing: "0.04em",
-                      color: "var(--cream)",
-                    }}
+          ) : (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                {pageProjects.map((project) => (
+                  <div
+                    key={project.id}
+                    className="group relative h-[280px] sm:h-[340px] lg:h-[380px] overflow-hidden rounded-sm gold-card"
                   >
-                    {other.searchPhrase} in {area.name}
-                  </h3>
-                  <p className="text-sm" style={{ color: "rgba(245,240,232,0.55)" }}>
-                    {other.intro}
-                  </p>
-                </Link>
-              ))}
-            </div>
-            <div className="mt-6">
-              <Link
-                href={`/areas/${area.slug}`}
-                className="inline-flex items-center gap-2 text-sm font-semibold"
-                style={{ color: "var(--gold-light)" }}
-              >
-                See everything we do in {area.name} â†’
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={project.image_url}
+                      alt={project.title}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    />
+                    <div
+                      className="absolute inset-0 bg-gradient-to-t from-[var(--forest-dark)] via-transparent to-transparent opacity-80 group-hover:opacity-100 transition-opacity pointer-events-none"
+                    />
+                    <div className="absolute bottom-0 left-0 p-5 sm:p-6 md:p-7 w-full pointer-events-none">
+                      <p className="text-[var(--gold)] text-[10px] sm:text-xs font-bold uppercase tracking-widest mb-2">
+                        {project.category}
+                      </p>
+                      <h3 className="text-lg sm:text-xl font-heading text-cream uppercase leading-tight">
+                        {project.title}
+                      </h3>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-      {/* â”€â”€ Same service in nearby areas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      {sameServiceNearby.length > 0 && (
-        <section className="py-16 px-5 md:px-8 max-w-7xl mx-auto">
-          <p className="section-label mb-3">Nearby Areas</p>
-          <h2
-            className="leading-none mb-8"
-            style={{
-              fontFamily: "var(--font-heading)",
-              fontSize: "clamp(1.8rem, 4vw, 3rem)",
-              color: "var(--cream)",
-            }}
-          >
-            {service.h1Verb}{" "}
-            <span className="gold-text">NEARBY</span>
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {sameServiceNearby.map((other) => (
-              <Link
-                key={other.slug}
-                href={`/${service.prefix}-${other.slug}`}
-                className="px-4 py-2 rounded-full text-sm font-semibold transition-all"
-                style={{
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(212,160,23,0.2)",
-                  color: "var(--cream)",
-                }}
-              >
-                {service.searchPhrase} {other.name} â†’
-              </Link>
-            ))}
-            <Link
-              href="/areas"
-              className="px-4 py-2 rounded-full text-sm font-semibold"
-              style={{
-                background: "rgba(212,160,23,0.12)",
-                border: "1px solid rgba(212,160,23,0.3)",
-                color: "var(--gold-light)",
-              }}
-            >
-              View all areas â†’
-            </Link>
-          </div>
-        </section>
-      )}
+              {/* â”€â”€ Pagination â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
+              {totalPages > 1 && (
+                <nav
+                  className="flex items-center justify-center gap-2 sm:gap-3 mt-12 md:mt-16 flex-wrap"
+                  aria-label="Gallery pagination"
+                >
+                  <PaginationLink
+                    href={pageHref(currentPage - 1)}
+                    disabled={!hasPrev}
+                    ariaLabel="Previous page"
+                  >
+                    <span aria-hidden="true">â†</span>
+                    <span className="hidden sm:inline">Previous</span>
+                  </PaginationLink>
+
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    {pageNumbers.map((n, i) =>
+                      n === "ellipsis" ? (
+                        <span
+                          key={`e-${i}`}
+                          className="px-2 text-cream/40"
+                          aria-hidden="true"
+                        >
+                          â€¦
+                        </span>
+                      ) : (
+                        <PaginationNumber
+                          key={n}
+                          href={pageHref(n)}
+                          number={n}
+                          isActive={n === currentPage}
+                        />
+                      ),
+                    )}
+                  </div>
+
+                  <PaginationLink
+                    href={pageHref(currentPage + 1)}
+                    disabled={!hasNext}
+                    ariaLabel="Next page"
+                  >
+                    <span className="hidden sm:inline">Next</span>
+                    <span aria-hidden="true">â†’</span>
+                  </PaginationLink>
+                </nav>
+              )}
+            </>
+          )}
+        </div>
+      </section>
 
       <Contact />
       <Footer />
@@ -474,9 +195,115 @@ export default function SeoPage({ params }: PageProps) {
   );
 }
 
-// Helper used above
-function getCurrentServicesForArea(area: typeof areas[number]): string[] {
-  return getAllSlugCombos()
-    .filter((c) => c.area.slug === area.slug)
-    .map((c) => c.service.prefix);
+// â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+function pageHref(n: number): string {
+  return n === 1 ? "/work" : `/work?page=${n}`;
+}
+
+function buildPageNumbers(
+  current: number,
+  total: number,
+): Array<number | "ellipsis"> {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+
+  const pages: Array<number | "ellipsis"> = [];
+  pages.push(1);
+  if (current > 3) pages.push("ellipsis");
+  const start = Math.max(2, current - 1);
+  const end = Math.min(total - 1, current + 1);
+  for (let i = start; i <= end; i++) pages.push(i);
+  if (current < total - 2) pages.push("ellipsis");
+  pages.push(total);
+  return pages;
+}
+
+// â”€â”€ Pagination components â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+function PaginationLink({
+  href,
+  disabled,
+  ariaLabel,
+  children,
+}: {
+  href: string;
+  disabled: boolean;
+  ariaLabel: string;
+  children: React.ReactNode;
+}) {
+  const baseClass =
+    "inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-full font-semibold text-sm transition-all";
+  const enabledClass = "text-cream hover:text-[var(--gold-light)]";
+  const disabledClass = "opacity-30 cursor-not-allowed";
+  const baseStyle = {
+    background: "rgba(255,255,255,0.04)",
+    border: "1px solid rgba(212,160,23,0.2)",
+  };
+
+  if (disabled) {
+    return (
+      <span
+        className={`${baseClass} ${disabledClass}`}
+        style={baseStyle}
+        aria-disabled="true"
+        aria-label={ariaLabel}
+      >
+        {children}
+      </span>
+    );
+  }
+
+  return (
+    <Link
+      href={href}
+      className={`${baseClass} ${enabledClass}`}
+      style={baseStyle}
+      aria-label={ariaLabel}
+    >
+      {children}
+    </Link>
+  );
+}
+
+function PaginationNumber({
+  href,
+  number,
+  isActive,
+}: {
+  href: string;
+  number: number;
+  isActive: boolean;
+}) {
+  if (isActive) {
+    return (
+      <span
+        className="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full font-bold text-sm cursor-default"
+        style={{
+          background: "linear-gradient(135deg, #d4a017, #f0c040)",
+          color: "#0a1f0b",
+          boxShadow: "0 4px 16px rgba(212,160,23,0.3)",
+        }}
+        aria-current="page"
+        aria-label={`Page ${number}`}
+      >
+        {number}
+      </span>
+    );
+  }
+
+  return (
+    <Link
+      href={href}
+      className="inline-flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full font-semibold text-sm text-cream transition-all hover:text-[var(--gold-light)]"
+      style={{
+        background: "rgba(255,255,255,0.04)",
+        border: "1px solid rgba(212,160,23,0.2)",
+      }}
+      aria-label={`Page ${number}`}
+    >
+      {number}
+    </Link>
+  );
 }
