@@ -1,19 +1,22 @@
-import { areas, getAllSlugCombos, servicePrefixes } from "@/lib/areas";
+import { areas, servicePrefixes } from "@/lib/areas";
 import type { MetadataRoute } from "next";
 
 const SITE = "https://envirocycleglasgow.com";
 
+// Core areas (≤15 min travel) — highest-priority combo pages
+const CORE_AREA_SLUGS = ["blantyre", "high-blantyre", "hamilton", "bothwell", "uddingston", "cambuslang", "viewpark", "tannochside"];
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  // Static / top-level pages
+  // Static / top-level pages (3)
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${SITE}/`,                                    lastModified: now, changeFrequency: "weekly",  priority: 1.0 },
-    { url: `${SITE}/areas`,                               lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${SITE}/terms`,                               lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
+    { url: `${SITE}/`,      lastModified: now, changeFrequency: "weekly",  priority: 1.0 },
+    { url: `${SITE}/areas`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE}/terms`, lastModified: now, changeFrequency: "yearly",  priority: 0.3 },
   ];
 
-  // Existing service hub pages (the ones already in /services/*)
+  // Service hub pages (13)
   const existingServiceHubs: MetadataRoute.Sitemap = [
     `${SITE}/services/waste-management`,
     `${SITE}/services/bulky-waste-uplifts`,
@@ -27,7 +30,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  // New service hub pages — one per servicePrefix (rubbish-removal etc.)
   const newServiceHubs: MetadataRoute.Sitemap = servicePrefixes.map((s) => ({
     url: `${SITE}/services/${s.prefix}`,
     lastModified: now,
@@ -35,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  // Area landing pages — one per area
+  // Area landing pages (42)
   const areaPages: MetadataRoute.Sitemap = areas.map((a) => ({
     url: `${SITE}/areas/${a.slug}`,
     lastModified: now,
@@ -43,12 +45,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Combo pages — only those in the current tier (per getAllSlugCombos)
-  const comboPages: MetadataRoute.Sitemap = getAllSlugCombos().map((c) => ({
-    url: `${SITE}/${c.slug}`,
+  // Targeted combo pages: rubbish-removal for core areas only (8)
+  // Keeps total sitemap at ~66 pages — enough signal without thin-page penalty.
+  const coreComboPages: MetadataRoute.Sitemap = CORE_AREA_SLUGS.map((slug) => ({
+    url: `${SITE}/rubbish-removal-${slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
-    priority: 0.7,
+    priority: 0.75,
   }));
 
   return [
@@ -56,6 +59,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...existingServiceHubs,
     ...newServiceHubs,
     ...areaPages,
-    ...comboPages,
+    ...coreComboPages,
   ];
 }
