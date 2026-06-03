@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import StickyContactBar from "@/components/StickyContactBar";
+import { Analytics } from "@vercel/analytics/next";
 
 const SITE_URL = "https://envirocycleglasgow.com";
 
@@ -123,6 +124,7 @@ export default function RootLayout({
         {children}
         <WhatsAppButton />
         <StickyContactBar />
+        <Analytics />
       </body>
     </html>
   );
