@@ -1,8 +1,5 @@
-import {
-  areas,
-  servicePrefixes,
-  getCombosForArea,
-} from "@/lib/areas";
+import { getAllAreas } from "@/lib/get-all-areas";
+import { areas as staticAreas, servicePrefixes, getCombosForArea } from "@/lib/areas";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -14,12 +11,16 @@ interface PageProps {
   params: { area: string };
 }
 
+export const revalidate = 300;
+
 export function generateStaticParams() {
-  return areas.map((a) => ({ area: a.slug }));
+  // Pre-render static areas at build time; DB areas render on-demand
+  return staticAreas.map((a) => ({ area: a.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const area = areas.find((a) => a.slug === params.area);
+  const allAreas = await getAllAreas();
+  const area = allAreas.find((a) => a.slug === params.area);
   if (!area) return {};
 
   const title = `Waste Removal & Rubbish Clearance in ${area.name} | Envirocycle Glasgow`;
@@ -40,8 +41,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function AreaPage({ params }: PageProps) {
-  const area = areas.find((a) => a.slug === params.area);
+export default async function AreaPage({ params }: PageProps) {
+  const allAreas = await getAllAreas();
+  const area = allAreas.find((a) => a.slug === params.area);
   if (!area) notFound();
 
   const servicesForArea = getCombosForArea(area)
@@ -54,7 +56,7 @@ export default function AreaPage({ params }: PageProps) {
   );
 
   // Nearby areas (same council)
-  const nearbyAreas = areas
+  const nearbyAreas = allAreas
     .filter((a) => a.council === area.council && a.slug !== area.slug)
     .slice(0, 8);
 

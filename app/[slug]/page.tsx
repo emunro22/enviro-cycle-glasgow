@@ -1,8 +1,8 @@
+import { getAllAreas } from "@/lib/get-all-areas";
 import {
   getAllSlugCombos,
-  parseSlug,
+  parseSlugWithAreas,
   isComboInCurrentTier,
-  areas,
   servicePrefixes,
   getCombosForArea,
 } from "@/lib/areas";
@@ -17,12 +17,16 @@ interface PageProps {
   params: { slug: string };
 }
 
+export const revalidate = 300;
+
 export function generateStaticParams() {
+  // Pre-render combos for static areas; DB-added area combos render on-demand
   return getAllSlugCombos().map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const combo = parseSlug(params.slug);
+  const allAreas = await getAllAreas();
+  const combo = parseSlugWithAreas(params.slug, allAreas);
   if (!combo) return {};
   if (!isComboInCurrentTier(combo.area, combo.service.prefix)) return {};
 
@@ -45,8 +49,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function SlugPage({ params }: PageProps) {
-  const combo = parseSlug(params.slug);
+export default async function SlugPage({ params }: PageProps) {
+  const allAreas = await getAllAreas();
+  const combo = parseSlugWithAreas(params.slug, allAreas);
 
   // Unknown slug entirely
   if (!combo) notFound();
@@ -66,7 +71,7 @@ export default function SlugPage({ params }: PageProps) {
     .slice(0, 4);
 
   // Same service in nearby areas
-  const nearbyAreas = areas
+  const nearbyAreas = allAreas
     .filter(
       (a) =>
         a.slug !== area.slug &&

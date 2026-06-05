@@ -1,4 +1,5 @@
-import { areas, servicePrefixes } from "@/lib/areas";
+import { getAllAreas } from "@/lib/get-all-areas";
+import { servicePrefixes } from "@/lib/areas";
 import type { MetadataRoute } from "next";
 
 const SITE = "https://envirocycleglasgow.com";
@@ -6,8 +7,9 @@ const SITE = "https://envirocycleglasgow.com";
 // Core areas (≤15 min travel) — highest-priority combo pages
 const CORE_AREA_SLUGS = ["blantyre", "high-blantyre", "hamilton", "bothwell", "uddingston", "cambuslang", "viewpark", "tannochside"];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
+  const areas = await getAllAreas();
 
   // Static / top-level pages (3)
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -37,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
-  // Area landing pages (42)
+  // Area landing pages (all static + DB-added)
   const areaPages: MetadataRoute.Sitemap = areas.map((a) => ({
     url: `${SITE}/areas/${a.slug}`,
     lastModified: now,
@@ -45,8 +47,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Targeted combo pages: rubbish-removal for core areas only (8)
-  // Keeps total sitemap at ~66 pages — enough signal without thin-page penalty.
+  // Targeted combo pages: rubbish-removal for core areas only
   const coreComboPages: MetadataRoute.Sitemap = CORE_AREA_SLUGS.map((slug) => ({
     url: `${SITE}/rubbish-removal-${slug}`,
     lastModified: now,

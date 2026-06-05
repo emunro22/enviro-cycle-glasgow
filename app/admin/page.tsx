@@ -135,8 +135,8 @@ export default function AdminDashboard() {
       <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 md:mb-10 pb-6 border-b border-[var(--gold)]/20">
         <div>
           <span className="section-label">Admin</span>
-          <h1 className="text-3xl md:text-4xl font-heading gold-text mt-2">Work Gallery</h1>
-          <p className="text-cream/50 text-xs mt-1">Updates appear on the homepage automatically.</p>
+          <h1 className="text-3xl md:text-4xl font-heading gold-text mt-2">Dashboard</h1>
+          <p className="text-cream/50 text-xs mt-1">Manage your site content.</p>
         </div>
         <button
           onClick={handleLogout}
@@ -145,6 +145,26 @@ export default function AdminDashboard() {
           Sign out
         </button>
       </header>
+
+      {/* ── Nav tiles ─────────────────────────────────────────────────── */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+        <div className="bg-black/20 border border-[var(--gold)]/20 rounded-sm p-6">
+          <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-1">Work Gallery</p>
+          <p className="text-cream/60 text-sm mb-4">Add, remove and reorder project photos shown on the homepage.</p>
+          <p className="text-cream/40 text-xs">You&apos;re already here — scroll down to manage.</p>
+        </div>
+        <a
+          href="/admin/areas"
+          className="block bg-black/20 border border-[var(--gold)]/20 rounded-sm p-6 hover:border-[var(--gold)]/50 transition"
+        >
+          <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-1">Service Areas</p>
+          <p className="text-cream/60 text-sm mb-4">Add new coverage areas. Pages and service listings go live automatically.</p>
+          <span className="text-xs text-[var(--gold-light)] font-semibold">Manage areas →</span>
+        </a>
+      </div>
+
+      <hr className="border-[var(--gold)]/10 mb-10" />
+      <h2 className="text-xl md:text-2xl font-heading text-cream uppercase mb-6">Work Gallery</h2>
 
       <section className="bg-black/20 border border-[var(--gold)]/20 rounded-sm p-5 sm:p-6 md:p-8 mb-10 md:mb-12">
         <h2 className="text-xl md:text-2xl font-heading text-cream uppercase mb-5 md:mb-6">Add New Project</h2>

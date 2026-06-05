@@ -523,6 +523,96 @@ export const areas: Area[] = [
     services: COMMERCIAL,
   },
 
+  // ── NORTH LANARKSHIRE EXTENSION ────────────────────────────────────────────
+  {
+    slug: "stepps",
+    name: "Stepps",
+    postcodes: ["G33"],
+    council: "North Lanarkshire",
+    travelMinutes: 22,
+    localHook:
+      "Stepps sits just off the M80 on Glasgow's north-eastern edge — a quiet suburban village with a mix of family homes and newer developments. We run this route regularly alongside Chryston and Coatbridge jobs, so response times are better than the distance suggests.",
+    landmarks: ["Stepps Station", "Frankfield Loch", "Stepps Park"],
+    services: CORE_SERVICES,
+  },
+  {
+    slug: "chryston",
+    name: "Chryston",
+    postcodes: ["G69"],
+    council: "North Lanarkshire",
+    travelMinutes: 20,
+    localHook:
+      "Chryston and Muirhead sit on the north-eastern fringes of the conurbation, where older bungalows and family semis generate steady clearance and garden-waste work. Good access via the A80 corridor keeps our call-outs here efficient.",
+    landmarks: ["Chryston Village", "Muirhead", "Marnoch Drive"],
+    services: CORE_SERVICES,
+  },
+  {
+    slug: "newarthill",
+    name: "Newarthill",
+    postcodes: ["ML1"],
+    council: "North Lanarkshire",
+    travelMinutes: 18,
+    localHook:
+      "Newarthill's tight residential streets between Bellshill and Motherwell keep us busy with furniture uplifts and renovation waste — it's on the M74 corridor, so we're often here the same day the call comes in.",
+    landmarks: ["Newarthill Primary", "Motherwell Road", "Newarthill Cross"],
+    services: CORE_SERVICES,
+  },
+  {
+    slug: "carfin",
+    name: "Carfin",
+    postcodes: ["ML1"],
+    council: "North Lanarkshire",
+    travelMinutes: 20,
+    localHook:
+      "Carfin's a compact village with a mix of older terracing and family homes — clearances during estate sales and renovations are the most common jobs. The Grotto draws visitors from across Scotland, which keeps the area well known.",
+    landmarks: ["Carfin Grotto", "Carfin Station", "Newarthill Road"],
+    services: CORE_SERVICES,
+  },
+  {
+    slug: "holytown",
+    name: "Holytown",
+    postcodes: ["ML1"],
+    council: "North Lanarkshire",
+    travelMinutes: 18,
+    localHook:
+      "Holytown sits between Bellshill and Motherwell with a good stock of family homes and older terraces — furniture uplifts, end-of-tenancy clearances, and renovation waste are all regular runs through here.",
+    landmarks: ["Holytown Church", "Mossend Industrial Estate", "North Road"],
+    services: CORE_SERVICES,
+  },
+  {
+    slug: "cleland",
+    name: "Cleland",
+    postcodes: ["ML1"],
+    council: "North Lanarkshire",
+    travelMinutes: 24,
+    localHook:
+      "Cleland's a quiet village outside Wishaw with a mix of estate housing and older semis. We cover it as part of our Motherwell and Wishaw runs — garden waste and house clearances are the most common jobs out this way.",
+    landmarks: ["Cleland Hospital", "Omoa Road", "Cleland Station"],
+    services: CORE_SERVICES,
+  },
+  {
+    slug: "overtown",
+    name: "Overtown",
+    postcodes: ["ML2"],
+    council: "South Lanarkshire",
+    travelMinutes: 24,
+    localHook:
+      "Overtown sits between Wishaw and Larkhall — a village of older housing stock where renovation jobs and clearances during property sales are the bread and butter. Easy to batch with Wishaw or Larkhall runs.",
+    landmarks: ["Overtown Village", "Clyde Valley", "Waterloo Road"],
+    services: CORE_SERVICES,
+  },
+  {
+    slug: "chapelhall",
+    name: "Chapelhall",
+    postcodes: ["ML6"],
+    council: "North Lanarkshire",
+    travelMinutes: 25,
+    localHook:
+      "Chapelhall sits between Airdrie and Shotts, a growing village with newer housing estates alongside older properties. We cover it on Airdrie and Coatbridge runs — garden waste and bulky-item uplifts come up regularly.",
+    landmarks: ["Chapelhall Village", "Calder Road", "Chapelhall Primary"],
+    services: CORE_SERVICES,
+  },
+
   // ── COMMUTER BELT ──────────────────────────────────────────────────────────
   {
     slug: "paisley",
@@ -682,6 +772,14 @@ export function getAllSlugCombos(): SlugCombo[] {
  * checks isComboInCurrentTier() to decide between rendering and redirecting.
  */
 export function parseSlug(slug: string): SlugCombo | null {
+  return parseSlugWithAreas(slug, areas);
+}
+
+/**
+ * Like parseSlug but works against any Area array — use this in pages that
+ * merge static areas with DB-added custom areas.
+ */
+export function parseSlugWithAreas(slug: string, allAreas: Area[]): SlugCombo | null {
   const sortedPrefixes = [...servicePrefixes].sort(
     (a, b) => b.prefix.length - a.prefix.length,
   );
@@ -689,7 +787,7 @@ export function parseSlug(slug: string): SlugCombo | null {
     const prefix = `${service.prefix}-`;
     if (slug.startsWith(prefix)) {
       const areaSlug = slug.slice(prefix.length);
-      const area = areas.find((a) => a.slug === areaSlug);
+      const area = allAreas.find((a) => a.slug === areaSlug);
       if (area) {
         return { slug, area, service };
       }

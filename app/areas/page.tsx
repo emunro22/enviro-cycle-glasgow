@@ -1,4 +1,4 @@
-import { areas, servicePrefixes } from "@/lib/areas";
+import { getAllAreas } from "@/lib/get-all-areas";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
@@ -12,21 +12,30 @@ export const metadata: Metadata = {
   alternates: { canonical: "/areas" },
 };
 
-export default function AreasIndex() {
-  // Group areas by council for cleaner browsing
+export const revalidate = 300;
+
+const COUNCIL_ORDER = [
+  "South Lanarkshire",
+  "North Lanarkshire",
+  "Glasgow City",
+  "East Renfrewshire",
+  "Renfrewshire",
+  "East Dunbartonshire",
+  "West Dunbartonshire",
+];
+
+export default async function AreasIndex() {
+  const areas = await getAllAreas();
+
   const byCouncil = areas.reduce<Record<string, typeof areas>>((acc, a) => {
     (acc[a.council] ||= []).push(a);
     return acc;
   }, {});
 
-  const councilOrder = [
-    "South Lanarkshire",
-    "North Lanarkshire",
-    "Glasgow City",
-    "East Renfrewshire",
-    "Renfrewshire",
-    "East Dunbartonshire",
-    "West Dunbartonshire",
+  // Known councils in preferred order, then any extras (e.g. admin-added)
+  const allCouncils = [
+    ...COUNCIL_ORDER.filter((c) => byCouncil[c]),
+    ...Object.keys(byCouncil).filter((c) => !COUNCIL_ORDER.includes(c)),
   ];
 
   return (
@@ -56,49 +65,47 @@ export default function AreasIndex() {
       </section>
 
       <section className="pb-24 px-5 md:px-8 max-w-7xl mx-auto">
-        {councilOrder
-          .filter((c) => byCouncil[c])
-          .map((council) => (
-            <div key={council} className="mb-12">
-              <h2
-                className="text-2xl md:text-3xl mb-5"
-                style={{
-                  fontFamily: "var(--font-heading)",
-                  letterSpacing: "0.04em",
-                  color: "var(--cream)",
-                }}
-              >
-                {council}
-              </h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                {byCouncil[council].map((area) => (
-                  <Link
-                    key={area.slug}
-                    href={`/waste-removal-${area.slug}`}
-                    className="block rounded-xl p-4 transition-all"
-                    style={{
-                      background:
-                        "linear-gradient(145deg, rgba(26,68,29,0.5), rgba(10,31,11,0.7))",
-                      border: "1px solid rgba(212,160,23,0.15)",
-                    }}
+        {allCouncils.map((council) => (
+          <div key={council} className="mb-12">
+            <h2
+              className="text-2xl md:text-3xl mb-5"
+              style={{
+                fontFamily: "var(--font-heading)",
+                letterSpacing: "0.04em",
+                color: "var(--cream)",
+              }}
+            >
+              {council}
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {byCouncil[council].map((area) => (
+                <Link
+                  key={area.slug}
+                  href={`/waste-removal-${area.slug}`}
+                  className="block rounded-xl p-4 transition-all"
+                  style={{
+                    background:
+                      "linear-gradient(145deg, rgba(26,68,29,0.5), rgba(10,31,11,0.7))",
+                    border: "1px solid rgba(212,160,23,0.15)",
+                  }}
+                >
+                  <span
+                    className="block text-sm font-semibold"
+                    style={{ color: "var(--cream)" }}
                   >
-                    <span
-                      className="block text-sm font-semibold"
-                      style={{ color: "var(--cream)" }}
-                    >
-                      {area.name}
-                    </span>
-                    <span
-                      className="block text-xs mt-0.5"
-                      style={{ color: "rgba(245,240,232,0.5)" }}
-                    >
-                      {area.postcodes.join(", ")} · {area.travelMinutes} min
-                    </span>
-                  </Link>
-                ))}
-              </div>
+                    {area.name}
+                  </span>
+                  <span
+                    className="block text-xs mt-0.5"
+                    style={{ color: "rgba(245,240,232,0.5)" }}
+                  >
+                    {area.postcodes.join(", ")} · {area.travelMinutes} min
+                  </span>
+                </Link>
+              ))}
             </div>
-          ))}
+          </div>
+        ))}
       </section>
 
       <Contact />
