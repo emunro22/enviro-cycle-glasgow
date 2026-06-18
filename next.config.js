@@ -24,6 +24,16 @@ const nextConfig = {
         destination: '/#contact',
         permanent: true,
       },
+      {
+        source: '/terms-and-conditions',
+        destination: '/terms',
+        permanent: true,
+      },
+      {
+        source: '/terms-and-conditions/',
+        destination: '/terms',
+        permanent: true,
+      },
       // NOTE: Retired combo URLs (e.g. /office-clearance-paisley) are NOT
       // redirected here â€” they're handled in app/[slug]/page.tsx via
       // permanentRedirect() so we get a 308 to the area landing page.
