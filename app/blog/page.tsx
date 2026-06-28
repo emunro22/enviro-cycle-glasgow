@@ -90,23 +90,11 @@ export default function BlogPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group block rounded-2xl p-6 transition-all duration-300"
+                className="group block rounded-2xl p-6 transition-all duration-300 hover:-translate-y-0.5 blog-card"
                 style={{
                   background:
                     "linear-gradient(145deg, rgba(26,68,29,0.3), rgba(10,31,11,0.5))",
                   border: "1px solid rgba(212,160,23,0.1)",
-                }}
-                onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor =
-                    "rgba(212,160,23,0.3)";
-                  (e.currentTarget as HTMLElement).style.transform =
-                    "translateY(-2px)";
-                }}
-                onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor =
-                    "rgba(212,160,23,0.1)";
-                  (e.currentTarget as HTMLElement).style.transform =
-                    "translateY(0)";
                 }}
               >
                 <div className="flex items-center gap-3 mb-3">

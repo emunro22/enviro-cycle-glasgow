@@ -123,6 +123,11 @@ body::before {
   backdrop-filter: blur(10px);
 }
 
+/* Blog card hover */
+.blog-card:hover {
+  border-color: rgba(212, 160, 23, 0.3);
+}
+
 /* Before/after slider */
 .before-after-container {
   position: relative;
