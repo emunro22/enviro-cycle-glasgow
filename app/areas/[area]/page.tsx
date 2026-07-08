@@ -6,6 +6,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
+import AreaViewTracker from "@/components/AreaViewTracker";
 
 interface PageProps {
   params: { area: string };
@@ -84,6 +85,7 @@ export default async function AreaPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
+      <AreaViewTracker area={area.name} council={area.council} />
       <Navbar />
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}

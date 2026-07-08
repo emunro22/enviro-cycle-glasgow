@@ -12,6 +12,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
+import AreaViewTracker from "@/components/AreaViewTracker";
 
 interface PageProps {
   params: { slug: string };
@@ -110,6 +111,7 @@ export default async function SlugPage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
+      <AreaViewTracker area={area.name} council={area.council} service={service.searchPhrase} />
       <Navbar />
 
       {/* ── Hero ───────────────────────────────────────────────────────────── */}

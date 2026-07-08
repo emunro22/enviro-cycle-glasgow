@@ -5,11 +5,16 @@
 
 "use client";
 
+import { track } from "@vercel/analytics";
+import { useVisitorGeo } from "@/lib/useVisitorGeo";
+
 const PHONE = "447450435241";
 const MESSAGE = "Hi Envirocycle, I'd like a quote please.";
 const WHATSAPP_URL = `https://wa.me/${PHONE}?text=${encodeURIComponent(MESSAGE)}`;
 
 export default function WhatsAppButton() {
+  const geo = useVisitorGeo();
+
   return (
     <a
       href={WHATSAPP_URL}
@@ -17,6 +22,14 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       aria-label="Chat with Envirocycle on WhatsApp"
       className="whatsapp-fab group"
+      onClick={() =>
+        track("WhatsApp Click", {
+          source: "fab",
+          page: window.location.pathname,
+          city: geo?.city ?? "unknown",
+          region: geo?.region ?? "unknown",
+        })
+      }
     >
       <svg
         width="32"
