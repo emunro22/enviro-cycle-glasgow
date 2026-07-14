@@ -1,8 +1,7 @@
 import { areas as staticAreas, servicePrefixes, getAllSlugCombos } from "@/lib/areas";
 import { blogPosts } from "@/lib/blog-data";
 import type { MetadataRoute } from "next";
-
-const SITE = "https://envirocycleglasgow.com";
+import { SITE_URL as SITE } from "@/lib/site";
 
 const CORE_AREA_SLUGS = [
   "blantyre",
@@ -31,6 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
     { url: `${SITE}/areas`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE}/work`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 

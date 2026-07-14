@@ -1,12 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-heading: 'Bebas Neue', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
   --forest-dark: #0a1f0b;
   --forest-mid: #1a441d;
   --forest-bright: #338638;
@@ -339,4 +335,117 @@ body::before {
 
 .sticky-contact-whatsapp:active {
   opacity: 0.85;
+}
+
+/* ── WhatsApp follow-up email-capture card ──────────────────────────────── */
+.whatsapp-followup {
+  position: fixed;
+  z-index: 999;
+  bottom: calc(2.4rem + 6rem + 1rem);
+  right: 2.4rem;
+  width: 320px;
+  max-width: calc(100vw - 2.4rem);
+  background: var(--forest-mid);
+  border: 1px solid rgba(212, 160, 23, 0.3);
+  border-radius: 1rem;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  animation: whatsapp-followup-in 0.25s ease;
+}
+
+@keyframes whatsapp-followup-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .whatsapp-followup {
+    bottom: calc(6.4rem + env(safe-area-inset-bottom) + 0.8rem);
+    right: 1rem;
+    left: 1rem;
+    width: auto;
+    max-width: none;
+  }
+}
+
+.whatsapp-followup-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.8rem;
+  background: none;
+  border: none;
+  color: rgba(245, 240, 232, 0.5);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.2rem;
+}
+
+.whatsapp-followup-close:hover {
+  color: var(--cream);
+}
+
+.whatsapp-followup-text {
+  font-size: 0.875rem;
+  color: rgba(245, 240, 232, 0.85);
+  line-height: 1.5;
+  margin-bottom: 0.9rem;
+  padding-right: 1.2rem;
+}
+
+.whatsapp-followup-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.whatsapp-followup-input {
+  flex: 1;
+  min-width: 0;
+  background: rgba(10, 31, 11, 0.5);
+  border: 1px solid rgba(212, 160, 23, 0.25);
+  border-radius: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  color: var(--cream);
+  font-size: 0.875rem;
+}
+
+.whatsapp-followup-input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.whatsapp-followup-submit {
+  background: var(--gold);
+  color: var(--forest-dark);
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.6rem 1rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.whatsapp-followup-submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.whatsapp-followup-success {
+  font-size: 0.9rem;
+  color: var(--gold-light);
+  font-weight: 600;
+  margin: 0;
+}
+
+.whatsapp-followup-error {
+  font-size: 0.8rem;
+  color: #e08585;
+  margin: 0.6rem 0 0;
 }

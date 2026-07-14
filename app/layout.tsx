@@ -1,11 +1,25 @@
 import type { Metadata } from "next";
+import { Bebas_Neue, DM_Sans } from "next/font/google";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import StickyContactBar from "@/components/StickyContactBar";
+import WhatsAppFollowUpPrompt from "@/components/WhatsAppFollowUpPrompt";
 import { Analytics } from "@vercel/analytics/next";
 import { googleAverageRating, googleReviewCount } from "@/lib/google-reviews-data";
+import { SITE_URL } from "@/lib/site";
 
-const SITE_URL = "https://envirocycleglasgow.com";
+const bebasNeue = Bebas_Neue({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-heading",
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -122,7 +136,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-GB" className="scroll-smooth">
+    <html lang="en-GB" className={`scroll-smooth ${bebasNeue.variable} ${dmSans.variable}`}>
       <body>
         <script
           type="application/ld+json"
@@ -133,6 +147,7 @@ export default function RootLayout({
         {children}
         <WhatsAppButton />
         <StickyContactBar />
+        <WhatsAppFollowUpPrompt />
         <Analytics />
       </body>
     </html>

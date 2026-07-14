@@ -4,7 +4,6 @@ import Services from "@/components/Services";
 import BeforeAfter from "@/components/BeforeAfter";
 import Packages from "@/components/Packages";
 import Stats from "@/components/Stats";
-import Testimonials from "@/components/Testimonials";
 import GoogleReviews from "@/components/GoogleReviews";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -28,7 +27,6 @@ export default function Home() {
       <BeforeAfter />
       <OurWork />
       <Packages />
-      <Testimonials />
       <GoogleReviews />
       <Contact />
       <Footer />

@@ -7,6 +7,7 @@
 
 import { track } from "@vercel/analytics";
 import { useVisitorGeo } from "@/lib/useVisitorGeo";
+import { WHATSAPP_CLICKED_EVENT } from "@/components/WhatsAppFollowUpPrompt";
 
 const PHONE = "447450435241";
 const MESSAGE = "Hi Envirocycle, I'd like a quote please.";
@@ -22,14 +23,15 @@ export default function WhatsAppButton() {
       rel="noopener noreferrer"
       aria-label="Chat with Envirocycle on WhatsApp"
       className="whatsapp-fab group"
-      onClick={() =>
+      onClick={() => {
         track("WhatsApp Click", {
           source: "fab",
           page: window.location.pathname,
           city: geo?.city ?? "unknown",
           region: geo?.region ?? "unknown",
-        })
-      }
+        });
+        window.dispatchEvent(new CustomEvent(WHATSAPP_CLICKED_EVENT));
+      }}
     >
       <svg
         width="32"
