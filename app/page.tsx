@@ -5,6 +5,7 @@ import BeforeAfter from "@/components/BeforeAfter";
 import Packages from "@/components/Packages";
 import Stats from "@/components/Stats";
 import Testimonials from "@/components/Testimonials";
+import GoogleReviews from "@/components/GoogleReviews";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import OurWork from "@/components/Ourwork";
@@ -28,6 +29,7 @@ export default function Home() {
       <OurWork />
       <Packages />
       <Testimonials />
+      <GoogleReviews />
       <Contact />
       <Footer />
     </main>

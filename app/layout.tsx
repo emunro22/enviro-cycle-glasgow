@@ -3,6 +3,7 @@ import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import StickyContactBar from "@/components/StickyContactBar";
 import { Analytics } from "@vercel/analytics/next";
+import { googleAverageRating, googleReviewCount } from "@/lib/google-reviews-data";
 
 const SITE_URL = "https://envirocycleglasgow.com";
 
@@ -97,7 +98,15 @@ const localBusinessSchema = {
     addressRegion: "Scotland",
     addressCountry: "GB",
   },
-  sameAs: ["https://www.instagram.com/envirocycleglasgow_ltd/"],
+  sameAs: [
+    "https://www.instagram.com/envirocycleglasgow_ltd/",
+    "https://share.google/cd4yB8qRiWzlzmK8c",
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: googleAverageRating,
+    reviewCount: googleReviewCount,
+  },
   knowsAbout: [
     "Waste Management",
     "Rubbish Removal",
