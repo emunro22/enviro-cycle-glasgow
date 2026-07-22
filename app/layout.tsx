@@ -7,6 +7,7 @@ import WhatsAppFollowUpPrompt from "@/components/WhatsAppFollowUpPrompt";
 import { Analytics } from "@vercel/analytics/next";
 import { googleAverageRating, googleReviewCount } from "@/lib/google-reviews-data";
 import { SITE_URL } from "@/lib/site";
+import { areas } from "@/lib/areas";
 
 const bebasNeue = Bebas_Neue({
   weight: "400",
@@ -89,6 +90,36 @@ export const metadata: Metadata = {
   },
 };
 
+// Every council we serve, derived from the areas data — kept in sync with
+// the /areas pages rather than hardcoded separately.
+const councilsServed = Array.from(new Set(areas.map((a) => a.council)));
+
+const sameAs = [
+  "https://www.instagram.com/envirocycleglasgow_ltd/",
+  "https://share.google/cd4yB8qRiWzlzmK8c",
+];
+
+// Organization — separate from LocalBusiness so Google can associate the
+// brand/logo with the business regardless of which page it's crawling.
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${SITE_URL}/#organization`,
+  name: "Envirocycle Glasgow",
+  url: SITE_URL,
+  logo: `${SITE_URL}/images/logo.png`,
+  sameAs,
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  url: SITE_URL,
+  name: "Envirocycle Glasgow",
+  publisher: { "@id": `${SITE_URL}/#organization` },
+};
+
 // LocalBusiness structured data — helps Google show you in local/map results
 const localBusinessSchema = {
   "@context": "https://schema.org",
@@ -102,20 +133,20 @@ const localBusinessSchema = {
   email: "envirocycleglasgow@outlook.com",
   image: `${SITE_URL}/images/logo.png`,
   priceRange: "££",
-  areaServed: {
-    "@type": "City",
-    name: "Glasgow",
-  },
+  // Matches the councils listed in /areas and our Google Business Profile
+  // service area, rather than just the single city of Glasgow.
+  areaServed: councilsServed.map((council) => ({
+    "@type": "AdministrativeArea",
+    name: council,
+  })),
   address: {
     "@type": "PostalAddress",
     addressLocality: "Glasgow",
     addressRegion: "Scotland",
     addressCountry: "GB",
   },
-  sameAs: [
-    "https://www.instagram.com/envirocycleglasgow_ltd/",
-    "https://share.google/cd4yB8qRiWzlzmK8c",
-  ],
+  hasMap: "https://share.google/cd4yB8qRiWzlzmK8c",
+  sameAs,
   aggregateRating: {
     "@type": "AggregateRating",
     ratingValue: googleAverageRating,
@@ -138,6 +169,18 @@ export default function RootLayout({
   return (
     <html lang="en-GB" className={`scroll-smooth ${bebasNeue.variable} ${dmSans.variable}`}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema),
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

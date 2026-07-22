@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 import AreaViewTracker from "@/components/AreaViewTracker";
+import AreaMap from "@/components/AreaMap";
+import { SITE_URL } from "@/lib/site";
 
 interface PageProps {
   params: { area: string };
@@ -77,6 +79,17 @@ export default async function AreaPage({ params }: PageProps) {
       "@type": "AdministrativeArea",
       name: area.council,
     },
+    hasMap: `https://maps.google.com/maps?q=${encodeURIComponent(`${area.name}, ${area.postcodes.join(" ")}, Glasgow, UK`)}`,
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Areas", item: `${SITE_URL}/areas` },
+      { "@type": "ListItem", position: 3, name: area.name, item: `${SITE_URL}/areas/${area.slug}` },
+    ],
   };
 
   return (
@@ -84,6 +97,10 @@ export default async function AreaPage({ params }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <AreaViewTracker area={area.name} council={area.council} />
       <Navbar />
@@ -253,6 +270,19 @@ export default async function AreaPage({ params }: PageProps) {
               </ul>
             </div>
           </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto mt-10">
+          <p
+            className="text-xs tracking-widest uppercase mb-3"
+            style={{ color: "var(--gold)" }}
+          >
+            Where We Cover in {area.name}
+          </p>
+          <AreaMap
+            query={`${area.name}, ${area.postcodes.join(" ")}, Glasgow, UK`}
+            title={`Map of our ${area.name} coverage area`}
+          />
         </div>
       </section>
 

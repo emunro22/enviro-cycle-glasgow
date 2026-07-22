@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
 import { blogPosts, getBlogPost, getRecentPosts } from "@/lib/blog-data";
+import { SITE_URL } from "@/lib/site";
 
 interface Props {
   params: { slug: string };
@@ -75,7 +76,9 @@ export default function BlogPostPage({ params }: Props) {
     "@type": "Article",
     headline: post.title,
     description: post.metaDescription,
+    image: `${SITE_URL}/images/logo.png`,
     datePublished: post.date,
+    dateModified: post.date,
     author: {
       "@type": "Organization",
       name: "Envirocycle Glasgow",
@@ -83,11 +86,11 @@ export default function BlogPostPage({ params }: Props) {
     publisher: {
       "@type": "Organization",
       name: "Envirocycle Glasgow",
-      url: "https://envirocycleglasgow.com",
+      url: SITE_URL,
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://envirocycleglasgow.com/blog/${post.slug}`,
+      "@id": `${SITE_URL}/blog/${post.slug}`,
     },
   };
 

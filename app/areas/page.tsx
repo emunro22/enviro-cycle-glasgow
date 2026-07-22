@@ -4,6 +4,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
+import AreaMap from "@/components/AreaMap";
 
 export const metadata: Metadata = {
   title: "Areas We Cover | Envirocycle Glasgow",
@@ -62,6 +63,12 @@ export default async function AreasIndex() {
           surrounding councils. Tap any area below for service detail, pricing,
           and how we work locally.
         </p>
+
+        <AreaMap
+          query="Glasgow, UK"
+          title="Map of our full coverage area across Glasgow and Lanarkshire"
+          zoom={10}
+        />
       </section>
 
       <section className="pb-24 px-5 md:px-8 max-w-7xl mx-auto">
