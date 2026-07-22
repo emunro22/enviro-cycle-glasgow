@@ -34,6 +34,18 @@ const nextConfig = {
         destination: '/terms',
         permanent: true,
       },
+      // Old URL Google has indexed for the packages section (it's a
+      // homepage anchor, not a standalone page).
+      {
+        source: '/packages',
+        destination: '/#packages',
+        permanent: true,
+      },
+      {
+        source: '/packages/',
+        destination: '/#packages',
+        permanent: true,
+      },
       // NOTE: Retired combo URLs (e.g. /office-clearance-paisley) are NOT
       // redirected here â€” they're handled in app/[slug]/page.tsx via
       // permanentRedirect() so we get a 308 to the area landing page.
