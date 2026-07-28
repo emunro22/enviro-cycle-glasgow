@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { googleReviewsUrl } from "@/lib/google-reviews-data";
+import { SITE_URL } from "@/lib/site";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const LOGO_URL = `${SITE_URL}/images/logo.png`;
 
 export async function POST(request: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
@@ -30,6 +32,7 @@ export async function POST(request: NextRequest) {
             body { font-family: Arial, sans-serif; background: #0a1f0b; color: #f5f0e8; margin: 0; padding: 0; }
             .container { max-width: 600px; margin: 0 auto; background: #1a441d; border-radius: 12px; overflow: hidden; }
             .header { background: linear-gradient(135deg, #0a1f0b, #1e5522); padding: 40px 32px; border-bottom: 2px solid #d4a017; text-align: center; }
+            .header img { height: 44px; margin-bottom: 12px; }
             .header h1 { font-size: 28px; font-weight: 800; color: #d4a017; margin: 0; letter-spacing: 3px; text-transform: uppercase; }
             .body { padding: 32px; line-height: 1.7; }
             .body h2 { color: #d4a017; font-size: 20px; margin-bottom: 12px; }
@@ -42,6 +45,7 @@ export async function POST(request: NextRequest) {
         <body>
           <div class="container">
             <div class="header">
+              <img src="${LOGO_URL}" alt="Envirocycle Glasgow" />
               <h1>ENVIROCYCLE</h1>
             </div>
             <div class="body">

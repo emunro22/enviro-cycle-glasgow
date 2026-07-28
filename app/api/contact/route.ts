@@ -1,11 +1,49 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { sql } from "@/lib/db";
+import { SITE_URL } from "@/lib/site";
+
+export const dynamic = "force-dynamic";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MIN_FILL_TIME_MS = 2000;
+const LOGO_URL = `${SITE_URL}/images/logo.png`;
+
+async function ensureTable() {
+  await sql`
+    CREATE TABLE IF NOT EXISTS contact_enquiries (
+      id           SERIAL PRIMARY KEY,
+      first_name   VARCHAR(100) NOT NULL,
+      last_name    VARCHAR(100),
+      email        VARCHAR(255) NOT NULL,
+      phone        VARCHAR(50),
+      service      VARCHAR(100),
+      message      TEXT NOT NULL,
+      created_at   TIMESTAMP DEFAULT NOW(),
+      review_email_sent_at TIMESTAMP
+    )
+  `;
+}
 
 export async function POST(request: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
   try {
     const body = await request.json();
-    const { firstName, lastName, email, phone, service, message } = body;
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      service,
+      message,
+      website, // honeypot — real users never see/fill this field
+      formLoadedAt,
+    } = body;
+
+    // Honeypot: bots that fill every field trip this.
+    if (typeof website === "string" && website.trim() !== "") {
+      return NextResponse.json({ success: true });
+    }
 
     if (!firstName || !email || !message) {
       return NextResponse.json(
@@ -13,6 +51,33 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+
+    if (!EMAIL_RE.test(String(email).trim())) {
+      return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+    }
+
+    // Submissions faster than a human can plausibly fill the form (or with
+    // no timestamp at all, i.e. a script posting straight to this route)
+    // are treated as spam.
+    const loadedAt = Number(formLoadedAt);
+    if (!loadedAt || Date.now() - loadedAt < MIN_FILL_TIME_MS) {
+      return NextResponse.json({ success: true });
+    }
+
+    await ensureTable();
+
+    const recent = await sql`
+      SELECT COUNT(*)::int AS count FROM contact_enquiries
+      WHERE email = ${String(email).trim()} AND created_at > NOW() - INTERVAL '1 hour'
+    `;
+    if (recent[0]?.count >= 3) {
+      return NextResponse.json({ success: true });
+    }
+
+    await sql`
+      INSERT INTO contact_enquiries (first_name, last_name, email, phone, service, message)
+      VALUES (${firstName}, ${lastName || null}, ${String(email).trim()}, ${phone || null}, ${service || null}, ${message})
+    `;
 
     await resend.emails.send({
       from: "Envirocycle Website <noreply@envirocycleglasgow.com>",
@@ -27,6 +92,7 @@ export async function POST(request: NextRequest) {
             body { font-family: 'DM Sans', Arial, sans-serif; background: #0a1f0b; color: #f5f0e8; margin: 0; padding: 0; }
             .container { max-width: 600px; margin: 0 auto; background: #1a441d; border-radius: 12px; overflow: hidden; }
             .header { background: linear-gradient(135deg, #0a1f0b, #1e5522); padding: 40px 32px; border-bottom: 2px solid #d4a017; text-align: center; }
+            .header img { height: 44px; margin-bottom: 12px; }
             .header h1 { font-size: 28px; font-weight: 800; color: #d4a017; margin: 0; letter-spacing: 3px; text-transform: uppercase; }
             .header p { color: #8ac48d; margin: 8px 0 0; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; }
             .body { padding: 32px; }
@@ -42,6 +108,7 @@ export async function POST(request: NextRequest) {
         <body>
           <div class="container">
             <div class="header">
+              <img src="${LOGO_URL}" alt="Envirocycle Glasgow" />
               <h1>ENVIROCYCLE</h1>
               <p>New Website Enquiry</p>
             </div>
@@ -94,6 +161,7 @@ export async function POST(request: NextRequest) {
             body { font-family: Arial, sans-serif; background: #0a1f0b; color: #f5f0e8; margin: 0; padding: 0; }
             .container { max-width: 600px; margin: 0 auto; background: #1a441d; border-radius: 12px; overflow: hidden; }
             .header { background: linear-gradient(135deg, #0a1f0b, #1e5522); padding: 40px 32px; border-bottom: 2px solid #d4a017; text-align: center; }
+            .header img { height: 44px; margin-bottom: 12px; }
             .header h1 { font-size: 28px; font-weight: 800; color: #d4a017; margin: 0; letter-spacing: 3px; text-transform: uppercase; }
             .body { padding: 32px; line-height: 1.7; }
             .body h2 { color: #d4a017; font-size: 20px; margin-bottom: 12px; }
@@ -107,6 +175,7 @@ export async function POST(request: NextRequest) {
         <body>
           <div class="container">
             <div class="header">
+              <img src="${LOGO_URL}" alt="Envirocycle Glasgow" />
               <h1>ENVIROCYCLE</h1>
             </div>
             <div class="body">

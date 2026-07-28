@@ -22,3 +22,15 @@ export type CustomAreaRow = {
   services: string;    // JSON-encoded string array
   created_at: string;
 };
+
+export type ContactEnquiry = {
+  id: number;
+  first_name: string;
+  last_name: string | null;
+  email: string;
+  phone: string | null;
+  service: string | null;
+  message: string;
+  created_at: string;
+  review_email_sent_at: string | null;
+};

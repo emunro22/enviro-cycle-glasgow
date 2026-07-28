@@ -20,10 +20,12 @@ export default function Contact() {
     phone: "",
     service: "",
     message: "",
+    website: "", // honeypot — left blank by real visitors
   });
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const formLoadedAt = useRef(Date.now());
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -57,7 +59,7 @@ export default function Contact() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, formLoadedAt: formLoadedAt.current }),
       });
 
       if (res.ok) {
@@ -69,6 +71,7 @@ export default function Contact() {
           phone: "",
           service: "",
           message: "",
+          website: "",
         });
       } else {
         throw new Error("Failed");
@@ -206,6 +209,24 @@ export default function Contact() {
                   <h3 className="text-xl text-[var(--cream)] mb-2">
                     Send Message
                   </h3>
+
+                  {/* Honeypot field — hidden from real visitors, bots fill it */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={form.website}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{
+                      position: "absolute",
+                      left: "-9999px",
+                      width: "1px",
+                      height: "1px",
+                      opacity: 0,
+                    }}
+                  />
 
                   {/* NAME STACKS ON MOBILE */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
