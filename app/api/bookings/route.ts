@@ -172,7 +172,7 @@ export async function POST(request: NextRequest) {
     const booking = inserted[0];
 
     const wasteTypeLabels = wasteTypes.map(labelFor);
-    const quoteDisplay = estimatedQuote !== null ? `From £${estimatedQuote.toFixed(2)}` : "To be confirmed";
+    const quoteDisplay = estimatedQuote !== null ? `Starting from £${estimatedQuote.toFixed(2)}` : "To be confirmed";
 
     // Admin notification email
     await resend.emails.send({
