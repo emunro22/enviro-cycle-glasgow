@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const words = ["SUSTAINABLE", "EFFICIENT", "RESPONSIBLE", "ECO-FRIENDLY"];
 
@@ -110,8 +111,8 @@ export default function Hero() {
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-3">
-          <a
-            href="#contact"
+          <Link
+            href="/book"
             className="inline-flex items-center justify-center gap-3 font-semibold px-6 py-3 md:px-8 md:py-4 rounded-full"
             style={{
               background: "linear-gradient(135deg, #d4a017, #f0c040)",
@@ -119,8 +120,8 @@ export default function Hero() {
               boxShadow: "0 8px 32px rgba(212,160,23,0.3)",
             }}
           >
-            Get a Free Quote
-          </a>
+            Book Now
+          </Link>
 
           <a
             href="tel:+447450435241"

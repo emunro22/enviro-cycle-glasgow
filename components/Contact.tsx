@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
 const services = [
   "Waste Management",
@@ -104,6 +105,35 @@ export default function Contact() {
       }}
     >
       <div className="max-w-7xl mx-auto">
+        {/* Prominent booking banner — the primary path in, ahead of the general enquiry form below */}
+        <div
+          className="animate-on-scroll rounded-3xl p-7 md:p-10 mb-12 md:mb-16 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left"
+          style={{
+            background: "linear-gradient(135deg, rgba(212,160,23,0.14), rgba(212,160,23,0.04))",
+            border: "1.5px solid rgba(212,160,23,0.35)",
+          }}
+        >
+          <div>
+            <p className="section-label mb-2">Fastest Way To Get Started</p>
+            <h3
+              className="leading-tight mb-2"
+              style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.7rem, 4vw, 2.6rem)", color: "var(--cream)", letterSpacing: "0.02em" }}
+            >
+              BOOK YOUR <span className="gold-text">COLLECTION</span>
+            </h3>
+            <p className="text-sm md:text-base max-w-md" style={{ color: "rgba(245,240,232,0.65)" }}>
+              Tell us what needs uplifted, pick a date, and we&apos;ll email you an estimated quote right away.
+            </p>
+          </div>
+          <Link
+            href="/book"
+            className="inline-flex items-center justify-center gap-3 font-semibold px-9 py-4 rounded-full shrink-0"
+            style={{ background: "linear-gradient(135deg, #d4a017, #f0c040)", color: "#0a1f0b", boxShadow: "0 8px 32px rgba(212,160,23,0.3)" }}
+          >
+            Book Now
+          </Link>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16">
 
           {/* LEFT SIDE */}

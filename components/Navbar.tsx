@@ -87,7 +87,14 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <a href="https://www.instagram.com/envirocycleglasgow_ltd/" target="_blank" rel="noopener noreferrer" className="px-6 py-2.5 rounded-full border border-[rgba(212,160,23,0.3)] text-xs font-bold text-[var(--gold-light)] bg-[rgba(212,160,23,0.1)] hover:scale-105 transition-all">INSTAGRAM</a>
+            <a href="https://www.instagram.com/envirocycleglasgow_ltd/" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 rounded-full border border-[rgba(212,160,23,0.3)] text-xs font-bold text-[var(--gold-light)] bg-[rgba(212,160,23,0.1)] hover:scale-105 transition-all">INSTAGRAM</a>
+            <Link
+              href="/book"
+              className="px-6 py-2.5 rounded-full text-xs font-bold hover:scale-105 transition-all"
+              style={{ background: "linear-gradient(135deg, #d4a017, #f0c040)", color: "#0a1f0b" }}
+            >
+              BOOK NOW
+            </Link>
           </div>
 
           <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden flex flex-col gap-1.5 z-50 p-2">
@@ -103,6 +110,14 @@ export default function Navbar() {
         style={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "all" : "none", backdropFilter: "blur(20px)" }}
       >
         <div className="flex flex-col gap-6 text-center">
+          <Link
+            href="/book"
+            onClick={() => setMenuOpen(false)}
+            className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-base font-bold mb-2"
+            style={{ background: "linear-gradient(135deg, #d4a017, #f0c040)", color: "#0a1f0b" }}
+          >
+            BOOK NOW
+          </Link>
           {navLinks.map((link) => (
             <Link
               key={link.label}

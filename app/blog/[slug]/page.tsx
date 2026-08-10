@@ -192,16 +192,16 @@ export default function BlogPostPage({ params }: Props) {
             minutes. Same-day service available across Glasgow.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a
-              href="#contact"
+            <Link
+              href="/book"
               className="inline-flex items-center justify-center gap-3 font-semibold px-8 py-3.5 rounded-full text-sm"
               style={{
                 background: "linear-gradient(135deg, #d4a017, #f0c040)",
                 color: "#0a1f0b",
               }}
             >
-              Get a Free Quote
-            </a>
+              Book Now
+            </Link>
             <a
               href="tel:+447450435241"
               className="inline-flex items-center justify-center gap-3 font-semibold px-8 py-3.5 rounded-full text-sm border"

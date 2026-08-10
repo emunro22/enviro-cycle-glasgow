@@ -148,11 +148,22 @@ export default function AdminDashboard() {
 
       {/* ── Nav tiles ─────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
-        <div className="bg-black/20 border border-[var(--gold)]/20 rounded-sm p-6">
-          <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-1">Work Gallery</p>
-          <p className="text-cream/60 text-sm mb-4">Add, remove and reorder project photos shown on the homepage.</p>
-          <p className="text-cream/40 text-xs">You&apos;re already here — scroll down to manage.</p>
-        </div>
+        <a
+          href="/admin/bookings"
+          className="block bg-black/20 border border-[var(--gold)]/20 rounded-sm p-6 hover:border-[var(--gold)]/50 transition"
+        >
+          <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-1">Bookings</p>
+          <p className="text-cream/60 text-sm mb-4">See what&apos;s booked in — calendar and list views, block dates, update status.</p>
+          <span className="text-xs text-[var(--gold-light)] font-semibold">Manage bookings →</span>
+        </a>
+        <a
+          href="/admin/pricing"
+          className="block bg-black/20 border border-[var(--gold)]/20 rounded-sm p-6 hover:border-[var(--gold)]/50 transition"
+        >
+          <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-1">Pricing</p>
+          <p className="text-cream/60 text-sm mb-4">Set the price customers are quoted for each waste type when they book.</p>
+          <span className="text-xs text-[var(--gold-light)] font-semibold">Manage pricing →</span>
+        </a>
         <a
           href="/admin/areas"
           className="block bg-black/20 border border-[var(--gold)]/20 rounded-sm p-6 hover:border-[var(--gold)]/50 transition"
@@ -161,6 +172,11 @@ export default function AdminDashboard() {
           <p className="text-cream/60 text-sm mb-4">Add new coverage areas. Pages and service listings go live automatically.</p>
           <span className="text-xs text-[var(--gold-light)] font-semibold">Manage areas →</span>
         </a>
+        <div className="bg-black/20 border border-[var(--gold)]/20 rounded-sm p-6">
+          <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-1">Work Gallery</p>
+          <p className="text-cream/60 text-sm mb-4">Add, remove and reorder project photos shown on the homepage.</p>
+          <p className="text-cream/40 text-xs">You&apos;re already here — scroll down to manage.</p>
+        </div>
       </div>
 
       <hr className="border-[var(--gold)]/10 mb-10" />

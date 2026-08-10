@@ -172,8 +172,8 @@ export default async function SlugPage({ params }: PageProps) {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3">
-          <a
-            href="#contact"
+          <Link
+            href="/book"
             className="inline-flex items-center justify-center gap-3 font-semibold px-8 py-4 rounded-full"
             style={{
               background: "linear-gradient(135deg, #d4a017, #f0c040)",
@@ -181,8 +181,8 @@ export default async function SlugPage({ params }: PageProps) {
               boxShadow: "0 8px 32px rgba(212,160,23,0.3)",
             }}
           >
-            Get a Free Quote
-          </a>
+            Book Now
+          </Link>
           <a
             href="tel:+447450435241"
             className="inline-flex items-center justify-center gap-3 font-semibold px-8 py-4 rounded-full border"

@@ -283,12 +283,13 @@ body::before {
   }
 }
 
-.sticky-contact-call {
+.sticky-contact-book {
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1.2rem 1.4rem;
+  justify-content: center;
+  gap: 0.7rem;
+  padding: 1.2rem 1.2rem;
   text-decoration: none;
   color: var(--forest-dark);
   background: linear-gradient(135deg, #d4a017, #f0c040);
@@ -296,7 +297,7 @@ body::before {
   min-height: 56px;
 }
 
-.sticky-contact-call:active {
+.sticky-contact-book:active {
   opacity: 0.85;
 }
 
@@ -314,15 +315,32 @@ body::before {
   font-weight: 600;
 }
 
-.sticky-contact-call strong {
+.sticky-contact-book strong {
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: 0.04em;
 }
 
+.sticky-contact-call {
+  width: 5.6rem;
+  background: rgba(255,255,255,0.06);
+  color: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+  border-left: 1px solid rgba(212,160,23,0.15);
+}
+
+.sticky-contact-call:active {
+  opacity: 0.85;
+}
+
 .sticky-contact-whatsapp {
-  width: 6.4rem;
+  width: 5.6rem;
   background: #25d366;
   color: #fff;
   display: flex;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 
 const packages = [
   {
@@ -179,12 +180,8 @@ export default function Packages() {
               </ul>
 
               {/* CTA */}
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                }}
+              <Link
+                href="/book"
                 className="block text-center py-3.5 px-6 rounded-full font-semibold text-sm transition-all duration-300"
                 style={
                   pkg.highlight
@@ -211,7 +208,7 @@ export default function Packages() {
                 }}
               >
                 {pkg.cta}
-              </a>
+              </Link>
             </div>
           ))}
         </div>

@@ -129,7 +129,7 @@ export default function ServicePageTemplate({
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
             <Link
-              href="/#contact"
+              href="/book"
               className="inline-flex items-center justify-center gap-3 font-semibold px-8 py-3.5 rounded-full"
               style={{
                 background: "linear-gradient(135deg, #d4a017, #f0c040)",
@@ -137,7 +137,7 @@ export default function ServicePageTemplate({
                 boxShadow: "0 8px 32px rgba(212,160,23,0.3)",
               }}
             >
-              Get a Free Quote
+              Book Now
             </Link>
             <a
               href="tel:+447450435241"
@@ -308,14 +308,14 @@ export default function ServicePageTemplate({
               hours and same-day slots are often available.
             </p>
             <Link
-              href="/#contact"
+              href="/book"
               className="inline-flex items-center justify-center gap-3 font-semibold px-8 py-3.5 rounded-full"
               style={{
                 background: "linear-gradient(135deg, #d4a017, #f0c040)",
                 color: "#0a1f0b",
               }}
             >
-              Get a Free Quote
+              Book Now
             </Link>
           </div>
         </div>
