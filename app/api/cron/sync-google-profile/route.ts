@@ -59,10 +59,13 @@ async function ensureTables() {
 
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
-  if (
-    !process.env.CRON_SECRET ||
-    authHeader !== `Bearer ${process.env.CRON_SECRET}`
-  ) {
+  const manualSecret = request.nextUrl.searchParams.get("secret");
+  const isVercelCron =
+    !!process.env.CRON_SECRET && authHeader === `Bearer ${process.env.CRON_SECRET}`;
+  const isManualTrigger =
+    !!process.env.MANUAL_SYNC_SECRET && manualSecret === process.env.MANUAL_SYNC_SECRET;
+
+  if (!isVercelCron && !isManualTrigger) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
