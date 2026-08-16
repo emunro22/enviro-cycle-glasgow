@@ -9,81 +9,9 @@ export interface GoogleReview {
 
 export const googleReviewsUrl = "https://share.google/cd4yB8qRiWzlzmK8c";
 export const googleAverageRating = 5.0;
-export const googleReviewCount = 51;
+export const googleReviewCount = 40;
 
 export const googleReviews: GoogleReview[] = [
-  {
-    name: "Samantha Mclean",
-    initial: "S",
-    meta: "2 reviews",
-    date: "4 days ago",
-    stars: 5,
-    text: "Service was great start to finish! Helped to remove items from a vulnerable adults home at short notice. Professional and efficient. Will 100% use again!",
-  },
-  {
-    name: "Charley Bennett",
-    initial: "C",
-    meta: "2 reviews",
-    date: "5 days ago",
-    stars: 5,
-    text: "Chris and Liam provided a great service. Amazing communication, on time and they offer a really competitive price. Thank you!",
-  },
-  {
-    name: "Brandon Mcguinness67",
-    initial: "B",
-    meta: "1 review",
-    date: "6 days ago",
-    stars: 5,
-    text: "Great service work done was brilliant and on same day as phoning👌",
-  },
-  {
-    name: "Declan Maguire",
-    initial: "D",
-    meta: "3 reviews",
-    date: "6 days ago",
-    stars: 5,
-    text: "Handles my garages waste on a weekly basis professional and extremely reliable and very fairly priced highly recommended",
-  },
-  {
-    name: "Ross Simpson",
-    initial: "R",
-    meta: "4 reviews · 1 photo",
-    date: "2 weeks ago",
-    stars: 5,
-    text: "Top class service",
-  },
-  {
-    name: "Craig Lannigan",
-    initial: "C",
-    meta: "Local Guide · 30 reviews · 1 photo",
-    date: "2 weeks ago",
-    stars: 5,
-    text: "Great service from a great team. Stress free and job done to a great standard.",
-  },
-  {
-    name: "Alexander Adair",
-    initial: "A",
-    meta: "2 reviews",
-    date: "2 weeks ago",
-    stars: 5,
-    text: "Great fast efficient service for a great price, highly recommend",
-  },
-  {
-    name: "Reece Masterton",
-    initial: "R",
-    meta: "1 review",
-    date: "2 weeks ago",
-    stars: 5,
-    text: "Enquired with the guys at Envirocycle to get some trade waste removed from a site I was working on. Within the hour we…",
-  },
-  {
-    name: "Laura McDaide",
-    initial: "L",
-    meta: "4 reviews · 1 photo",
-    date: "4 weeks ago",
-    stars: 5,
-    text: "Needed an uplift after doing a clear out. Dropped an enquiry onto the website and was called straight away by…",
-  },
   {
     name: "Ellie",
     initial: "E",
