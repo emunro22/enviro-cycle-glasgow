@@ -198,7 +198,7 @@ export async function GET(request: NextRequest) {
         INSERT INTO projects (title, category, image_url, display_order)
         VALUES (
           'Recent Work',
-          'From Google Reviews',
+          'Google Photos',
           ${uploaded.url},
           0
         )
@@ -214,6 +214,14 @@ export async function GET(request: NextRequest) {
       // Skip this photo, keep going with the rest.
     }
   }
+
+  // Backfill: photos synced before the title copy was cleaned up still
+  // carry the old "Photo by {name} · Google" title.
+  await sql`
+    UPDATE projects
+    SET title = 'Recent Work'
+    WHERE category = 'Google Photos' AND title != 'Recent Work'
+  `;
 
   // Keep synced Google photos pinned at the front of the gallery (very
   // negative display_order) so they actually show up in the homepage
