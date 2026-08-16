@@ -29,6 +29,9 @@ export default function AdminDashboard() {
   const [successMsg, setSuccessMsg] = useState("");
   const [deletingId, setDeletingId] = useState<number | null>(null);
 
+  const [googleConnected, setGoogleConnected] = useState<boolean | null>(null);
+  const [googleOAuthNotice, setGoogleOAuthNotice] = useState<string | null>(null);
+
   async function loadProjects() {
     setLoading(true);
     const res = await fetch(`/api/projects?t=${Date.now()}`, { cache: "no-store" });
@@ -39,6 +42,25 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     loadProjects();
+
+    fetch("/api/admin/google-oauth/status")
+      .then((r) => r.json())
+      .then((d) => setGoogleConnected(!!d.connected))
+      .catch(() => setGoogleConnected(false));
+
+    const params = new URLSearchParams(window.location.search);
+    const oauthResult = params.get("google_oauth");
+    if (oauthResult === "success") {
+      setGoogleOAuthNotice("Google Business Profile connected successfully.");
+      setGoogleConnected(true);
+    } else if (oauthResult === "error") {
+      setGoogleOAuthNotice(
+        `Google connection failed (${params.get("reason") || "unknown error"}).`
+      );
+    }
+    if (oauthResult) {
+      window.history.replaceState({}, "", "/admin");
+    }
   }, []);
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -146,6 +168,12 @@ export default function AdminDashboard() {
         </button>
       </header>
 
+      {googleOAuthNotice && (
+        <div className="mb-6 px-4 py-3 rounded-sm border border-[var(--gold)]/30 bg-black/20 text-cream/80 text-sm">
+          {googleOAuthNotice}
+        </div>
+      )}
+
       {/* ── Nav tiles ─────────────────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
         <a
@@ -176,6 +204,26 @@ export default function AdminDashboard() {
           <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-1">Work Gallery</p>
           <p className="text-cream/60 text-sm mb-4">Add, remove and reorder project photos shown on the homepage.</p>
           <p className="text-cream/40 text-xs">You&apos;re already here — scroll down to manage.</p>
+        </div>
+        <div className="bg-black/20 border border-[var(--gold)]/20 rounded-sm p-6">
+          <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-1">Google Business Profile</p>
+          <p className="text-cream/60 text-sm mb-4">
+            Connect to pull every review automatically instead of just Google&apos;s top 5. Requires
+            Google&apos;s Business Profile API access to be approved first — the listing needs to be
+            60+ days old and verified.
+          </p>
+          {googleConnected === null ? (
+            <p className="text-cream/40 text-xs">Checking status…</p>
+          ) : googleConnected ? (
+            <p className="text-xs text-[var(--gold-light)] font-semibold">✓ Connected</p>
+          ) : (
+            <a
+              href="/api/admin/google-oauth/start"
+              className="text-xs text-[var(--gold-light)] font-semibold"
+            >
+              Connect Google account →
+            </a>
+          )}
         </div>
       </div>
 

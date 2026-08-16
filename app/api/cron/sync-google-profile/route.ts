@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { put } from "@vercel/blob";
 import { sql } from "@/lib/db";
 import { revalidatePath } from "next/cache";
+import {
+  getGoogleBusinessAccessToken,
+  resolveLocationName,
+  fetchAllBusinessProfileReviews,
+} from "@/lib/google-business";
 
 export const dynamic = "force-dynamic";
 
@@ -107,22 +112,64 @@ export async function GET(request: NextRequest) {
   `;
 
   let newReviews = 0;
-  for (const review of data.reviews ?? []) {
-    const inserted = await sql`
-      INSERT INTO google_reviews_cache
-        (google_review_id, author_name, rating, review_text, relative_time, publish_time)
-      VALUES (
-        ${review.name},
-        ${review.authorAttribution?.displayName ?? "Google user"},
-        ${review.rating},
-        ${review.text?.text ?? ""},
-        ${review.relativePublishTimeDescription ?? ""},
-        ${review.publishTime ?? null}
-      )
-      ON CONFLICT (google_review_id) DO NOTHING
-      RETURNING id
-    `;
-    if (inserted.length > 0) newReviews++;
+  let reviewSource: "business_profile" | "places_api" = "places_api";
+
+  // Prefer the Business Profile API when connected — it returns every
+  // review, not just Google's own "5 most relevant" via Places API.
+  try {
+    const accessToken = await getGoogleBusinessAccessToken();
+    if (accessToken) {
+      const locationName = await resolveLocationName(accessToken);
+      if (locationName) {
+        const allReviews = await fetchAllBusinessProfileReviews(
+          accessToken,
+          locationName
+        );
+        reviewSource = "business_profile";
+        for (const review of allReviews) {
+          const inserted = await sql`
+            INSERT INTO google_reviews_cache
+              (google_review_id, author_name, rating, review_text, relative_time, publish_time)
+            VALUES (
+              ${`gbp:${review.reviewId}`},
+              ${review.authorName},
+              ${review.rating},
+              ${review.text},
+              ${""},
+              ${review.createTime}
+            )
+            ON CONFLICT (google_review_id) DO UPDATE
+            SET rating = EXCLUDED.rating,
+                review_text = EXCLUDED.review_text,
+                synced_at = NOW()
+            RETURNING (xmax = 0) AS was_insert
+          `;
+          if (inserted[0]?.was_insert) newReviews++;
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Business Profile review sync failed, falling back to Places API", err);
+  }
+
+  if (reviewSource === "places_api") {
+    for (const review of data.reviews ?? []) {
+      const inserted = await sql`
+        INSERT INTO google_reviews_cache
+          (google_review_id, author_name, rating, review_text, relative_time, publish_time)
+        VALUES (
+          ${review.name},
+          ${review.authorAttribution?.displayName ?? "Google user"},
+          ${review.rating},
+          ${review.text?.text ?? ""},
+          ${review.relativePublishTimeDescription ?? ""},
+          ${review.publishTime ?? null}
+        )
+        ON CONFLICT (google_review_id) DO NOTHING
+        RETURNING id
+      `;
+      if (inserted.length > 0) newReviews++;
+    }
   }
 
   let newPhotos = 0;
