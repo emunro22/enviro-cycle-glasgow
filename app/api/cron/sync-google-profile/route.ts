@@ -140,7 +140,6 @@ export async function GET(request: NextRequest) {
       if (!mediaRes.ok) continue;
 
       const blob = await mediaRes.blob();
-      const attribution = photo.authorAttributions?.[0]?.displayName;
       const filename = `google-photos/${photo.name.split("/").pop()}.jpg`;
 
       const uploaded = await put(filename, blob, {
@@ -151,8 +150,8 @@ export async function GET(request: NextRequest) {
       const projectRows = await sql`
         INSERT INTO projects (title, category, image_url, display_order)
         VALUES (
-          ${attribution ? `Photo by ${attribution} · Google` : "From our Google Business Profile"},
-          'Google Photos',
+          'Recent Work',
+          'From Google Reviews',
           ${uploaded.url},
           0
         )
