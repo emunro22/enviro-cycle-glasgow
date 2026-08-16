@@ -1,12 +1,24 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   googleReviews,
   googleReviewsUrl,
   googleAverageRating,
   googleReviewCount,
+  type GoogleReview,
 } from "@/lib/google-reviews-data";
+
+interface LiveReview {
+  name: string;
+  text: string;
+  stars: number;
+  date: string;
+}
+
+function dedupeKey(name: string, text: string) {
+  return `${name.trim().toLowerCase()}|${text.trim().slice(0, 40).toLowerCase()}`;
+}
 
 function GoogleLogo({ size = 20 }: { size?: number }) {
   return (
@@ -47,6 +59,9 @@ const INITIAL_COUNT = 9;
 
 export default function GoogleReviews() {
   const [expanded, setExpanded] = useState(false);
+  const [liveRating, setLiveRating] = useState<number | null>(null);
+  const [liveCount, setLiveCount] = useState<number | null>(null);
+  const [liveReviews, setLiveReviews] = useState<LiveReview[]>([]);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -62,7 +77,42 @@ export default function GoogleReviews() {
     return () => observer.disconnect();
   }, []);
 
-  const visibleReviews = expanded ? googleReviews : googleReviews.slice(0, INITIAL_COUNT);
+  useEffect(() => {
+    fetch("/api/google-reviews")
+      .then((res) => res.json())
+      .then((data) => {
+        if (typeof data.rating === "number") setLiveRating(data.rating);
+        if (typeof data.userRatingCount === "number") setLiveCount(data.userRatingCount);
+        if (Array.isArray(data.reviews)) setLiveReviews(data.reviews);
+      })
+      .catch(() => {
+        // Silently keep the static fallback values below.
+      });
+  }, []);
+
+  const displayRating = liveRating ?? googleAverageRating;
+  const displayCount = liveCount ?? googleReviewCount;
+
+  // Merge in any freshly-synced Google reviews that aren't already in the
+  // curated list, newest first, so genuinely new reviews surface automatically.
+  const mergedReviews = useMemo<GoogleReview[]>(() => {
+    const existingKeys = new Set(
+      googleReviews.map((r) => dedupeKey(r.name, r.text))
+    );
+    const fresh = liveReviews
+      .filter((r) => r.text && !existingKeys.has(dedupeKey(r.name, r.text)))
+      .map<GoogleReview>((r) => ({
+        name: r.name,
+        initial: r.name.charAt(0).toUpperCase() || "G",
+        meta: "Verified Google review",
+        date: r.date,
+        text: r.text,
+        stars: r.stars,
+      }));
+    return [...fresh, ...googleReviews];
+  }, [liveReviews]);
+
+  const visibleReviews = expanded ? mergedReviews : mergedReviews.slice(0, INITIAL_COUNT);
 
   return (
     <section
@@ -107,12 +157,12 @@ export default function GoogleReviews() {
                   className="text-2xl font-bold"
                   style={{ color: "var(--cream)", fontFamily: "var(--font-heading)" }}
                 >
-                  {googleAverageRating.toFixed(1)}
+                  {displayRating.toFixed(1)}
                 </span>
                 <Stars count={5} size={14} />
               </div>
               <p className="text-sm" style={{ color: "rgba(245,240,232,0.6)" }}>
-                {googleReviewCount} Google reviews · View all
+                {displayCount} Google reviews · View all
               </p>
             </div>
           </a>
@@ -178,7 +228,7 @@ export default function GoogleReviews() {
           ))}
         </div>
 
-        {googleReviews.length > INITIAL_COUNT && (
+        {mergedReviews.length > INITIAL_COUNT && (
           <div className="mt-10 flex justify-center animate-on-scroll">
             <button
               onClick={() => setExpanded((v) => !v)}
@@ -188,7 +238,7 @@ export default function GoogleReviews() {
                 color: "var(--gold)",
               }}
             >
-              {expanded ? "Show fewer reviews" : `Show all ${googleReviews.length} reviews`}
+              {expanded ? "Show fewer reviews" : `Show all ${mergedReviews.length} reviews`}
             </button>
           </div>
         )}

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import GoogleRatingBadge from "./GoogleRatingBadge";
 
 const words = ["SUSTAINABLE", "EFFICIENT", "RESPONSIBLE", "ECO-FRIENDLY"];
 
@@ -138,6 +139,7 @@ export default function Hero() {
 
         {/* Trust badges with SEPA */}
         <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-8 text-sm text-[rgba(245,240,232,0.45)]">
+          <GoogleRatingBadge />
           <div className="flex items-center gap-2">
             <span className="text-[var(--gold)]">✓</span>
             Licensed & Insured

@@ -87,7 +87,7 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <a href="https://www.instagram.com/envirocycleglasgow_ltd/" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 rounded-full border border-[rgba(212,160,23,0.3)] text-xs font-bold text-[var(--gold-light)] bg-[rgba(212,160,23,0.1)] hover:scale-105 transition-all">INSTAGRAM</a>
+            <a href="https://www.instagram.com/envirocycle_ltd/" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 rounded-full border border-[rgba(212,160,23,0.3)] text-xs font-bold text-[var(--gold-light)] bg-[rgba(212,160,23,0.1)] hover:scale-105 transition-all">INSTAGRAM</a>
             <Link
               href="/book"
               className="px-6 py-2.5 rounded-full text-xs font-bold hover:scale-105 transition-all"

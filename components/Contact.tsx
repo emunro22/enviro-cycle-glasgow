@@ -176,8 +176,8 @@ export default function Contact() {
                 },
                 {
                   label: "Instagram",
-                  value: "@envirocycleglasgow_ltd",
-                  href: "https://www.instagram.com/envirocycleglasgow_ltd/",
+                  value: "@envirocycle_ltd",
+                  href: "https://www.instagram.com/envirocycle_ltd/",
                 },
                 {
                   label: "Location",

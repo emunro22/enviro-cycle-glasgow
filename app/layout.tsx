@@ -95,7 +95,7 @@ export const metadata: Metadata = {
 const councilsServed = Array.from(new Set(areas.map((a) => a.council)));
 
 const sameAs = [
-  "https://www.instagram.com/envirocycleglasgow_ltd/",
+  "https://www.instagram.com/envirocycle_ltd/",
   "https://share.google/cd4yB8qRiWzlzmK8c",
 ];
 

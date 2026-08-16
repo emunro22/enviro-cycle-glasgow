@@ -220,7 +220,7 @@ export async function POST(request: NextRequest) {
           <p>📧 envirocycleglasgow@outlook.com</p>
           <p>📍 Glasgow & surrounding areas</p>
         </div>
-        <p>In the meantime, feel free to follow us on Instagram <a href="https://www.instagram.com/envirocycleglasgow_ltd/" style="color:#d4a017;">@envirocycleglasgow_ltd</a> to see our latest work.</p>
+        <p>In the meantime, feel free to follow us on Instagram <a href="https://www.instagram.com/envirocycle_ltd/" style="color:#d4a017;">@envirocycle_ltd</a> to see our latest work.</p>
       `),
     });
 
