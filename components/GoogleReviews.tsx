@@ -65,19 +65,6 @@ export default function GoogleReviews() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("in-view");
-        });
-      },
-      { threshold: 0.1 }
-    );
-    sectionRef.current?.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
     fetch("/api/google-reviews")
       .then((res) => res.json())
       .then((data) => {
@@ -113,6 +100,23 @@ export default function GoogleReviews() {
   }, [liveReviews]);
 
   const visibleReviews = expanded ? mergedReviews : mergedReviews.slice(0, INITIAL_COUNT);
+
+  // Re-observe whenever the rendered card set actually changes (new live
+  // reviews merged in, or the "show all" toggle reveals more cards) —
+  // a fresh review shifting into an already-visible slot mounts a brand
+  // new DOM node that a mount-only observer would never see.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("in-view");
+        });
+      },
+      { threshold: 0.1 }
+    );
+    sectionRef.current?.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [mergedReviews, expanded]);
 
   return (
     <section

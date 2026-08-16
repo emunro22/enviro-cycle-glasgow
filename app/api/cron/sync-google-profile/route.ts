@@ -126,10 +126,6 @@ export async function GET(request: NextRequest) {
   }
 
   let newPhotos = 0;
-  const maxOrderRows = await sql`
-    SELECT COALESCE(MAX(display_order), 0) AS max FROM projects
-  `;
-  let nextOrder = Number(maxOrderRows[0]?.max ?? 0) + 1;
 
   for (const photo of data.photos ?? []) {
     const existing = await sql`
@@ -158,11 +154,10 @@ export async function GET(request: NextRequest) {
           ${attribution ? `Photo by ${attribution} · Google` : "From our Google Business Profile"},
           'Google Photos',
           ${uploaded.url},
-          ${nextOrder}
+          0
         )
         RETURNING id
       `;
-      nextOrder++;
 
       await sql`
         INSERT INTO google_photos_synced (google_photo_name, project_id)
@@ -173,6 +168,20 @@ export async function GET(request: NextRequest) {
       // Skip this photo, keep going with the rest.
     }
   }
+
+  // Keep synced Google photos pinned at the front of the gallery (very
+  // negative display_order) so they actually show up in the homepage
+  // teaser and page 1 of /work instead of being sorted to the end.
+  await sql`
+    UPDATE projects p
+    SET display_order = ranked.new_order
+    FROM (
+      SELECT id, (ROW_NUMBER() OVER (ORDER BY id ASC) - 100000)::int AS new_order
+      FROM projects
+      WHERE category = 'Google Photos'
+    ) ranked
+    WHERE p.id = ranked.id
+  `;
 
   revalidatePath("/");
   revalidatePath("/work");
