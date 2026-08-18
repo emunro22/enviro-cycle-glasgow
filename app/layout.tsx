@@ -5,7 +5,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import StickyContactBar from "@/components/StickyContactBar";
 import WhatsAppFollowUpPrompt from "@/components/WhatsAppFollowUpPrompt";
 import { Analytics } from "@vercel/analytics/next";
-import { googleAverageRating, googleReviewCount } from "@/lib/google-reviews-data";
+import { googleAverageRating, googleReviewCount, googleReviews } from "@/lib/google-reviews-data";
 import { SITE_URL } from "@/lib/site";
 import { areas } from "@/lib/areas";
 
@@ -108,6 +108,12 @@ const organizationSchema = {
   name: "Envirocycle Glasgow",
   url: SITE_URL,
   logo: `${SITE_URL}/images/logo.png`,
+  foundingDate: "2025",
+  founders: [
+    { "@type": "Person", name: "Chris Heenan" },
+    { "@type": "Person", name: "Liam McCormick" },
+  ],
+  numberOfEmployees: { "@type": "QuantitativeValue", value: 4 },
   sameAs,
 };
 
@@ -152,6 +158,19 @@ const localBusinessSchema = {
     ratingValue: googleAverageRating,
     reviewCount: googleReviewCount,
   },
+  // A sample of real, curated Google reviews as individual Review items —
+  // review dates are stored as relative strings ("2 weeks ago") so are
+  // deliberately omitted here rather than emitted as invalid datePublished.
+  review: googleReviews.slice(0, 12).map((r) => ({
+    "@type": "Review",
+    author: { "@type": "Person", name: r.name },
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: r.stars,
+      bestRating: 5,
+    },
+    reviewBody: r.text,
+  })),
   knowsAbout: [
     "Waste Management",
     "Rubbish Removal",

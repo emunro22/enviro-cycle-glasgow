@@ -51,6 +51,17 @@ export default function ServicePageTemplate({
     })),
   };
 
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: `${title} ${titleAccent}`.trim(),
+    serviceType: `${title} ${titleAccent}`.trim(),
+    description: intro,
+    provider: { "@id": `${SITE_URL}/#business` },
+    areaServed: { "@type": "AdministrativeArea", name: "Glasgow and Central Scotland" },
+    url: `${SITE_URL}${slug}`,
+  };
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -74,6 +85,10 @@ export default function ServicePageTemplate({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
 
       <ScrollAnimations />

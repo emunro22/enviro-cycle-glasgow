@@ -10,6 +10,7 @@ const navLinks = [
   { href: "#packages", label: "Packages" },
   { href: "#gallery", label: "Gallery" },
   { href: "/areas", label: "Areas We Cover" },
+  { href: "/about", label: "About Us" },
   { href: "/blog", label: "Blog" },
   { href: "#contact", label: "Contact" },
   { href: "/terms", label: "Terms & Conditions" },

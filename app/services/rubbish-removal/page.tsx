@@ -129,6 +129,17 @@ export default function ServiceHubPage() {
     ],
   };
 
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: SERVICE_NAME,
+    serviceType: SERVICE_NAME,
+    description: HERO_TAGLINE,
+    provider: { "@id": `${SITE_URL}/#business` },
+    areaServed: { "@type": "AdministrativeArea", name: "Glasgow and Central Scotland" },
+    url: `${SITE_URL}/services/${SERVICE_PREFIX}`,
+  };
+
   return (
     <main className="min-h-screen">
       <script
@@ -138,6 +149,10 @@ export default function ServiceHubPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
       <Navbar />
 
