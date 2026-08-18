@@ -5,16 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 
 const navLinks = [
-  { href: "/", label: "Home" },
   { href: "#services", label: "Services" },
-  { href: "#our-work", label: "Our Work" },
+  { href: "#our-work", label: "Work" },
   { href: "#packages", label: "Packages" },
   { href: "/areas", label: "Areas" },
   { href: "/about", label: "About" },
   { href: "/blog", label: "Blog" },
   { href: "#contact", label: "Contact" },
-  { href: "/tip-finder", label: "Tip Finder" },
-  { href: "/terms", label: "T&Cs" },
 ];
 
 export default function Navbar() {
@@ -72,7 +69,7 @@ export default function Navbar() {
             </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-5 lg:gap-7 text-[15px]">
+          <div className="hidden lg:flex items-center gap-4 xl:gap-6 text-sm xl:text-[15px]">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -83,22 +80,22 @@ export default function Navbar() {
                     handleNavClick(link.href);
                   }
                 }}
-                className="text-cream/70 hover:text-[var(--gold-light)] transition font-medium"
+                className="text-cream/70 hover:text-[var(--gold-light)] transition font-medium whitespace-nowrap"
               >
                 {link.label}
               </Link>
             ))}
-            <a href="https://www.instagram.com/envirocycle_ltd/" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 rounded-full border border-[rgba(212,160,23,0.3)] text-xs font-bold text-[var(--gold-light)] bg-[rgba(212,160,23,0.1)] hover:scale-105 transition-all">INSTAGRAM</a>
+            <a href="https://www.instagram.com/envirocycle_ltd/" target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 rounded-full border border-[rgba(212,160,23,0.3)] text-xs font-bold text-[var(--gold-light)] bg-[rgba(212,160,23,0.1)] hover:scale-105 transition-all whitespace-nowrap">INSTAGRAM</a>
             <Link
               href="/book"
-              className="px-6 py-2.5 rounded-full text-xs font-bold hover:scale-105 transition-all"
+              className="px-6 py-2.5 rounded-full text-xs font-bold hover:scale-105 transition-all whitespace-nowrap"
               style={{ background: "linear-gradient(135deg, #d4a017, #f0c040)", color: "#0a1f0b" }}
             >
               BOOK NOW
             </Link>
           </div>
 
-          <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden flex flex-col gap-1.5 z-50 p-2">
+          <button onClick={() => setMenuOpen(!menuOpen)} className="lg:hidden flex flex-col gap-1.5 z-50 p-2">
             <span className={`block w-6 h-0.5 bg-[var(--gold)] transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
             <span className={`block w-6 h-0.5 bg-[var(--gold)] transition-all ${menuOpen ? "opacity-0" : ""}`} />
             <span className={`block w-6 h-0.5 bg-[var(--gold)] transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
@@ -107,7 +104,7 @@ export default function Navbar() {
       </nav>
 
       <div
-        className="fixed inset-0 z-40 md:hidden bg-[var(--forest-dark)] flex flex-col items-center justify-center transition-all duration-500"
+        className="fixed inset-0 z-40 lg:hidden bg-[var(--forest-dark)] flex flex-col items-center justify-center transition-all duration-500"
         style={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "all" : "none", backdropFilter: "blur(20px)" }}
       >
         <div className="flex flex-col gap-6 text-center">

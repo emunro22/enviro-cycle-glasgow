@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/about", label: "About Us" },
   { href: "/blog", label: "Blog" },
   { href: "#contact", label: "Contact" },
+  { href: "/tip-finder", label: "Tip Finder" },
   { href: "/terms", label: "Terms & Conditions" },
 ];
 
