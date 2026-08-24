@@ -51,6 +51,13 @@ export default function TradeWasteClearancePage() {
             "We sort and recycle as much trade waste as possible rather than defaulting to landfill — better for the environment and for your own sustainability commitments. And our service is built to be fast and low-disruption, so your site keeps moving.",
           ],
         },
+        {
+          heading: "Commercial waste removal for Glasgow trades",
+          body: [
+            "Builders, joiners, landscapers, shopfitters — if your trade generates waste between jobs, we fit around your sites rather than the other way round. Book a one-off uplift for a finished job, or set up a standing arrangement so waste never piles up while you're between projects.",
+            "Plasterboard, timber, packaging and mixed construction waste are all handled. Plasterboard has to be kept separate from general waste under Scottish environmental regulations, which we do as standard rather than charging extra for the hassle.",
+          ],
+        },
       ]}
       features={[
         "Flexible collections for businesses and trades",
@@ -76,6 +83,14 @@ export default function TradeWasteClearancePage() {
         {
           q: "Are you a registered waste carrier?",
           a: "Yes, Envirocycle is registered with SEPA under WCR/R/3021188 and operates fully licensed and compliant.",
+        },
+        {
+          q: "Do you separate plasterboard from other trade waste?",
+          a: "Yes — Scottish regulations require plasterboard to be kept separate for disposal, and we do this on every job as standard.",
+        },
+        {
+          q: "Can you set up a regular collection for an ongoing site?",
+          a: "Yes. For longer projects we can arrange a standing collection schedule so waste doesn't build up between visits.",
         },
       ]}
       related={[

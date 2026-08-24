@@ -51,6 +51,13 @@ export default function SiteClearancePage() {
             "After building or renovation work, sites are often left with rubble, offcuts, packaging and general construction waste. We remove builders waste across Glasgow so the site is clean and safe — with full waste transfer documentation for trade clients.",
           ],
         },
+        {
+          heading: "Probate and downsizing clearances, handled discreetly",
+          body: [
+            "Clearing a family home after a bereavement, or helping someone downsize into a smaller property, needs a different approach from a standard job — patience, no rushing decisions on the day, and a crew that treats the property and its contents with respect. We've done enough of these across Glasgow and South Lanarkshire to know the pace that works, and we're happy to work room by room rather than clearing everything in one go if that suits the family better.",
+            "Access matters too — tenement stairs, narrow closes, and properties without off-street parking are all routine for us, not a reason to charge more.",
+          ],
+        },
       ]}
       features={[
         "Full house and flat clearances",
@@ -76,6 +83,14 @@ export default function SiteClearancePage() {
         {
           q: "How quickly can a clearance be booked?",
           a: "Often same-day or next-day depending on the size of the job. Get in touch for a free quote and we will confirm availability.",
+        },
+        {
+          q: "Can you handle a probate clearance sensitively?",
+          a: "Yes — we regularly clear properties as part of probate and downsizing, working at whatever pace the family needs and treating the contents with care.",
+        },
+        {
+          q: "Do you charge more for tenement or flat access?",
+          a: "No — stairs, closes and properties without parking are part of the standard service across Glasgow.",
         },
       ]}
       related={[

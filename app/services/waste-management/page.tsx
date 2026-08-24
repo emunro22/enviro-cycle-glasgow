@@ -51,6 +51,13 @@ export default function WasteManagementPage() {
             "Wherever possible we segregate and divert waste for recycling rather than sending it to landfill. It is better for the environment and, for many businesses, better for your sustainability reporting too.",
           ],
         },
+        {
+          heading: "Commercial waste removal across Glasgow",
+          body: [
+            "If you're searching for commercial waste removal in Glasgow, chances are waste is building up between council collections, or your lease doesn't come with a shared bin. Envirocycle steps in as a straightforward alternative — no waiting on a communal skip, no contract lock-in unless you want one. We work with shops, cafes, offices, salons and light industrial units across the city, with the same crew and van each time so you're never re-explaining the job.",
+            "Pricing is agreed up front, either per collection or on a rolling schedule — whichever suits your cash flow better. Most Glasgow and Lanarkshire businesses we work with settle into a fortnightly or monthly rhythm within the first month.",
+          ],
+        },
       ]}
       features={[
         "Regular scheduled collections — weekly, fortnightly or one-off",
@@ -76,6 +83,14 @@ export default function WasteManagementPage() {
         {
           q: "What areas do you cover?",
           a: "We cover Glasgow and the surrounding areas. If you are nearby and not sure, just ask.",
+        },
+        {
+          q: "Do you offer commercial waste contracts, or one-off collections?",
+          a: "Both — some businesses want a rolling contract with a fixed collection day, others just need an ad-hoc uplift when things build up. We do either, with no minimum tie-in unless you want the predictability of a set schedule.",
+        },
+        {
+          q: "What's the difference between this and a council trade waste permit?",
+          a: "A council trade waste permit ties you to fixed collection days and bin sizes. We collect on your schedule, take a wider range of materials, and it often works out cheaper for smaller or irregular volumes.",
         },
       ]}
       related={[

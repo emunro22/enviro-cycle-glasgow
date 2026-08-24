@@ -51,6 +51,13 @@ export default function RecyclingPage() {
             "Every tonne diverted from landfill reduces emissions and environmental impact. Whether you are a household trying to do the right thing or a business with sustainability targets, our recycling service makes it easy.",
           ],
         },
+        {
+          heading: "Where your recycling actually goes",
+          body: [
+            "Materials collected for recycling go to licensed processing facilities rather than a general waste transfer station, which is what keeps them genuinely recycled rather than quietly landfilled further down the chain. We can tell you which facility handled a specific collection if you need that detail for a tender or audit.",
+            "For households, recycling collection works well alongside a wider clear-out — old furniture and general clutter uplifted at the same time as the recyclable materials, rather than needing two separate visits.",
+          ],
+        },
       ]}
       features={[
         "Segregated collection of recyclable materials",
@@ -76,6 +83,14 @@ export default function RecyclingPage() {
         {
           q: "Is recycling collection available for households?",
           a: "Yes, our recycling service is available to both businesses and households across Glasgow and the surrounding areas.",
+        },
+        {
+          q: "Can I combine a recycling collection with a general clearance?",
+          a: "Yes — most households book recycling alongside a wider uplift, so recyclable materials and general clutter are collected in a single visit.",
+        },
+        {
+          q: "Where does the material actually get processed?",
+          a: "We use licensed recycling facilities across the Central Belt, and can confirm which one handled a specific collection if you need it for reporting.",
         },
       ]}
       related={[

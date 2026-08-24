@@ -52,6 +52,13 @@ export default function BulkyWasteUpliftsPage() {
             "Items in usable condition are donated where possible. Everything else is taken to licensed facilities and recycled wherever it can be, so your uplift has the smallest possible environmental impact.",
           ],
         },
+        {
+          heading: "Same-day service across Glasgow and Lanarkshire",
+          body: [
+            "Because we run our own vans rather than booking through a call centre, we can usually slot a bulky uplift in the same day — sometimes within a couple of hours if you catch us between jobs. It's the option people reach for when a sofa's blocking the hallway before a viewing, or an old fridge needs to go before a new one's delivered.",
+            "We cover flats and tenements as readily as houses with driveways — stair carries, tight closes and awkward corners are routine for us, not an extra charge.",
+          ],
+        },
       ]}
       features={[
         "Same-day or scheduled uplifts across Glasgow",
@@ -77,6 +84,14 @@ export default function BulkyWasteUpliftsPage() {
         {
           q: "How much does a bulky waste uplift cost?",
           a: "Pricing depends on the volume and type of items. Get in touch for a free, no-obligation quote.",
+        },
+        {
+          q: "Do you charge extra for stairs or flats?",
+          a: "No — carrying items down stairs or through tenement closes is part of the standard service, not an add-on.",
+        },
+        {
+          q: "What if I only have one item to get rid of?",
+          a: "That's fine — plenty of our uplifts are a single sofa, mattress or fridge. Pricing is by volume, so a single item costs less than a full load.",
         },
       ]}
       related={[
