@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-import { sql, type ContactEnquiry } from "@/lib/db";
+import { sql, type BookingRow } from "@/lib/db";
 import { googleReviewsUrl } from "@/lib/google-reviews-data";
 import { SITE_URL } from "@/lib/site";
 
@@ -8,23 +8,13 @@ export const dynamic = "force-dynamic";
 
 const LOGO_URL = `${SITE_URL}/images/logo.png`;
 
-async function ensureTable() {
-  await sql`
-    CREATE TABLE IF NOT EXISTS contact_enquiries (
-      id           SERIAL PRIMARY KEY,
-      first_name   VARCHAR(100) NOT NULL,
-      last_name    VARCHAR(100),
-      email        VARCHAR(255) NOT NULL,
-      phone        VARCHAR(50),
-      service      VARCHAR(100),
-      message      TEXT NOT NULL,
-      created_at   TIMESTAMP DEFAULT NOW(),
-      review_email_sent_at TIMESTAMP
-    )
-  `;
+async function ensureColumn() {
+  // The bookings table itself is created in app/api/bookings/route.ts;
+  // this just guards against the cron running before that column exists.
+  await sql`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS followup_email_sent_at TIMESTAMP`;
 }
 
-function reviewEmailHtml(firstName: string) {
+function followupEmailHtml(firstName: string) {
   return `
     <!DOCTYPE html>
     <html>
@@ -52,7 +42,7 @@ function reviewEmailHtml(firstName: string) {
         </div>
         <div class="body">
           <h2>How did we do?</h2>
-          <p>Thanks again for getting in touch with us, ${firstName}. We hope everything went smoothly!</p>
+          <p>Thanks again for booking with us, ${firstName}. We hope everything went smoothly!</p>
           <p>If you've got a minute, a quick Google review helps other people in Glasgow find us — and means a lot to our small team.</p>
           <p style="text-align:center;">
             <a class="cta" href="${googleReviewsUrl}">Leave us a review on Google</a>
@@ -80,19 +70,19 @@ export async function GET(request: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
-    await ensureTable();
+    await ensureColumn();
 
-    // Enquiries older than two days (long enough for the job to be done) but
+    // Bookings older than a day (long enough for the job to be done) but
     // newer than 30 days (skip stale backlog on first ever run) that
-    // haven't had a review request sent yet.
+    // haven't had a follow-up email sent yet.
     const rows = (await sql`
-      SELECT * FROM contact_enquiries
-      WHERE review_email_sent_at IS NULL
-        AND created_at <= NOW() - INTERVAL '2 days'
+      SELECT * FROM bookings
+      WHERE followup_email_sent_at IS NULL
+        AND created_at <= NOW() - INTERVAL '1 day'
         AND created_at > NOW() - INTERVAL '30 days'
       ORDER BY created_at ASC
       LIMIT 50
-    `) as ContactEnquiry[];
+    `) as BookingRow[];
 
     let sent = 0;
     for (const row of rows) {
@@ -100,20 +90,20 @@ export async function GET(request: NextRequest) {
         from: "Envirocycle Glasgow <noreply@envirocycleglasgow.com>",
         to: [row.email],
         subject: "How did we do?",
-        html: reviewEmailHtml(row.first_name),
+        html: followupEmailHtml(row.first_name),
       });
 
       await sql`
-        UPDATE contact_enquiries SET review_email_sent_at = NOW() WHERE id = ${row.id}
+        UPDATE bookings SET followup_email_sent_at = NOW() WHERE id = ${row.id}
       `;
       sent++;
     }
 
     return NextResponse.json({ success: true, sent });
   } catch (error) {
-    console.error("Review follow-up cron error:", error);
+    console.error("Booking follow-up cron error:", error);
     return NextResponse.json(
-      { error: "Failed to run review follow-up" },
+      { error: "Failed to run booking follow-up" },
       { status: 500 }
     );
   }

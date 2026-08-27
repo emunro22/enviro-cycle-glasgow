@@ -68,4 +68,5 @@ export type BookingRow = {
   estimated_quote: string | null;
   status: BookingStatus;
   created_at: string;
+  followup_email_sent_at: string | null;
 };

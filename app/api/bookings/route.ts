@@ -42,9 +42,12 @@ async function ensureTable() {
       photo_urls       TEXT,
       estimated_quote  NUMERIC(10,2),
       status           VARCHAR(20) NOT NULL DEFAULT 'new',
-      created_at       TIMESTAMP DEFAULT NOW()
+      created_at       TIMESTAMP DEFAULT NOW(),
+      followup_email_sent_at TIMESTAMP
     )
   `;
+  // Table may already exist from before this column was added.
+  await sql`ALTER TABLE bookings ADD COLUMN IF NOT EXISTS followup_email_sent_at TIMESTAMP`;
 }
 
 function emailShell(bodyHtml: string) {
