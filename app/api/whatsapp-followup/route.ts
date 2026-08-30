@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { googleReviewsUrl } from "@/lib/google-reviews-data";
 import { SITE_URL } from "@/lib/site";
+import { claimReviewEmailSlot } from "@/lib/review-email-dedup";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const LOGO_URL = `${SITE_URL}/images/logo.png`;
@@ -14,6 +15,13 @@ export async function POST(request: NextRequest) {
 
     if (!email || !EMAIL_RE.test(email)) {
       return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+    }
+
+    // Don't schedule another one if this address already has a "How did we
+    // do?" email in flight (or sent) from this prompt, or from the booking
+    // / contact-enquiry follow-up crons.
+    if (!(await claimReviewEmailSlot(email))) {
+      return NextResponse.json({ success: true });
     }
 
     const scheduledAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();

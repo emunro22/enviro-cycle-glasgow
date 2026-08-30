@@ -56,7 +56,7 @@ export default function Navbar() {
                 height: scrolled ? 55 : 70,
               }}
             >
-              <Image src="/images/logo.png" alt="Envirocycle" fill className="object-contain" priority />
+              <Image src="/images/logo.webp" alt="Envirocycle" fill className="object-contain" priority />
             </div>
             <span
               className="hidden sm:block font-heading text-cream tracking-widest uppercase transition-all duration-300"

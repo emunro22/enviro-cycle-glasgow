@@ -4,8 +4,10 @@ import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import StickyContactBar from "@/components/StickyContactBar";
 import WhatsAppFollowUpPrompt from "@/components/WhatsAppFollowUpPrompt";
+import CookieConsent from "@/components/CookieConsent";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/next";
-import { googleAverageRating, googleReviewCount, googleReviews } from "@/lib/google-reviews-data";
+import { googleAverageRating, googleReviewCount, googleReviews, googleReviewsUrl } from "@/lib/google-reviews-data";
 import { SITE_URL } from "@/lib/site";
 import { areas } from "@/lib/areas";
 
@@ -96,7 +98,7 @@ const councilsServed = Array.from(new Set(areas.map((a) => a.council)));
 
 const sameAs = [
   "https://www.instagram.com/envirocycle_ltd/",
-  "https://share.google/cd4yB8qRiWzlzmK8c",
+  googleReviewsUrl,
 ];
 
 // Organization — separate from LocalBusiness so Google can associate the
@@ -151,7 +153,7 @@ const localBusinessSchema = {
     addressRegion: "Scotland",
     addressCountry: "GB",
   },
-  hasMap: "https://share.google/cd4yB8qRiWzlzmK8c",
+  hasMap: googleReviewsUrl,
   sameAs,
   aggregateRating: {
     "@type": "AggregateRating",
@@ -210,6 +212,8 @@ export default function RootLayout({
         <WhatsAppButton />
         <StickyContactBar />
         <WhatsAppFollowUpPrompt />
+        <CookieConsent />
+        <GoogleAnalytics />
         <Analytics />
       </body>
     </html>

@@ -33,7 +33,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE}/work`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE}/reviews`, lastModified: now, changeFrequency: "weekly", priority: 0.7 },
+    { url: `${SITE}/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   // ── Service hub pages ─────────────────────────────────────────────────

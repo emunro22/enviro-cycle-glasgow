@@ -3,6 +3,7 @@ import { Resend } from "resend";
 import { sql, type BookingRow } from "@/lib/db";
 import { googleReviewsUrl } from "@/lib/google-reviews-data";
 import { SITE_URL } from "@/lib/site";
+import { claimReviewEmailSlot } from "@/lib/review-email-dedup";
 
 export const dynamic = "force-dynamic";
 
@@ -86,17 +87,21 @@ export async function GET(request: NextRequest) {
 
     let sent = 0;
     for (const row of rows) {
-      await resend.emails.send({
-        from: "Envirocycle Glasgow <noreply@envirocycleglasgow.com>",
-        to: [row.email],
-        subject: "How did we do?",
-        html: followupEmailHtml(row.first_name),
-      });
+      // Skip the send if the enquiry-followup cron already emailed this
+      // address, but still mark this row so it's not reprocessed daily.
+      if (await claimReviewEmailSlot(row.email)) {
+        await resend.emails.send({
+          from: "Envirocycle Glasgow <noreply@envirocycleglasgow.com>",
+          to: [row.email],
+          subject: "How did we do?",
+          html: followupEmailHtml(row.first_name),
+        });
+        sent++;
+      }
 
       await sql`
         UPDATE bookings SET followup_email_sent_at = NOW() WHERE id = ${row.id}
       `;
-      sent++;
     }
 
     return NextResponse.json({ success: true, sent });

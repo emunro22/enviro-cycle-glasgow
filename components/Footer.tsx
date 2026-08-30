@@ -12,9 +12,12 @@ const navLinks = [
   { href: "/areas", label: "Areas We Cover" },
   { href: "/about", label: "About Us" },
   { href: "/blog", label: "Blog" },
+  { href: "/reviews", label: "Reviews" },
+  { href: "/faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
   { href: "/tip-finder", label: "Tip Finder" },
   { href: "/terms", label: "Terms & Conditions" },
+  { href: "/privacy", label: "Privacy Policy" },
 ];
 
 export default function Footer() {
@@ -113,7 +116,7 @@ export default function Footer() {
             {/* Brand col */}
             <div>
                             <Image
-                src="/images/logo.png"
+                src="/images/logo.webp"
                 alt="Envirocycle logo"
                 width={60}
                 height={60}

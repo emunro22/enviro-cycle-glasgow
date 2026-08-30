@@ -7,20 +7,20 @@ const pairs = [
   {
     label: "Site Clearance",
     subtitle: "Wood, pallets & debris removed",
-    before: { src: "/images/hero-bg.jpg", alt: "Pile of wood pallets and debris before clearance" },
-    after:  { src: "/images/after-forecourt.jpg",   alt: "Clean gravel area after clearance" },
+    before: { src: "/images/hero-bg.webp", alt: "Pile of wood pallets and debris before clearance" },
+    after:  { src: "/images/after-forecourt.webp",   alt: "Clean gravel area after clearance" },
   },
   {
     label: "Household Uplift",
     subtitle: "Broken furniture & rubbish removed",
-    before: { src: "/images/before-boxes.jpg", alt: "Broken IKEA furniture and cardboard before uplift" },
-    after:  { src: "/images/after-gravel.jpg",  alt: "Clear forecourt after uplift" },
+    before: { src: "/images/before-boxes.webp", alt: "Broken IKEA furniture and cardboard before uplift" },
+    after:  { src: "/images/after-gravel.webp",  alt: "Clear forecourt after uplift" },
   },
   {
     label: "Bin Area Clearance",
     subtitle: "Overflowing waste managed",
-    before: { src: "/images/before-bins.jpg", alt: "Overflowing bins and loose rubbish before clearance" },
-    after:  { src: "/images/after-bins.jpg",  alt: "Tidy organised bin area after clearance" },
+    before: { src: "/images/before-bins.webp", alt: "Overflowing bins and loose rubbish before clearance" },
+    after:  { src: "/images/after-bins.webp",  alt: "Tidy organised bin area after clearance" },
   },
 ];
 

@@ -7,7 +7,7 @@ export interface GoogleReview {
   stars: number;
 }
 
-export const googleReviewsUrl = "https://share.google/cd4yB8qRiWzlzmK8c";
+export const googleReviewsUrl = "https://g.page/r/CYfia2A_OulWEBM/review";
 export const googleAverageRating = 5.0;
 export const googleReviewCount = 51;
 
