@@ -1,14 +1,6 @@
 {
   "crons": [
     {
-      "path": "/api/cron/review-followup",
-      "schedule": "0 9 * * *"
-    },
-    {
-      "path": "/api/cron/booking-followup",
-      "schedule": "0 9 * * *"
-    },
-    {
       "path": "/api/cron/sync-google-profile",
       "schedule": "0 6 * * *"
     }

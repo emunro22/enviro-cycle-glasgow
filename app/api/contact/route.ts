@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { sql } from "@/lib/db";
 import { SITE_URL } from "@/lib/site";
+import { claimReviewEmailSlot } from "@/lib/review-email-dedup";
+import { reviewRequestEmailHtml } from "@/lib/review-request-email";
 
 export const dynamic = "force-dynamic";
 
@@ -196,6 +198,18 @@ export async function POST(request: NextRequest) {
         </html>
       `,
     });
+
+    // Schedule a single "How did we do?" email 24h from now — claimed
+    // up front so a customer who also books later doesn't get a second one.
+    if (await claimReviewEmailSlot(String(email).trim())) {
+      await resend.emails.send({
+        from: "Envirocycle Glasgow <noreply@envirocycleglasgow.com>",
+        to: [String(email).trim()],
+        subject: "How did we do?",
+        scheduledAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+        html: reviewRequestEmailHtml(firstName, "enquiry"),
+      });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

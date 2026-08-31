@@ -4,6 +4,8 @@ import { sql, type BookingRow, type WastePriceRow } from "@/lib/db";
 import { isAdmin } from "@/lib/auth";
 import { SITE_URL } from "@/lib/site";
 import { WASTE_CATEGORIES } from "@/lib/waste-categories";
+import { claimReviewEmailSlot } from "@/lib/review-email-dedup";
+import { reviewRequestEmailHtml, computeBookingReviewEmailScheduledAt } from "@/lib/review-request-email";
 
 export const dynamic = "force-dynamic";
 
@@ -226,6 +228,19 @@ export async function POST(request: NextRequest) {
         <p>In the meantime, feel free to follow us on Instagram <a href="https://www.instagram.com/envirocycle_ltd/" style="color:#d4a017;">@envirocycle_ltd</a> to see our latest work.</p>
       `),
     });
+
+    // Schedule a single "How did we do?" email 24h after the job's
+    // preferred date — claimed up front so a customer who also sent a
+    // contact enquiry doesn't get a second one.
+    if (await claimReviewEmailSlot(String(email).trim())) {
+      await resend.emails.send({
+        from: "Envirocycle Glasgow <noreply@envirocycleglasgow.com>",
+        to: [String(email).trim()],
+        subject: "How did we do?",
+        scheduledAt: computeBookingReviewEmailScheduledAt(preferredDateVal),
+        html: reviewRequestEmailHtml(firstName, "booking"),
+      });
+    }
 
     return NextResponse.json({ success: true, booking }, { headers: noStore });
   } catch (error) {
