@@ -73,15 +73,24 @@ export async function GET(request: NextRequest) {
   try {
     await ensureColumn();
 
-    // Bookings older than a day (long enough for the job to be done) but
-    // newer than 30 days (skip stale backlog on first ever run) that
-    // haven't had a follow-up email sent yet.
+    // Fires 24h after the job's actual scheduled date (preferred_date), not
+    // 24h after the booking was made — a job booked for next week shouldn't
+    // get a "how did we do?" email tomorrow, before it's even happened.
+    // Falls back to created_at only for the rare booking with no date given.
+    // The 30-day upper bound just skips stale backlog on first ever run.
     const rows = (await sql`
       SELECT * FROM bookings
       WHERE followup_email_sent_at IS NULL
-        AND created_at <= NOW() - INTERVAL '1 day'
-        AND created_at > NOW() - INTERVAL '30 days'
-      ORDER BY created_at ASC
+        AND (
+          (preferred_date IS NOT NULL
+            AND preferred_date <= (NOW() - INTERVAL '1 day')::date
+            AND preferred_date > (NOW() - INTERVAL '30 days')::date)
+          OR
+          (preferred_date IS NULL
+            AND created_at <= NOW() - INTERVAL '1 day'
+            AND created_at > NOW() - INTERVAL '30 days')
+        )
+      ORDER BY COALESCE(preferred_date::timestamp, created_at) ASC
       LIMIT 50
     `) as BookingRow[];
 
