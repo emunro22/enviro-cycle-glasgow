@@ -180,6 +180,11 @@ export default function Contact() {
                   href: "https://www.instagram.com/envirocycle_ltd/",
                 },
                 {
+                  label: "TikTok",
+                  value: "@envirocycleglasgowltd",
+                  href: "https://www.tiktok.com/@envirocycleglasgowltd",
+                },
+                {
                   label: "Location",
                   value: "Glasgow & surrounding areas",
                 },

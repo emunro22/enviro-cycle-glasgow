@@ -7,9 +7,14 @@ import GoogleRatingBadge from "./GoogleRatingBadge";
 
 const words = ["SUSTAINABLE", "EFFICIENT", "RESPONSIBLE", "ECO-FRIENDLY"];
 
+const SLIDE_COUNT = 8;
+const SLIDE_INTERVAL_MS = 6000;
+
 export default function Hero() {
   const [wordIndex, setWordIndex] = useState(0);
   const [visible, setVisible] = useState(true);
+  const [slides, setSlides] = useState<string[]>([]);
+  const [slideIndex, setSlideIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -22,23 +27,61 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    fetch("/api/projects")
+      .then((r) => (r.ok ? r.json() : []))
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setSlides(data.slice(0, SLIDE_COUNT).map((p) => p.image_url));
+        }
+      })
+      .catch(() => {
+        // Falls back to the static background image below.
+      });
+  }, []);
+
+  useEffect(() => {
+    if (slides.length < 2) return;
+    const interval = setInterval(() => {
+      setSlideIndex((i) => (i + 1) % slides.length);
+    }, SLIDE_INTERVAL_MS);
+    return () => clearInterval(interval);
+  }, [slides.length]);
+
   return (
     <section className="relative min-h-[85vh] md:min-h-screen flex items-start md:items-center overflow-hidden bg-[#0a1f0b]">
       
-      {/* Background image */}
+      {/* Background image slideshow */}
       <div className="absolute inset-0">
-        <Image
-          src="/images/before-pallets.jpg"
-          alt="Envirocycle site clearance Glasgow"
-          fill
-          priority
-          className="object-cover object-center"
-          style={{ opacity: 0.18 }}
-        />
+        {slides.length > 0 ? (
+          slides.map((src, i) => (
+            <Image
+              key={src}
+              src={src}
+              alt="Envirocycle recent work in Glasgow"
+              fill
+              priority={i === 0}
+              className="object-cover object-center transition-opacity ease-in-out"
+              style={{
+                opacity: i === slideIndex ? 0.32 : 0,
+                transitionDuration: "1800ms",
+              }}
+            />
+          ))
+        ) : (
+          <Image
+            src="/images/before-pallets.jpg"
+            alt="Envirocycle site clearance Glasgow"
+            fill
+            priority
+            className="object-cover object-center"
+            style={{ opacity: 0.32 }}
+          />
+        )}
       </div>
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(160deg,rgba(10,31,11,0.93)_0%,rgba(10,31,11,0.78)_50%,rgba(10,31,11,0.93)_100%)]" />
+      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(160deg,rgba(10,31,11,0.82)_0%,rgba(10,31,11,0.6)_50%,rgba(10,31,11,0.82)_100%)]" />
 
       {/* Content container - REMOVED EXCESS PADDING */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pt-20 md:pt-32">
