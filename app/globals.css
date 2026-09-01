@@ -255,6 +255,13 @@ body::before {
   }
 }
 
+/* Lift page content clear of the floating FAB so it never covers text/links */
+@media (min-width: 769px) {
+  body {
+    padding-bottom: 9rem;
+  }
+}
+
 /* â”€â”€ Mobile sticky contact bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .sticky-contact-bar {
   display: none;
@@ -322,25 +329,8 @@ body::before {
   letter-spacing: 0.04em;
 }
 
-.sticky-contact-call {
-  width: 5.6rem;
-  background: rgba(255,255,255,0.06);
-  color: var(--cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  transition: opacity 0.2s;
-  flex-shrink: 0;
-  border-left: 1px solid rgba(212,160,23,0.15);
-}
-
-.sticky-contact-call:active {
-  opacity: 0.85;
-}
-
 .sticky-contact-whatsapp {
-  width: 5.6rem;
+  width: 6.4rem;
   background: #25d366;
   color: #fff;
   display: flex;
@@ -349,6 +339,7 @@ body::before {
   text-decoration: none;
   transition: opacity 0.2s;
   flex-shrink: 0;
+  border-left: 1px solid rgba(212,160,23,0.15);
 }
 
 .sticky-contact-whatsapp:active {

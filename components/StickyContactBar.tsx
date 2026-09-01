@@ -1,6 +1,6 @@
 // Mobile-only sticky contact bar pinned to the bottom of the viewport.
-// "Book Now" is the primary tap target, with Call and WhatsApp as compact
-// icon buttons alongside it. Hides above 768px — desktop uses the floating
+// "Book Now" is the primary tap target, with WhatsApp as a compact icon
+// button alongside it. Hides above 768px — desktop uses the floating
 // WhatsAppButton FAB instead.
 
 "use client";
@@ -10,7 +10,6 @@ import { track } from "@vercel/analytics";
 import { useVisitorGeo } from "@/lib/useVisitorGeo";
 import { WHATSAPP_CLICKED_EVENT } from "@/components/WhatsAppFollowUpPrompt";
 
-const PHONE_TEL = "+447450435241";
 const PHONE_WA = "447450435241";
 const MESSAGE = "Hi Envirocycle, I'd like a quote please.";
 const WHATSAPP_URL = `https://wa.me/${PHONE_WA}?text=${encodeURIComponent(MESSAGE)}`;
@@ -29,12 +28,6 @@ export default function StickyContactBar() {
           <strong>Book Now</strong>
         </span>
       </Link>
-
-      <a href={`tel:${PHONE_TEL}`} className="sticky-contact-call" aria-label="Call Envirocycle">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-        </svg>
-      </a>
 
       <a
         href={WHATSAPP_URL}
