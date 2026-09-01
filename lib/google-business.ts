@@ -161,3 +161,43 @@ export async function fetchAllBusinessProfileReviews(
 
   return reviews;
 }
+
+export interface BusinessProfileMediaItem {
+  name: string;
+  googleUrl: string;
+}
+
+/**
+ * Pulls every photo the business (or its customers) has added to the
+ * profile via the Business Profile media API. Unlike the Places API,
+ * media item resource names here are permanent — no rotating reference
+ * tokens — so they can be deduped reliably by name.
+ */
+export async function fetchAllBusinessProfileMedia(
+  accessToken: string,
+  locationName: string
+): Promise<BusinessProfileMediaItem[]> {
+  const items: BusinessProfileMediaItem[] = [];
+  let pageToken: string | undefined;
+
+  do {
+    const url = new URL(`https://mybusiness.googleapis.com/v4/${locationName}/media`);
+    url.searchParams.set("pageSize", "100");
+    if (pageToken) url.searchParams.set("pageToken", pageToken);
+
+    const res = await fetch(url.toString(), {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    if (!res.ok) break;
+
+    const data = await res.json();
+    for (const item of data.mediaItems ?? []) {
+      if (item.mediaFormat === "PHOTO" && item.googleUrl) {
+        items.push({ name: item.name, googleUrl: item.googleUrl });
+      }
+    }
+    pageToken = data.nextPageToken;
+  } while (pageToken);
+
+  return items;
+}
