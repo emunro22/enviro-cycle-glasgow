@@ -10,7 +10,7 @@ import { SITE_URL } from "@/lib/site";
 // SERVICE HUB CONFIG
 // ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants — everything below the line is shared.
+// service hubs are these constants. Everything below the line is shared.
 
 const SERVICE_PREFIX = "waste-removal";
 const SERVICE_NAME = "Waste Removal";
@@ -18,15 +18,15 @@ const SERVICE_H1 = "WASTE REMOVAL";
 const HERO_TAGLINE = "Licensed waste removal for homes, businesses, and trades. Sorted properly, recycled where possible, full paperwork on every job.";
 
 const META_TITLE = "Waste Removal Glasgow | Licensed Carrier | Envirocycle Glasgow";
-const META_DESCRIPTION = "Licensed waste removal across Glasgow. Domestic, commercial, and trade — sorted at a licensed transfer station, transfer note included on every job.";
+const META_DESCRIPTION = "Licensed waste removal across Glasgow. Domestic, commercial, and trade: sorted at a licensed transfer station, transfer note included on every job.";
 
 const WHAT_WE_TAKE = [
-  "Household waste — bulky items, single bags, full clearances",
-  "Commercial waste — offices, shops, hospitality, light industrial",
-  "Trade waste — renovation, fit-out, and demolition uplifts",
-  "Garden waste — green waste, soil, turf, hedge cuttings",
-  "Electricals (WEEE) — collected and processed under UK regs",
-  "Mixed loads — sorted at a licensed transfer station",
+  "Household waste: bulky items, single bags, full clearances",
+  "Commercial waste: offices, shops, hospitality, light industrial",
+  "Trade waste: renovation, fit-out, and demolition uplifts",
+  "Garden waste: green waste, soil, turf, hedge cuttings",
+  "Electricals (WEEE): collected and processed under UK regs",
+  "Mixed loads: sorted at a licensed transfer station",
 ];
 
 const HOW_IT_WORKS = [
@@ -55,19 +55,19 @@ const HOW_IT_WORKS = [
 const FAQ = [
   {
     q: "Are you a licensed waste carrier?",
-    a: "Yes — SEPA WCR/R/3021188. Every collection comes with a waste transfer note so you've got a full audit trail. This matters especially for trade and commercial work where you're legally responsible for proving where your waste ended up.",
+    a: "Yes, SEPA WCR/R/3021188. Every collection comes with a waste transfer note so you've got a full audit trail. This matters especially for trade and commercial work where you're legally responsible for proving where your waste ended up.",
   },
   {
     q: "What's the difference between waste removal and rubbish removal?",
-    a: "They're often the same thing in practice. Strictly, 'rubbish removal' is more of a domestic phrase and 'waste removal' is broader — covering trade, commercial, and licensed disposal. Most jobs we do fit under both labels.",
+    a: "They're often the same thing in practice. Strictly, 'rubbish removal' is more of a domestic phrase and 'waste removal' is broader: covering trade, commercial, and licensed disposal. Most jobs we do fit under both labels.",
   },
   {
     q: "Can you collect from a commercial property?",
-    a: "Yes. We work with shops, offices, hospitality, and light industrial sites across Glasgow. Ad-hoc collections, scheduled regular uplifts, or one-off site clearances — all handled.",
+    a: "Yes. We work with shops, offices, hospitality, and light industrial sites across Glasgow. Ad-hoc collections, scheduled regular uplifts, or one-off site clearances, all handled.",
   },
   {
     q: "Do you provide invoices for businesses?",
-    a: "Yes — VAT-registered invoices on request, payable by card, transfer, or 14-day terms for established trade accounts.",
+    a: "Yes: VAT-registered invoices on request, payable by card, transfer, or 14-day terms for established trade accounts.",
   },
   {
     q: "What can't you take?",

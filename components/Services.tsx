@@ -220,7 +220,7 @@ export default function Services() {
                 ))}
               </ul>
 
-              {/* CTA — now links to the dedicated service page */}
+              {/* CTA. Now links to the dedicated service page */}
               <Link
                 href={service.slug}
                 className="inline-flex items-center gap-2 text-sm font-semibold transition-colors duration-200"

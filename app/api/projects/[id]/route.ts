@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from: "Envirocycle Glasgow <noreply@envirocycleglasgow.com>",
       to: [email],
-      subject: "We've received your enquiry — Envirocycle Glasgow",
+      subject: "We've received your enquiry, Envirocycle Glasgow",
       html: `
         <!DOCTYPE html>
         <html>
@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
             </div>
             <div class="body">
               <h2>Thanks for getting in touch, ${firstName}!</h2>
-              <p>We've received your enquiry and will get back to you as soon as possible — usually within a few hours.</p>
+              <p>We've received your enquiry and will get back to you as soon as possible. Usually within a few hours.</p>
               <div class="contact-box">
                 <p>📞 +44 7450 435241</p>
                 <p>📧 envirocycleglasgow@outlook.com</p>

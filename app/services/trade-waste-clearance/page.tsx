@@ -29,12 +29,12 @@ export default function TradeWasteClearancePage() {
       eyebrow="Reliable & Fully Compliant"
       title="Trade Waste"
       titleAccent="Clearance"
-      intro="Efficient, responsible trade waste clearance for businesses and trades across Glasgow and Scotland — flexible collections, full compliance, and a recycling-focused approach so you can stay focused on the job."
+      intro="Efficient, responsible trade waste clearance for businesses and trades across Glasgow and Scotland: flexible collections, full compliance, and a recycling-focused approach so you can stay focused on the job."
       sections={[
         {
           heading: "Built for businesses and trades",
           body: [
-            "Construction, landscaping, joinery, retail or office — whatever your trade, Envirocycle keeps waste off your hands. We offer flexible collections that fit around your jobs and sites rather than forcing you onto a fixed schedule.",
+            "Construction, landscaping, joinery, retail or office: whatever your trade, Envirocycle keeps waste off your hands. We offer flexible collections that fit around your jobs and sites rather than forcing you onto a fixed schedule.",
             "It means less time managing waste and more time on the work that pays.",
           ],
         },
@@ -48,13 +48,13 @@ export default function TradeWasteClearancePage() {
         {
           heading: "Recycling-focused, minimal disruption",
           body: [
-            "We sort and recycle as much trade waste as possible rather than defaulting to landfill — better for the environment and for your own sustainability commitments. And our service is built to be fast and low-disruption, so your site keeps moving.",
+            "We sort and recycle as much trade waste as possible rather than defaulting to landfill. Better for the environment and for your own sustainability commitments, and our service is built to be fast and low-disruption, so your site keeps moving.",
           ],
         },
         {
           heading: "Commercial waste removal for Glasgow trades",
           body: [
-            "Builders, joiners, landscapers, shopfitters — if your trade generates waste between jobs, we fit around your sites rather than the other way round. Book a one-off uplift for a finished job, or set up a standing arrangement so waste never piles up while you're between projects.",
+            "Builders, joiners, landscapers, shopfitters: if your trade generates waste between jobs, we fit around your sites rather than the other way round. Book a one-off uplift for a finished job, or set up a standing arrangement so waste never piles up while you're between projects.",
             "Plasterboard, timber, packaging and mixed construction waste are all handled. Plasterboard has to be kept separate from general waste under Scottish environmental regulations, which we do as standard rather than charging extra for the hassle.",
           ],
         },
@@ -62,7 +62,7 @@ export default function TradeWasteClearancePage() {
       features={[
         "Flexible collections for businesses and trades",
         "Full waste transfer notes and compliance documentation",
-        "Registered waste carrier — SEPA WCR/R/3021188",
+        "Registered waste carrier, SEPA WCR/R/3021188",
         "Construction, landscaping and general trade waste handled",
         "Recycling-focused waste management",
         "Fast, reliable service with minimal disruption",
@@ -74,7 +74,7 @@ export default function TradeWasteClearancePage() {
         },
         {
           q: "Can collections fit around my work schedule?",
-          a: "Yes — we offer flexible collections designed to fit around your jobs and sites rather than a fixed timetable.",
+          a: "Yes. We offer flexible collections designed to fit around your jobs and sites rather than a fixed timetable.",
         },
         {
           q: "What types of trade waste do you take?",
@@ -86,7 +86,7 @@ export default function TradeWasteClearancePage() {
         },
         {
           q: "Do you separate plasterboard from other trade waste?",
-          a: "Yes — Scottish regulations require plasterboard to be kept separate for disposal, and we do this on every job as standard.",
+          a: "Yes: Scottish regulations require plasterboard to be kept separate for disposal, and we do this on every job as standard.",
         },
         {
           q: "Can you set up a regular collection for an ongoing site?",

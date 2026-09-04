@@ -14,7 +14,7 @@ async function ensureTable() {
 
 // Atomically claims the right to send a review-request email to this address.
 // Returns true only for the first caller (across either cron) for a given
-// email — everyone else gets false and should skip sending.
+// email. Everyone else gets false and should skip sending.
 export async function claimReviewEmailSlot(email: string): Promise<boolean> {
   await ensureTable();
   const normalized = email.trim().toLowerCase();

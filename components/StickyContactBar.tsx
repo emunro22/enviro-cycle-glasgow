@@ -1,6 +1,6 @@
 // Mobile-only sticky contact bar pinned to the bottom of the viewport.
 // "Book Now" is the primary tap target, with WhatsApp as a compact icon
-// button alongside it. Hides above 768px — desktop uses the floating
+// button alongside it. Hides above 768px. Desktop uses the floating
 // WhatsAppButton FAB instead.
 
 "use client";

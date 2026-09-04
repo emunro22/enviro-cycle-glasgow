@@ -170,8 +170,8 @@ export interface BusinessProfileMediaItem {
 /**
  * Pulls every photo the business (or its customers) has added to the
  * profile via the Business Profile media API. Unlike the Places API,
- * media item resource names here are permanent — no rotating reference
- * tokens — so they can be deduped reliably by name.
+ * media item resource names here are permanent, no rotating reference
+ * tokens. So they can be deduped reliably by name.
  */
 export async function fetchAllBusinessProfileMedia(
   accessToken: string,

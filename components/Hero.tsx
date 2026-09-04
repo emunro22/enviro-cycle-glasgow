@@ -84,7 +84,7 @@ export default function Hero() {
       <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(160deg,rgba(10,31,11,0.82)_0%,rgba(10,31,11,0.6)_50%,rgba(10,31,11,0.82)_100%)]" />
 
       {/* Content container - REMOVED EXCESS PADDING */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pt-20 md:pt-32">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-8 pt-24 md:pt-32">
         
         {/* Heading - MOVED UP */}
         <h1

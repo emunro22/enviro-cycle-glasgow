@@ -10,30 +10,30 @@ import { SITE_URL } from "@/lib/site";
 // SERVICE HUB CONFIG
 // ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants — everything below the line is shared.
+// service hubs are these constants. Everything below the line is shared.
 
 const SERVICE_PREFIX = "rubbish-removal";
 const SERVICE_NAME = "Rubbish Removal";
 const SERVICE_H1 = "RUBBISH REMOVAL";
-const HERO_TAGLINE = "Single items to full van loads — cheaper than a skip, faster than the council.";
+const HERO_TAGLINE = "Single items to full van loads: cheaper than a skip, faster than the council.";
 
 const META_TITLE = "Rubbish Removal Glasgow | Same-Day Service from £40 | Envirocycle";
 const META_DESCRIPTION = "Licensed rubbish removal across Glasgow and surrounding areas. Single sofas to full house clearances. Same-day available, transfer note included.";
 
 const WHAT_WE_TAKE = [
-  "Furniture — sofas, beds, wardrobes, dining sets",
-  "White goods — fridges, washing machines, dryers",
-  "Garden waste — branches, hedge cuttings, soil, turf",
-  "Builders' waste — kitchens, bathrooms, plasterboard",
-  "Office equipment — desks, chairs, filing cabinets, IT (WEEE)",
-  "General clutter — boxes, bags, broken items, end-of-tenancy",
+  "Furniture: sofas, beds, wardrobes, dining sets",
+  "White goods: fridges, washing machines, dryers",
+  "Garden waste: branches, hedge cuttings, soil, turf",
+  "Builders' waste: kitchens, bathrooms, plasterboard",
+  "Office equipment: desks, chairs, filing cabinets, IT (WEEE)",
+  "General clutter: boxes, bags, broken items, end-of-tenancy",
 ];
 
 const HOW_IT_WORKS = [
   {
     step: "01",
     title: "Quick quote",
-    body: "Send a photo of what needs to go and your postcode. We'll quote in minutes — no site visit needed for most jobs.",
+    body: "Send a photo of what needs to go and your postcode. We'll quote in minutes. No site visit needed for most jobs.",
   },
   {
     step: "02",
@@ -55,7 +55,7 @@ const HOW_IT_WORKS = [
 const FAQ = [
   {
     q: "How much does rubbish removal cost?",
-    a: "Pricing is by volume (van space) rather than per item, so larger jobs work out cheaper. A single mattress is around £40; a full van load is £200–£280 depending on what's in it. We always quote up front — no surprises.",
+    a: "Pricing is by volume (van space) rather than per item, so larger jobs work out cheaper. A single mattress is around £40; a full van load is £200–£280 depending on what's in it. We always quote up front, no surprises.",
   },
   {
     q: "Can you come today?",
@@ -67,11 +67,11 @@ const FAQ = [
   },
   {
     q: "What about hazardous waste?",
-    a: "We can take most household items including paints, batteries, and electricals (WEEE). We can't take asbestos, clinical waste, or chemicals — call us if you're unsure and we'll point you in the right direction.",
+    a: "We can take most household items including paints, batteries, and electricals (WEEE). We can't take asbestos, clinical waste, or chemicals. Call us if you're unsure and we'll point you in the right direction.",
   },
   {
     q: "Is it cheaper than a skip?",
-    a: "For most domestic jobs, yes — by quite a bit. A skip is the same price whether full or half-empty, and you need a permit if it's on the road. We turn up, load, and leave — you pay for what we actually take.",
+    a: "For most domestic jobs, yes, by quite a bit. A skip is the same price whether full or half-empty, and you need a permit if it's on the road. We turn up, load, and leave. You pay for what we actually take.",
   },
 ];
 

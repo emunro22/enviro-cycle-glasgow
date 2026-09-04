@@ -10,12 +10,12 @@ import { SITE_URL } from "@/lib/site";
 // SERVICE HUB CONFIG
 // ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants — everything below the line is shared.
+// service hubs are these constants. Everything below the line is shared.
 
 const SERVICE_PREFIX = "furniture-disposal";
 const SERVICE_NAME = "Furniture Disposal";
 const SERVICE_H1 = "FURNITURE DISPOSAL";
-const HERO_TAGLINE = "Sofas, beds, wardrobes, white goods. Same-day uplifts where possible. Anything reusable goes to local charities.";
+const HERO_TAGLINE = "Sofas, beds, wardrobes and white goods, uplifted same-day where possible. Anything reusable goes to local charities.";
 
 const META_TITLE = "Furniture Disposal Glasgow | Same-Day Sofa & Bed Removal | Envirocycle";
 const META_DESCRIPTION = "Furniture disposal across Glasgow. Sofas, beds, wardrobes, white goods. Same-day uplifts available. Reusable items go to local charities.";
@@ -26,14 +26,14 @@ const WHAT_WE_TAKE = [
   "Wardrobes, chests of drawers, bedside tables",
   "Dining tables, chairs, sideboards",
   "Fridges, freezers, washing machines, dryers",
-  "Cookers, ovens, dishwashers — disconnected and removed",
+  "Cookers, ovens, dishwashers, disconnected and removed",
 ];
 
 const HOW_IT_WORKS = [
   {
     step: "01",
     title: "Photo + postcode",
-    body: "Send us a photo of the item and your postcode. We'll quote in minutes — no site visit needed.",
+    body: "Send us a photo of the item and your postcode. We'll quote in minutes. No site visit needed.",
   },
   {
     step: "02",
@@ -43,12 +43,12 @@ const HOW_IT_WORKS = [
   {
     step: "03",
     title: "Two-person uplift",
-    body: "We carry from any floor of any building — stairs, lifts, tight corners are all fine. We also disconnect appliances safely.",
+    body: "We carry from any floor of any building: stairs, lifts, tight corners are all fine. We also disconnect appliances safely.",
   },
   {
     step: "04",
     title: "Reused or recycled",
-    body: "Items in good condition go to local charities — we work with several across Glasgow. Everything else is processed at licensed disposal facilities.",
+    body: "Items in good condition go to local charities. We work with several across Glasgow. Everything else is processed at licensed disposal facilities.",
   },
 ];
 
@@ -59,19 +59,19 @@ const FAQ = [
   },
   {
     q: "Do you take mattresses?",
-    a: "Yes — single, double, king, super-king. Mattresses go to a licensed disposal route (they can't be tipped at standard transfer stations). Around £40 for a single mattress, £50 for a double.",
+    a: "Yes: single, double, king, super-king. Mattresses go to a licensed disposal route (they can't be tipped at standard transfer stations). Around £40 for a single mattress, £50 for a double.",
   },
   {
     q: "Can you take a fridge or freezer?",
-    a: "Yes. Fridges and freezers need special handling because of the refrigerant gases — we take them to a licensed WEEE facility where they're processed correctly. £45–£55 per unit.",
+    a: "Yes. Fridges and freezers need special handling because of the refrigerant gases. We take them to a licensed WEEE facility where they're processed correctly. £45–£55 per unit.",
   },
   {
     q: "Will it go to a charity?",
-    a: "Where possible, yes. If a sofa or wardrobe is in good condition we'll get it to a local charity — Glasgow has several that take furniture donations. We can let you know where yours went if you'd like.",
+    a: "Where possible, yes. If a sofa or wardrobe is in good condition we'll get it to a local charity. Glasgow has several that take furniture donations. We can let you know where yours went if you'd like.",
   },
   {
     q: "Can you collect from a flat?",
-    a: "Yes — flats are fine. Tight closes, no lift, top floor — all standard for us. We bring two people and the right equipment. Just let us know which floor when you book so we can plan.",
+    a: "Yes, flats are fine. Tight closes, no lift, top floor: all standard for us. We bring two people and the right equipment. Just let us know which floor when you book so we can plan.",
   },
 ];
 // ────────────────────────────────────────────────────────────────────────────

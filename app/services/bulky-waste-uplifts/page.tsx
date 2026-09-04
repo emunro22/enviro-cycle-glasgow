@@ -4,7 +4,7 @@ import ServicePageTemplate from "@/components/ServicePageTemplate";
 export const metadata: Metadata = {
   title: "Bulky Waste Uplifts Glasgow | Furniture & Appliance Removal",
   description:
-    "Same-day bulky waste uplifts in Glasgow. Furniture, appliances, white goods and garden waste removed quickly and responsibly. Free quotes — get in touch today.",
+    "Same-day bulky waste uplifts in Glasgow. Furniture, appliances, white goods and garden waste removed quickly and responsibly. Free quotes. Get in touch today.",
   keywords: [
     "bulky waste uplift Glasgow",
     "furniture removal Glasgow",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Bulky Waste Uplifts Glasgow | Envirocycle Glasgow",
     description:
-      "Same-day bulky waste uplifts in Glasgow — furniture, appliances and garden waste removed responsibly.",
+      "Same-day bulky waste uplifts in Glasgow: furniture, appliances and garden waste removed responsibly.",
     url: "https://envirocycleglasgow.com/services/bulky-waste-uplifts",
     type: "website",
   },
@@ -30,12 +30,12 @@ export default function BulkyWasteUpliftsPage() {
       eyebrow="Same-Day Available"
       title="Bulky Waste"
       titleAccent="Uplifts"
-      intro="Got something big to shift? Envirocycle removes furniture, appliances, white goods and garden waste across Glasgow — often same-day, always responsibly disposed of or donated."
+      intro="Got something big to shift? Envirocycle removes furniture, appliances, white goods and garden waste across Glasgow: often same-day, always responsibly disposed of or donated."
       sections={[
         {
           heading: "A faster, easier alternative to a skip",
           body: [
-            "Hiring a skip means permits, waiting, and loading it yourself. A bulky waste uplift from Envirocycle means our team turns up, does the lifting, and clears it away — usually the same day or at a time that suits you.",
+            "Hiring a skip means permits, waiting, and loading it yourself. A bulky waste uplift from Envirocycle means our team turns up, does the lifting, and clears it away. Usually the same day or at a time that suits you.",
             "It is the simplest way to get rid of bulky items from a home, flat or business anywhere in Glasgow.",
           ],
         },
@@ -47,7 +47,7 @@ export default function BulkyWasteUpliftsPage() {
           ],
         },
         {
-          heading: "Responsibly disposed of — or donated",
+          heading: "Responsibly disposed of, or donated",
           body: [
             "Items in usable condition are donated where possible. Everything else is taken to licensed facilities and recycled wherever it can be, so your uplift has the smallest possible environmental impact.",
           ],
@@ -55,8 +55,8 @@ export default function BulkyWasteUpliftsPage() {
         {
           heading: "Same-day service across Glasgow and Lanarkshire",
           body: [
-            "Because we run our own vans rather than booking through a call centre, we can usually slot a bulky uplift in the same day — sometimes within a couple of hours if you catch us between jobs. It's the option people reach for when a sofa's blocking the hallway before a viewing, or an old fridge needs to go before a new one's delivered.",
-            "We cover flats and tenements as readily as houses with driveways — stair carries, tight closes and awkward corners are routine for us, not an extra charge.",
+            "Because we run our own vans rather than booking through a call centre, we can usually slot a bulky uplift in the same day. Sometimes within a couple of hours if you catch us between jobs. It's the option people reach for when a sofa's blocking the hallway before a viewing, or an old fridge needs to go before a new one's delivered.",
+            "We cover flats and tenements as readily as houses with driveways: stair carries, tight closes and awkward corners are routine for us, not an extra charge.",
           ],
         },
       ]}
@@ -87,11 +87,11 @@ export default function BulkyWasteUpliftsPage() {
         },
         {
           q: "Do you charge extra for stairs or flats?",
-          a: "No — carrying items down stairs or through tenement closes is part of the standard service, not an add-on.",
+          a: "No: carrying items down stairs or through tenement closes is part of the standard service, not an add-on.",
         },
         {
           q: "What if I only have one item to get rid of?",
-          a: "That's fine — plenty of our uplifts are a single sofa, mattress or fridge. Pricing is by volume, so a single item costs less than a full load.",
+          a: "That's fine: plenty of our uplifts are a single sofa, mattress or fridge. Pricing is by volume, so a single item costs less than a full load.",
         },
       ]}
       related={[

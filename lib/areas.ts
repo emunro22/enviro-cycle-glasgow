@@ -14,8 +14,8 @@
 
 export interface ServicePrefix {
   prefix: string;          // "waste-removal", "house-clearance" etc.
-  searchPhrase: string;    // "waste removal" — for page titles
-  h1Verb: string;          // "WASTE REMOVAL" — for hero headings (uppercase)
+  searchPhrase: string;    // "waste removal", for page titles
+  h1Verb: string;          // "WASTE REMOVAL", for hero headings (uppercase)
   intro: string;
   body: string;
 }
@@ -26,27 +26,27 @@ export const servicePrefixes: ServicePrefix[] = [
     searchPhrase: "Waste Removal",
     h1Verb: "WASTE REMOVAL",
     intro:
-      "Licensed waste removal, uplifts and recycling. Domestic and commercial — same-day available.",
+      "Licensed waste removal, uplifts and recycling. Domestic and commercial, same-day available.",
     body:
-      "We collect waste of all kinds — household, garden, builders' rubble, office strip-outs. Everything's sorted at a licensed transfer station, with a waste transfer note provided for your records. Reusable items go to local charities; the rest is recycled or recovered where possible.",
+      "We collect waste of all kinds: household, garden, builders' rubble, office strip-outs. Everything's sorted at a licensed transfer station, with a waste transfer note provided for your records. Reusable items go to local charities; the rest is recycled or recovered where possible.",
   },
   {
     prefix: "rubbish-removal",
     searchPhrase: "Rubbish Removal",
     h1Verb: "RUBBISH REMOVAL",
     intro:
-      "Quick, no-fuss rubbish removal — single items to full van loads. Cheaper and faster than a skip.",
+      "Quick, no-fuss rubbish removal. Single items to full van loads. Cheaper and faster than a skip.",
     body:
-      "Single sofas, full house contents, garage clear-outs, garden bags — we take it all. Pricing's by volume and weight rather than per item, so larger jobs work out cheaper. We can usually get to you within 24–48 hours, often same-day.",
+      "Single sofas, full house contents, garage clear-outs, garden bags. We take it all. Pricing's by volume and weight rather than per item, so larger jobs work out cheaper. We can usually get to you within 24–48 hours, often same-day.",
   },
   {
     prefix: "house-clearance",
     searchPhrase: "House Clearance",
     h1Verb: "HOUSE CLEARANCE",
     intro:
-      "Full or part house clearances — end-of-tenancy, probate, downsizing. Discreet and tidy.",
+      "Full or part house clearances: end-of-tenancy, probate, downsizing. Discreet and tidy.",
     body:
-      "Whole-house clearances from start to finish — single rooms, full properties, lofts, garages, sheds. Furniture, appliances, mattresses, carpets, the lot. Anything reusable goes to local charities; the rest is sorted at a licensed transfer station. Sensitive jobs like probate clearances are handled discreetly.",
+      "Whole-house clearances from start to finish: single rooms, full properties, lofts, garages, sheds. Furniture, appliances, mattresses, carpets, the lot. Anything reusable goes to local charities; the rest is sorted at a licensed transfer station. Sensitive jobs like probate clearances are handled discreetly.",
   },
   {
     prefix: "office-clearance",
@@ -62,9 +62,9 @@ export const servicePrefixes: ServicePrefix[] = [
     searchPhrase: "Garden Waste Removal",
     h1Verb: "GARDEN WASTE REMOVAL",
     intro:
-      "Branches, hedge cuttings, turf, soil, decking — uplifted and recycled.",
+      "Branches, hedge cuttings, turf, soil, decking, uplifted and recycled.",
     body:
-      "Hedge cuttings, branches, soil, turf, decking, fence panels — anything from a quick garden tidy-up to a full landscaping strip-out. Green waste goes to a licensed composting facility; mixed garden waste is sorted for recovery.",
+      "Hedge cuttings, branches, soil, turf, decking, fence panels. Anything from a quick garden tidy-up to a full landscaping strip-out. Green waste goes to a licensed composting facility; mixed garden waste is sorted for recovery.",
   },
   {
     prefix: "builders-waste-removal",
@@ -73,25 +73,25 @@ export const servicePrefixes: ServicePrefix[] = [
     intro:
       "Trade waste uplifts for renovations, kitchens, bathrooms, extensions. Often cheaper than a skip.",
     body:
-      "Renovations, kitchen rip-outs, bathroom installs, extensions — we collect from kerbside or driveway as often as the job needs. Plasterboard kept separate as required by law, and inert rubble priced lower than mixed loads. Waste transfer notes provided on every collection.",
+      "Renovations, kitchen rip-outs, bathroom installs, extensions. We collect from kerbside or driveway as often as the job needs. Plasterboard kept separate as required by law, and inert rubble priced lower than mixed loads. Waste transfer notes provided on every collection.",
   },
   {
     prefix: "furniture-disposal",
     searchPhrase: "Furniture Disposal",
     h1Verb: "FURNITURE DISPOSAL",
     intro:
-      "Sofas, beds, wardrobes, white goods — uplifted same-day where possible.",
+      "Sofas, beds, wardrobes, white goods. Uplifted same-day where possible.",
     body:
-      "Sofas, beds, wardrobes, dining sets, fridges, washing machines — anything too big for the car. Reusable items go to local charities; the rest is taken apart and recycled where possible. We usually do same-day or next-day on standard items.",
+      "Sofas, beds, wardrobes, dining sets, fridges, washing machines. Anything too big for the car. Reusable items go to local charities; the rest is taken apart and recycled where possible. We usually do same-day or next-day on standard items.",
   },
   {
     prefix: "skip-hire-alternative",
     searchPhrase: "Skip Hire Alternative",
     h1Verb: "SKIP HIRE ALTERNATIVE",
     intro:
-      "Don't need a skip in the driveway for a week? Pay for what you actually throw out — we uplift and go.",
+      "Don't need a skip in the driveway for a week? Pay for what you actually throw out. We uplift and go.",
     body:
-      "A skip costs the same whether it's full or half-empty, and you need a permit if it's on the road. We turn up, load the van, and leave — you pay for what we take, not for floor space and a permit. Works out cheaper for most domestic jobs.",
+      "A skip costs the same whether it's full or half-empty, and you need a permit if it's on the road. We turn up, load the van, and leave. You pay for what we take, not for floor space and a permit. Works out cheaper for most domestic jobs.",
   },
 ];
 
@@ -147,7 +147,7 @@ export const areas: Area[] = [
     council: "South Lanarkshire",
     travelMinutes: 12,
     localHook:
-      "High Blantyre's quieter residential streets and proximity to Hairmyres mean we cover a lot of family-home clearances and end-of-tenancy jobs here. Older properties often need plasterboard kept separate during renovations — we handle that as standard.",
+      "High Blantyre's quieter residential streets and proximity to Hairmyres mean we cover a lot of family-home clearances and end-of-tenancy jobs here. Older properties often need plasterboard kept separate during renovations. We handle that as standard.",
     landmarks: ["Hairmyres Hospital", "Calderside Academy", "Wheatlandhead Park"],
     services: CORE_SERVICES,
   },
@@ -169,7 +169,7 @@ export const areas: Area[] = [
     council: "South Lanarkshire",
     travelMinutes: 12,
     localHook:
-      "Bothwell's larger Victorian and Edwardian properties along Main Street and around the castle bring more substantial clearance jobs — full attics, outbuildings, mature gardens. Renovation waste from the village's ongoing extension projects is a regular run.",
+      "Bothwell's larger Victorian and Edwardian properties along Main Street and around the castle bring more substantial clearance jobs: full attics, outbuildings, mature gardens. Renovation waste from the village's ongoing extension projects is a regular run.",
     landmarks: ["Bothwell Castle", "Bothwell Bridge", "Bothwell Main Street"],
     services: ALL_SERVICES,
   },
@@ -191,7 +191,7 @@ export const areas: Area[] = [
     council: "South Lanarkshire",
     travelMinutes: 14,
     localHook:
-      "Cambuslang's mix of terraced housing in the centre and newer developments toward Halfway and Whitlawburn keeps us busy across the full range — clearances, garden waste, builders' rubble. The commercial estate also generates regular trade pickups.",
+      "Cambuslang's mix of terraced housing in the centre and newer developments toward Halfway and Whitlawburn keeps us busy across the full range: clearances, garden waste, builders' rubble. The commercial estate also generates regular trade pickups.",
     landmarks: ["Cambuslang Main Street", "Halfway", "Whitlawburn", "Kirkhill Golf Club"],
     services: ALL_SERVICES,
   },
@@ -248,7 +248,7 @@ export const areas: Area[] = [
     council: "South Lanarkshire",
     travelMinutes: 18,
     localHook:
-      "East Kilbride's the biggest town we cover regularly — everything from town-centre flat clearances near the shopping centre to family-home uplifts in Westwood, Calderwood, and Stewartfield. The town's grid layout makes access straightforward in most areas.",
+      "East Kilbride's the biggest town we cover regularly. Everything from town-centre flat clearances near the shopping centre to family-home uplifts in Westwood, Calderwood, and Stewartfield. The town's grid layout makes access straightforward in most areas.",
     landmarks: ["East Kilbride Shopping Centre", "James Hamilton Heritage Park", "Calderglen Country Park"],
     services: ALL_SERVICES,
   },
@@ -259,7 +259,7 @@ export const areas: Area[] = [
     council: "South Lanarkshire",
     travelMinutes: 20,
     localHook:
-      "Calderwood's family homes and good road access make for straightforward jobs — single-item uplifts and full clearances both run smoothly here. We see a fair bit of garden waste from the area's larger plot sizes.",
+      "Calderwood's family homes and good road access make for straightforward jobs. Single-item uplifts and full clearances both run smoothly here. We see a fair bit of garden waste from the area's larger plot sizes.",
     landmarks: ["Calderwood Square", "Calderwood Primary"],
     services: CORE_SERVICES,
   },
@@ -270,7 +270,7 @@ export const areas: Area[] = [
     council: "South Lanarkshire",
     travelMinutes: 20,
     localHook:
-      "Westwood's a quiet, well-laid-out residential area that gives us mostly straightforward family-home jobs — furniture refreshes, garden tidy-ups, and the occasional full clearance during a downsize or sale.",
+      "Westwood's a quiet, well-laid-out residential area that gives us mostly straightforward family-home jobs: furniture refreshes, garden tidy-ups, and the occasional full clearance during a downsize or sale.",
     landmarks: ["Westwood Square", "Whitehills"],
     services: CORE_SERVICES,
   },
@@ -303,7 +303,7 @@ export const areas: Area[] = [
     council: "East Renfrewshire",
     travelMinutes: 25,
     localHook:
-      "Eaglesham's conservation village character means careful jobs — narrow streets around the village green, period properties with sensitive contents. We work calmly and tidily here, which the residents appreciate.",
+      "Eaglesham's conservation village character means careful jobs: narrow streets around the village green, period properties with sensitive contents. We work calmly and tidily here, which the residents appreciate.",
     landmarks: ["Eaglesham Village Green", "Polnoon Lodge"],
     services: CORE_SERVICES,
   },
@@ -314,7 +314,7 @@ export const areas: Area[] = [
     council: "South Lanarkshire",
     travelMinutes: 28,
     localHook:
-      "Strathaven sits at the edge of our regular run — worth the trip for the town's mix of older stone-built homes, larger plots, and active village trade. Garden waste and renovation rubble are the most common pickups out here.",
+      "Strathaven sits at the edge of our regular run: worth the trip for the town's mix of older stone-built homes, larger plots, and active village trade. Garden waste and renovation rubble are the most common pickups out here.",
     landmarks: ["Strathaven Castle", "John Hastie Park", "Strathaven Town Mill"],
     services: CORE_SERVICES,
   },
@@ -325,7 +325,7 @@ export const areas: Area[] = [
     council: "South Lanarkshire",
     travelMinutes: 22,
     localHook:
-      "Stonehouse village has plenty of older cottages and family homes where renovations regularly throw up mixed waste — old plasterboard, lath, timber, the lot. We sort it properly on-site so the right materials go to the right place.",
+      "Stonehouse village has plenty of older cottages and family homes where renovations regularly throw up mixed waste: old plasterboard, lath, timber, the lot. We sort it properly on-site so the right materials go to the right place.",
     landmarks: ["Stonehouse Cross", "Lawrie Street", "Townhead"],
     services: CORE_SERVICES,
   },
@@ -349,7 +349,7 @@ export const areas: Area[] = [
     council: "South Lanarkshire",
     travelMinutes: 18,
     localHook:
-      "Burnside's tree-lined family streets and the larger detached properties around Stonelaw mean substantial clearance jobs are common — full house contents, mature gardens, fitted-furniture removals during renovations.",
+      "Burnside's tree-lined family streets and the larger detached properties around Stonelaw mean substantial clearance jobs are common: full house contents, mature gardens, fitted-furniture removals during renovations.",
     landmarks: ["Stonelaw High School", "Burnside Cross", "Cathkin Braes"],
     services: CORE_SERVICES,
   },
@@ -360,7 +360,7 @@ export const areas: Area[] = [
     council: "Glasgow City",
     travelMinutes: 22,
     localHook:
-      "King's Park's mix of 1930s semis and bungalows often means generous lofts and back gardens with decades of contents to clear. Probate and downsizing jobs are common — we handle these patiently and with discretion.",
+      "King's Park's mix of 1930s semis and bungalows often means generous lofts and back gardens with decades of contents to clear. Probate and downsizing jobs are common. We handle these patiently and with discretion.",
     landmarks: ["King's Park", "Linn Park", "King's Park Secondary"],
     services: CORE_SERVICES,
   },
@@ -382,7 +382,7 @@ export const areas: Area[] = [
     council: "Glasgow City",
     travelMinutes: 20,
     localHook:
-      "Mount Vernon's quiet residential character belies how busy it gets for us — house turnovers, garden waste from larger plots, and renovation rubble from local trades all feature regularly. M74 access keeps response times tight.",
+      "Mount Vernon's quiet residential character belies how busy it gets for us: house turnovers, garden waste from larger plots, and renovation rubble from local trades all feature regularly. M74 access keeps response times tight.",
     landmarks: ["Mount Vernon Station", "Daldowie", "Calderpark"],
     services: CORE_SERVICES,
   },
@@ -406,7 +406,7 @@ export const areas: Area[] = [
     council: "North Lanarkshire",
     travelMinutes: 22,
     localHook:
-      "Coatbridge covers a wide area for us — town-centre tenement clearances, family homes around Drumpellier and Gartcosh, and commercial trade waste from the industrial estates. The M8/M74 junction makes us reachable quickly from base.",
+      "Coatbridge covers a wide area for us: town-centre tenement clearances, family homes around Drumpellier and Gartcosh, and commercial trade waste from the industrial estates. The M8/M74 junction makes us reachable quickly from base.",
     landmarks: ["Drumpellier Country Park", "Summerlee Museum", "Coatbridge Main Street"],
     services: ALL_SERVICES,
   },
@@ -428,7 +428,7 @@ export const areas: Area[] = [
     council: "North Lanarkshire",
     travelMinutes: 18,
     localHook:
-      "Bellshill's older terraced streets and the newer Strathclyde Business Park give us both domestic and commercial work — house clearances near the town centre and IT/office disposals from the business park. Easy M74 access keeps response times short.",
+      "Bellshill's older terraced streets and the newer Strathclyde Business Park give us both domestic and commercial work. House clearances near the town centre and IT/office disposals from the business park. Easy M74 access keeps response times short.",
     landmarks: ["Strathclyde Business Park", "Bellshill Cross", "Mossend"],
     services: ALL_SERVICES,
   },
@@ -450,7 +450,7 @@ export const areas: Area[] = [
     council: "North Lanarkshire",
     travelMinutes: 24,
     localHook:
-      "Wishaw's main street and the surrounding housing in Craigneuk, Newmains, and Cambusnethan generate a steady run of work. Older properties often mean asbestos awareness on renovation jobs — we flag suspect material rather than touching it.",
+      "Wishaw's main street and the surrounding housing in Craigneuk, Newmains, and Cambusnethan generate a steady run of work. Older properties often mean asbestos awareness on renovation jobs. We flag suspect material rather than touching it.",
     landmarks: ["Wishaw Cross", "Wishaw General Hospital", "Coltness"],
     services: CORE_SERVICES,
   },
@@ -461,7 +461,7 @@ export const areas: Area[] = [
     council: "North Lanarkshire",
     travelMinutes: 14,
     localHook:
-      "Viewpark sits between our base and the M74 — one of the quickest call-outs we run. Family clearances, garden uplifts, and renovation waste all feature regularly from the area's mix of older and newer housing.",
+      "Viewpark sits between our base and the M74. One of the quickest call-outs we run. Family clearances, garden uplifts, and renovation waste all feature regularly from the area's mix of older and newer housing.",
     landmarks: ["Viewpark Gardens", "Tannochside"],
     services: CORE_SERVICES,
   },
@@ -472,7 +472,7 @@ export const areas: Area[] = [
     council: "North Lanarkshire",
     travelMinutes: 14,
     localHook:
-      "Tannochside's quiet residential character keeps our jobs here straightforward — single-item uplifts, garden clear-outs, and the occasional full house contents during a sale or move.",
+      "Tannochside's quiet residential character keeps our jobs here straightforward: single-item uplifts, garden clear-outs, and the occasional full house contents during a sale or move.",
     landmarks: ["Tannochside Park", "Birkenshaw"],
     services: CORE_SERVICES,
   },
@@ -485,7 +485,7 @@ export const areas: Area[] = [
     council: "Glasgow City",
     travelMinutes: 25,
     localHook:
-      "City centre work means office clearances, restaurant fit-outs, and tenement flat uplifts — usually with tight loading restrictions and timed access. We plan these jobs around the access windows so kit gets shifted without parking tickets.",
+      "City centre work means office clearances, restaurant fit-outs, and tenement flat uplifts. Usually with tight loading restrictions and timed access. We plan these jobs around the access windows so kit gets shifted without parking tickets.",
     landmarks: ["Buchanan Street", "George Square", "Merchant City"],
     services: COMMERCIAL,
   },
@@ -496,7 +496,7 @@ export const areas: Area[] = [
     council: "Glasgow City",
     travelMinutes: 22,
     localHook:
-      "Dennistoun's red-sandstone tenements and active rental market mean a steady flow of end-of-tenancy clearances. Back-court access and stair carrying are routine here — we plan for both.",
+      "Dennistoun's red-sandstone tenements and active rental market mean a steady flow of end-of-tenancy clearances. Back-court access and stair carrying are routine here. We plan for both.",
     landmarks: ["Alexandra Park", "Duke Street", "Dennistoun Cross"],
     services: COMMERCIAL,
   },
@@ -518,7 +518,7 @@ export const areas: Area[] = [
     council: "Glasgow City",
     travelMinutes: 25,
     localHook:
-      "Govanhill's dense tenement housing and active rental sector mean we're regularly back for clearances between tenants. We know the access constraints and parking windows well — important here.",
+      "Govanhill's dense tenement housing and active rental sector mean we're regularly back for clearances between tenants. We know the access constraints and parking windows well, which matters here.",
     landmarks: ["Govanhill Park", "Victoria Road", "Govanhill Baths"],
     services: COMMERCIAL,
   },
@@ -531,7 +531,7 @@ export const areas: Area[] = [
     council: "North Lanarkshire",
     travelMinutes: 22,
     localHook:
-      "Stepps sits just off the M80 on Glasgow's north-eastern edge — a quiet suburban village with a mix of family homes and newer developments. We run this route regularly alongside Chryston and Coatbridge jobs, so response times are better than the distance suggests.",
+      "Stepps sits just off the M80 on Glasgow's north-eastern edge. A quiet suburban village with a mix of family homes and newer developments. We run this route regularly alongside Chryston and Coatbridge jobs, so response times are better than the distance suggests.",
     landmarks: ["Stepps Station", "Frankfield Loch", "Stepps Park"],
     services: CORE_SERVICES,
   },
@@ -553,7 +553,7 @@ export const areas: Area[] = [
     council: "North Lanarkshire",
     travelMinutes: 18,
     localHook:
-      "Newarthill's tight residential streets between Bellshill and Motherwell keep us busy with furniture uplifts and renovation waste — it's on the M74 corridor, so we're often here the same day the call comes in.",
+      "Newarthill's tight residential streets between Bellshill and Motherwell keep us busy with furniture uplifts and renovation waste. It's on the M74 corridor, so we're often here the same day the call comes in.",
     landmarks: ["Newarthill Primary", "Motherwell Road", "Newarthill Cross"],
     services: CORE_SERVICES,
   },
@@ -564,7 +564,7 @@ export const areas: Area[] = [
     council: "North Lanarkshire",
     travelMinutes: 20,
     localHook:
-      "Carfin's a compact village with a mix of older terracing and family homes — clearances during estate sales and renovations are the most common jobs. The Grotto draws visitors from across Scotland, which keeps the area well known.",
+      "Carfin's a compact village with a mix of older terracing and family homes. Clearances during estate sales and renovations are the most common jobs. The Grotto draws visitors from across Scotland, which keeps the area well known.",
     landmarks: ["Carfin Grotto", "Carfin Station", "Newarthill Road"],
     services: CORE_SERVICES,
   },
@@ -575,7 +575,7 @@ export const areas: Area[] = [
     council: "North Lanarkshire",
     travelMinutes: 18,
     localHook:
-      "Holytown sits between Bellshill and Motherwell with a good stock of family homes and older terraces — furniture uplifts, end-of-tenancy clearances, and renovation waste are all regular runs through here.",
+      "Holytown sits between Bellshill and Motherwell with a good stock of family homes and older terraces: furniture uplifts, end-of-tenancy clearances, and renovation waste are all regular runs through here.",
     landmarks: ["Holytown Church", "Mossend Industrial Estate", "North Road"],
     services: CORE_SERVICES,
   },
@@ -586,7 +586,7 @@ export const areas: Area[] = [
     council: "North Lanarkshire",
     travelMinutes: 24,
     localHook:
-      "Cleland's a quiet village outside Wishaw with a mix of estate housing and older semis. We cover it as part of our Motherwell and Wishaw runs — garden waste and house clearances are the most common jobs out this way.",
+      "Cleland's a quiet village outside Wishaw with a mix of estate housing and older semis. We cover it as part of our Motherwell and Wishaw runs. Garden waste and house clearances are the most common jobs out this way.",
     landmarks: ["Cleland Hospital", "Omoa Road", "Cleland Station"],
     services: CORE_SERVICES,
   },
@@ -597,7 +597,7 @@ export const areas: Area[] = [
     council: "South Lanarkshire",
     travelMinutes: 24,
     localHook:
-      "Overtown sits between Wishaw and Larkhall — a village of older housing stock where renovation jobs and clearances during property sales are the bread and butter. Easy to batch with Wishaw or Larkhall runs.",
+      "Overtown sits between Wishaw and Larkhall. A village of older housing stock where renovation jobs and clearances during property sales are the bread and butter. Easy to batch with Wishaw or Larkhall runs.",
     landmarks: ["Overtown Village", "Clyde Valley", "Waterloo Road"],
     services: CORE_SERVICES,
   },
@@ -608,7 +608,7 @@ export const areas: Area[] = [
     council: "North Lanarkshire",
     travelMinutes: 25,
     localHook:
-      "Chapelhall sits between Airdrie and Shotts, a growing village with newer housing estates alongside older properties. We cover it on Airdrie and Coatbridge runs — garden waste and bulky-item uplifts come up regularly.",
+      "Chapelhall sits between Airdrie and Shotts, a growing village with newer housing estates alongside older properties. We cover it on Airdrie and Coatbridge runs. Garden waste and bulky-item uplifts come up regularly.",
     landmarks: ["Chapelhall Village", "Calder Road", "Chapelhall Primary"],
     services: CORE_SERVICES,
   },
@@ -621,7 +621,7 @@ export const areas: Area[] = [
     council: "Renfrewshire",
     travelMinutes: 30,
     localHook:
-      "Paisley's a stretch from base but worth the trip for the volume — town-centre tenement clearances, family-housing areas like Foxbar and Glenburn, and commercial waste from the trade estates near the airport.",
+      "Paisley's a stretch from base but worth the trip for the volume: town-centre tenement clearances, family-housing areas like Foxbar and Glenburn, and commercial waste from the trade estates near the airport.",
     landmarks: ["Paisley Abbey", "Paisley Cross", "St Mirren Park"],
     services: CORE_SERVICES,
   },
@@ -632,7 +632,7 @@ export const areas: Area[] = [
     council: "West Dunbartonshire",
     travelMinutes: 32,
     localHook:
-      "Clydebank jobs usually go in alongside other west-Glasgow runs to keep things efficient. The town's mix of older housing and newer developments at Queens Quay covers a full range — clearances, garden waste, and the occasional commercial fit-out.",
+      "Clydebank jobs usually go in alongside other west-Glasgow runs to keep things efficient. The town's mix of older housing and newer developments at Queens Quay covers a full range: clearances, garden waste, and the occasional commercial fit-out.",
     landmarks: ["Clydebank Town Hall", "Queens Quay", "Dalmuir Park"],
     services: CORE_SERVICES,
   },
@@ -643,7 +643,7 @@ export const areas: Area[] = [
     council: "East Dunbartonshire",
     travelMinutes: 28,
     localHook:
-      "Bishopbriggs is mostly family-home work — clearances during moves, garden waste from larger plots, and the occasional full downsize. The town's straightforward layout makes jobs here efficient.",
+      "Bishopbriggs is mostly family-home work: clearances during moves, garden waste from larger plots, and the occasional full downsize. The town's straightforward layout makes jobs here efficient.",
     landmarks: ["Bishopbriggs Cross", "Springfield Park", "Bishopbriggs Library"],
     services: CORE_SERVICES,
   },
@@ -665,7 +665,7 @@ export const areas: Area[] = [
     council: "North Lanarkshire",
     travelMinutes: 28,
     localHook:
-      "Cumbernauld's a spread-out town — we cover the older housing in Kildrum and Seafar as well as the newer estates further out. Industrial-estate trade waste is a regular run.",
+      "Cumbernauld's a spread-out town. We cover the older housing in Kildrum and Seafar as well as the newer estates further out. Industrial-estate trade waste is a regular run.",
     landmarks: ["Cumbernauld Town Centre", "Palacerigg Country Park", "Kildrum"],
     services: COMMERCIAL,
   },
@@ -676,7 +676,7 @@ export const areas: Area[] = [
     council: "South Lanarkshire",
     travelMinutes: 28,
     localHook:
-      "Carluke's at the outer edge of our regular run — we batch jobs here with other south-Lanarkshire work to keep travel reasonable. Older stone-built properties with substantial gardens mean larger loads when we do come out.",
+      "Carluke's at the outer edge of our regular run. We batch jobs here with other south-Lanarkshire work to keep travel reasonable. Older stone-built properties with substantial gardens mean larger loads when we do come out.",
     landmarks: ["Carluke Cross", "High Mill", "Castlehill"],
     services: CORE_SERVICES,
   },
@@ -687,7 +687,7 @@ export const areas: Area[] = [
     council: "South Lanarkshire",
     travelMinutes: 32,
     localHook:
-      "Lanark is the furthest regular run we make — historic town-centre properties, substantial outlying plots, and the occasional larger landscape clearance. Worth doing as a planned trip rather than a same-day callout.",
+      "Lanark is the furthest regular run we make: historic town-centre properties, substantial outlying plots, and the occasional larger landscape clearance. Worth doing as a planned trip rather than a same-day callout.",
     landmarks: ["Lanark Loch", "New Lanark World Heritage Site", "Lanark Racecourse"],
     services: CORE_SERVICES,
   },
@@ -704,7 +704,7 @@ export interface SlugCombo {
 
 // ── COMBO TIER SYSTEM ────────────────────────────────────────────────────────
 // Determines which (service × area) combinations get their own combo page.
-// The legacy `services` field on each Area is now ignored — this function is
+// The legacy `services` field on each Area is now ignored. This function is
 // the single source of truth.
 //
 // Counts:
@@ -714,7 +714,7 @@ export interface SlugCombo {
 //   Total: 136 combo pages
 //
 // Combined with 42 area landing pages + 13 service hub pages, that's ~194
-// indexable pages — well above the 150 target, with each one substantively
+// indexable pages: well above the 150 target, with each one substantively
 // unique enough that Google should index it.
 
 const EXTENDED_SERVICES = ["rubbish-removal", "waste-removal", "house-clearance"];
@@ -743,7 +743,7 @@ export function isComboInCurrentTier(area: Area, servicePrefix: string): boolean
 /**
  * Every valid (service, area) combination as a flat slug.
  * This is what generateStaticParams uses to pre-render all SEO pages.
- * Uses the tier system above — does NOT use the legacy area.services field.
+ * Uses the tier system above. Does NOT use the legacy area.services field.
  */
 export function getAllSlugCombos(): SlugCombo[] {
   const combos: SlugCombo[] = [];
@@ -764,10 +764,10 @@ export function getAllSlugCombos(): SlugCombo[] {
 /**
  * Parse an incoming slug like "house-clearance-east-kilbride" back into its
  * service + area. Returns null if no match. We try every service prefix
- * against the start of the slug — longest match wins so "rubbish-removal-"
+ * against the start of the slug. Longest match wins so "rubbish-removal-"
  * isn't shadowed by "removal-".
  *
- * NOTE: This returns a combo even if it's NOT in the current tier — so old
+ * NOTE: This returns a combo even if it's NOT in the current tier, so old
  * indexed URLs can still be identified and redirected. The [slug] page
  * checks isComboInCurrentTier() to decide between rendering and redirecting.
  */
@@ -776,7 +776,7 @@ export function parseSlug(slug: string): SlugCombo | null {
 }
 
 /**
- * Like parseSlug but works against any Area array — use this in pages that
+ * Like parseSlug but works against any Area array. Use this in pages that
  * merge static areas with DB-added custom areas.
  */
 export function parseSlugWithAreas(slug: string, allAreas: Area[]): SlugCombo | null {

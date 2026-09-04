@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bebas_Neue, DM_Sans } from "next/font/google";
 import "./globals.css";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -92,7 +92,7 @@ export const metadata: Metadata = {
   },
 };
 
-// Every council we serve, derived from the areas data — kept in sync with
+// Every council we serve, derived from the areas data. Kept in sync with
 // the /areas pages rather than hardcoded separately.
 const councilsServed = Array.from(new Set(areas.map((a) => a.council)));
 
@@ -101,7 +101,7 @@ const sameAs = [
   googleReviewsUrl,
 ];
 
-// Organization — separate from LocalBusiness so Google can associate the
+// Organization. Separate from LocalBusiness so Google can associate the
 // brand/logo with the business regardless of which page it's crawling.
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -128,7 +128,7 @@ const websiteSchema = {
   publisher: { "@id": `${SITE_URL}/#organization` },
 };
 
-// LocalBusiness structured data — helps Google show you in local/map results
+// LocalBusiness structured data. Helps Google show you in local/map results
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -160,7 +160,7 @@ const localBusinessSchema = {
     ratingValue: googleAverageRating,
     reviewCount: googleReviewCount,
   },
-  // A sample of real, curated Google reviews as individual Review items —
+  // A sample of real, curated Google reviews as individual Review items:
   // review dates are stored as relative strings ("2 weeks ago") so are
   // deliberately omitted here rather than emitted as invalid datePublished.
   review: googleReviews.slice(0, 12).map((r) => ({
@@ -180,6 +180,16 @@ const localBusinessSchema = {
     "Site Clearance",
     "Trade Waste Clearance",
   ],
+};
+
+// Painting the browser chrome the same colour as the navbar stops iOS
+// Safari showing scrolled page content behind the status bar, and
+// viewport-fit: cover lets the navbar extend into the notch inset.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#0a1f0b",
 };
 
 export default function RootLayout({

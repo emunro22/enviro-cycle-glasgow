@@ -154,10 +154,10 @@ export const sites: DisposalSite[] = [
     phone: "",
     hours: weekdayHours("07:00", "17:00"),
     rates: {
-      mixed:        { pricePerTonne: 150, notes: "MRF + Energy-from-Waste — best for residual" },
+      mixed:        { pricePerTonne: 150, notes: "MRF + Energy-from-Waste. Best for residual" },
       wood:         { pricePerTonne: 80 },
       inert:        { pricePerTonne: 18, minCharge: 15 },
-      soil:         { pricePerTonne: 20, notes: "Aggregate recovery — clean soil only" },
+      soil:         { pricePerTonne: 20, notes: "Aggregate recovery. Clean soil only" },
       green:        { pricePerTonne: 60 },
     },
     notes: "Furthest out (~30 mi) but cheapest per-tonne. Worth it only for full loads.",

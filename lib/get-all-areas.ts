@@ -30,7 +30,7 @@ async function fetchAllAreas(): Promise<Area[]> {
 
     return [...staticAreas, ...newDbAreas];
   } catch {
-    // Table doesn't exist yet — return static areas only
+    // Table doesn't exist yet. Return static areas only
     return staticAreas;
   }
 }

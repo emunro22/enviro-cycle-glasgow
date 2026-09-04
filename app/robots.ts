@@ -3,7 +3,7 @@ import { SITE_URL } from "@/lib/site";
 
 // AI answer-engine and assistant crawlers, explicitly welcomed alongside the
 // wildcard rule below (which already allows them) so it's unambiguous to
-// anyone — human or automated — auditing this file that they're wanted here.
+// anyone, human or automated, auditing this file that they're wanted here.
 const AI_USER_AGENTS = [
   "GPTBot",
   "ChatGPT-User",

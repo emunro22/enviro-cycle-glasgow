@@ -29,7 +29,7 @@ export default function WasteManagementPage() {
       eyebrow="Commercial & Residential"
       title="Waste Management"
       titleAccent="Glasgow"
-      intro="Dependable waste management for Glasgow homes and businesses — scheduled collections, fully compliant disposal and a recycling-first approach that keeps waste out of landfill."
+      intro="Dependable waste management for Glasgow homes and businesses: scheduled collections, fully compliant disposal and a recycling-first approach that keeps waste out of landfill."
       sections={[
         {
           heading: "Waste collection built around your schedule",
@@ -42,7 +42,7 @@ export default function WasteManagementPage() {
           heading: "Fully licensed and compliant disposal",
           body: [
             "Envirocycle is a registered waste carrier (SEPA WCR/R/3021188). Every commercial collection comes with the correct waste transfer documentation, so your business stays compliant with environmental regulations.",
-            "Waste is taken to licensed facilities and handled responsibly — no fly-tipping, no shortcuts, full accountability from collection to disposal.",
+            "Waste is taken to licensed facilities and handled responsibly: no fly-tipping, no shortcuts, full accountability from collection to disposal.",
           ],
         },
         {
@@ -54,13 +54,13 @@ export default function WasteManagementPage() {
         {
           heading: "Commercial waste removal across Glasgow",
           body: [
-            "If you're searching for commercial waste removal in Glasgow, chances are waste is building up between council collections, or your lease doesn't come with a shared bin. Envirocycle steps in as a straightforward alternative — no waiting on a communal skip, no contract lock-in unless you want one. We work with shops, cafes, offices, salons and light industrial units across the city, with the same crew and van each time so you're never re-explaining the job.",
-            "Pricing is agreed up front, either per collection or on a rolling schedule — whichever suits your cash flow better. Most Glasgow and Lanarkshire businesses we work with settle into a fortnightly or monthly rhythm within the first month.",
+            "If you're searching for commercial waste removal in Glasgow, chances are waste is building up between council collections, or your lease doesn't come with a shared bin. Envirocycle steps in as a straightforward alternative: no waiting on a communal skip, no contract lock-in unless you want one. We work with shops, cafes, offices, salons and light industrial units across the city, with the same crew and van each time so you're never re-explaining the job.",
+            "Pricing is agreed up front, either per collection or on a rolling schedule. Whichever suits your cash flow better. Most Glasgow and Lanarkshire businesses we work with settle into a fortnightly or monthly rhythm within the first month.",
           ],
         },
       ]}
       features={[
-        "Regular scheduled collections — weekly, fortnightly or one-off",
+        "Regular scheduled collections: weekly, fortnightly or one-off",
         "General, commercial and bulky waste handled",
         "Full waste transfer notes for business compliance",
         "Licensed disposal at permitted facilities",
@@ -74,7 +74,7 @@ export default function WasteManagementPage() {
         },
         {
           q: "Are you a licensed waste carrier?",
-          a: "Yes — Envirocycle is registered with SEPA under WCR/R/3021188 and provides full waste transfer documentation for commercial collections.",
+          a: "Yes. Envirocycle is registered with SEPA under WCR/R/3021188 and provides full waste transfer documentation for commercial collections.",
         },
         {
           q: "How quickly can you collect?",
@@ -86,7 +86,7 @@ export default function WasteManagementPage() {
         },
         {
           q: "Do you offer commercial waste contracts, or one-off collections?",
-          a: "Both — some businesses want a rolling contract with a fixed collection day, others just need an ad-hoc uplift when things build up. We do either, with no minimum tie-in unless you want the predictability of a set schedule.",
+          a: "Both. Some businesses want a rolling contract with a fixed collection day, others just need an ad-hoc uplift when things build up. We do either, with no minimum tie-in unless you want the predictability of a set schedule.",
         },
         {
           q: "What's the difference between this and a council trade waste permit?",

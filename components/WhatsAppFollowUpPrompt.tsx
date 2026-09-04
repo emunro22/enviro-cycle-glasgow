@@ -60,7 +60,7 @@ export default function WhatsAppFollowUpPrompt() {
       </button>
 
       {status === "success" ? (
-        <p className="whatsapp-followup-success">Thanks — we'll check in tomorrow!</p>
+        <p className="whatsapp-followup-success">Thanks. We'll check in tomorrow!</p>
       ) : (
         <>
           <p className="whatsapp-followup-text">
@@ -85,7 +85,7 @@ export default function WhatsAppFollowUpPrompt() {
             </button>
           </form>
           {status === "error" && (
-            <p className="whatsapp-followup-error">Something went wrong — please try again.</p>
+            <p className="whatsapp-followup-error">Something went wrong, please try again.</p>
           )}
         </>
       )}

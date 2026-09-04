@@ -18,25 +18,25 @@ const sections = [
     number: "02",
     title: "What we collect",
     content:
-      "When you use our contact form, booking form, or WhatsApp, we collect the details you provide — typically your name, email address, phone number, property address, a description of the waste or job, your preferred date, and any photos you upload of the items to be cleared. If you use our tip finder or areas pages, we may also see your general location (postcode area) where you provide it.",
+      "When you use our contact form, booking form, or WhatsApp, we collect the details you provide: typically your name, email address, phone number, property address, a description of the waste or job, your preferred date, and any photos you upload of the items to be cleared. If you use our tip finder or areas pages, we may also see your general location (postcode area) where you provide it.",
   },
   {
     number: "03",
     title: "How we use it",
     content:
-      "We use your details to respond to enquiries, provide quotes, schedule and carry out bookings, and to send service-related emails such as booking confirmations. With your consent, we may also send a follow-up email a day or two after a job asking how it went and inviting a Google review — you can opt out at any time by replying to that email or contacting us directly.",
+      "We use your details to respond to enquiries, provide quotes, schedule and carry out bookings, and to send service-related emails such as booking confirmations. With your consent, we may also send a follow-up email a day or two after a job asking how it went and inviting a Google review. You can opt out at any time by replying to that email or contacting us directly.",
   },
   {
     number: "04",
     title: "Cookies & analytics",
     content:
-      "We use a small number of cookies. Essential cookies (for example, keeping the admin area secure) are always on and don't require consent. We also use privacy-friendly, cookieless traffic analytics (Vercel Analytics) to see which pages are popular. If you accept analytics cookies via our cookie banner, we additionally use Google Analytics to understand site usage in more detail — this only loads after you accept, and never before. You can change your choice at any time by clearing your browser's site data for this domain and reloading the page.",
+      "We use a small number of cookies. Essential cookies (for example, keeping the admin area secure) are always on and don't require consent. We also use privacy-friendly, cookieless traffic analytics (Vercel Analytics) to see which pages are popular. If you accept analytics cookies via our cookie banner, we additionally use Google Analytics to understand site usage in more detail. This only loads after you accept, and never before. You can change your choice at any time by clearing your browser's site data for this domain and reloading the page.",
   },
   {
     number: "05",
     title: "Who we share it with",
     content:
-      "We use trusted third-party processors to run our website and business: Vercel (hosting and file storage for uploaded photos), Neon (database), and Resend (sending emails). These providers only process your data on our instructions to deliver the service — we do not sell your data to anyone.",
+      "We use trusted third-party processors to run our website and business: Vercel (hosting and file storage for uploaded photos), Neon (database), and Resend (sending emails). These providers only process your data on our instructions to deliver the service. We do not sell your data to anyone.",
   },
   {
     number: "06",

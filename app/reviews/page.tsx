@@ -66,7 +66,7 @@ export default function ReviewsPage() {
           className="max-w-xl mx-auto text-base md:text-lg"
           style={{ color: "rgba(245,240,232,0.6)" }}
         >
-          Rated {googleAverageRating.toFixed(1)}/5 from {googleReviewCount} Google reviews —
+          Rated {googleAverageRating.toFixed(1)}/5 from {googleReviewCount} Google reviews:
           every one from a real customer.
         </p>
       </div>

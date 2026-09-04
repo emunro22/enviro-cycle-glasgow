@@ -4,7 +4,7 @@ import ServicePageTemplate from "@/components/ServicePageTemplate";
 export const metadata: Metadata = {
   title: "Site Clearance Glasgow | House, Garden & End of Tenancy Clearance",
   description:
-    "Full site clearance in Glasgow — house clearance, garden clearance, end of tenancy and builders waste removal. Fast, fully licensed, free quotes available.",
+    "Full site clearance in Glasgow: house clearance, garden clearance, end of tenancy and builders waste removal. Fast, fully licensed, free quotes available.",
   keywords: [
     "site clearance Glasgow",
     "house clearance Glasgow",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Site Clearance Glasgow | Envirocycle Glasgow",
     description:
-      "House, garden, end of tenancy and builders waste clearance across Glasgow — fast and fully licensed.",
+      "House, garden, end of tenancy and builders waste clearance across Glasgow. Fast and fully licensed.",
     url: "https://envirocycleglasgow.com/services/site-clearance",
     type: "website",
   },
@@ -30,32 +30,32 @@ export default function SiteClearancePage() {
       eyebrow="Homes, Gardens & Premises"
       title="Site Clearance"
       titleAccent="Glasgow"
-      intro="Whole-property and outdoor clearances across Glasgow — house clearance, garden clearance, end of tenancy clear-outs and builders waste removal, handled quickly and responsibly."
+      intro="Whole-property and outdoor clearances across Glasgow: house clearance, garden clearance, end of tenancy clear-outs and builders waste removal, handled quickly and responsibly."
       sections={[
         {
           heading: "House and end of tenancy clearance",
           body: [
-            "Moving out, clearing a property or preparing a rental for new tenants? Envirocycle clears entire properties across Glasgow — furniture, white goods, general clutter and rubbish — leaving the space empty and ready.",
+            "Moving out, clearing a property or preparing a rental for new tenants? Envirocycle clears entire properties across Glasgow (furniture, white goods, general clutter and rubbish), leaving the space empty and ready.",
             "End of tenancy clearances are handled to a deadline so you can hand over keys on time.",
           ],
         },
         {
           heading: "Garden and outdoor clearance",
           body: [
-            "Overgrown gardens, green waste, old decking, broken furniture and general outdoor debris — we clear it all. The result is a tidy, usable space without you having to make endless trips to the tip.",
+            "Overgrown gardens, green waste, old decking, broken furniture and general outdoor debris. We clear it all. The result is a tidy, usable space without you having to make endless trips to the tip.",
           ],
         },
         {
           heading: "Builders waste and post-renovation clearance",
           body: [
-            "After building or renovation work, sites are often left with rubble, offcuts, packaging and general construction waste. We remove builders waste across Glasgow so the site is clean and safe — with full waste transfer documentation for trade clients.",
+            "After building or renovation work, sites are often left with rubble, offcuts, packaging and general construction waste. We remove builders waste across Glasgow so the site is clean and safe. With full waste transfer documentation for trade clients.",
           ],
         },
         {
           heading: "Probate and downsizing clearances, handled discreetly",
           body: [
-            "Clearing a family home after a bereavement, or helping someone downsize into a smaller property, needs a different approach from a standard job — patience, no rushing decisions on the day, and a crew that treats the property and its contents with respect. We've done enough of these across Glasgow and South Lanarkshire to know the pace that works, and we're happy to work room by room rather than clearing everything in one go if that suits the family better.",
-            "Access matters too — tenement stairs, narrow closes, and properties without off-street parking are all routine for us, not a reason to charge more.",
+            "Clearing a family home after a bereavement, or helping someone downsize into a smaller property, needs a different approach from a standard job: patience, no rushing decisions on the day, and a crew that treats the property and its contents with respect. We've done enough of these across Glasgow and South Lanarkshire to know the pace that works, and we're happy to work room by room rather than clearing everything in one go if that suits the family better.",
+            "Access matters too: tenement stairs, narrow closes, and properties without off-street parking are all routine for us, not a reason to charge more.",
           ],
         },
       ]}
@@ -70,7 +70,7 @@ export default function SiteClearancePage() {
       faqs={[
         {
           q: "Do you do full house clearances in Glasgow?",
-          a: "Yes. We clear entire properties — furniture, appliances, clutter and rubbish — across Glasgow and the surrounding areas, leaving the space empty and ready.",
+          a: "Yes. We clear entire properties (furniture, appliances, clutter and rubbish) across Glasgow and the surrounding areas, leaving the space empty and ready.",
         },
         {
           q: "Can you clear a property for end of tenancy?",
@@ -78,7 +78,7 @@ export default function SiteClearancePage() {
         },
         {
           q: "Do you remove builders waste?",
-          a: "Yes — we remove rubble, offcuts and general construction waste, and provide full waste transfer notes for trade clients.",
+          a: "Yes. We remove rubble, offcuts and general construction waste, and provide full waste transfer notes for trade clients.",
         },
         {
           q: "How quickly can a clearance be booked?",
@@ -86,11 +86,11 @@ export default function SiteClearancePage() {
         },
         {
           q: "Can you handle a probate clearance sensitively?",
-          a: "Yes — we regularly clear properties as part of probate and downsizing, working at whatever pace the family needs and treating the contents with care.",
+          a: "Yes. We regularly clear properties as part of probate and downsizing, working at whatever pace the family needs and treating the contents with care.",
         },
         {
           q: "Do you charge more for tenement or flat access?",
-          a: "No — stairs, closes and properties without parking are part of the standard service across Glasgow.",
+          a: "No: stairs, closes and properties without parking are part of the standard service across Glasgow.",
         },
       ]}
       related={[

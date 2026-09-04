@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 import OurWork from "@/components/Ourwork";
 import ScrollAnimations from "@/components/ScrollAnimations";
 
-// This is now a Server Component — no "use client".
+// This is now a Server Component, no "use client".
 // That's what lets metadata (in layout.tsx) and structured data be picked
 // up cleanly by search engine crawlers.
 

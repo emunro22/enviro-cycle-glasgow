@@ -64,13 +64,13 @@ function BeforeAfterSlider({
       onMouseDown={() => setDragging(true)}
       onTouchMove={(e) => updatePosition(e.touches[0].clientX)}
     >
-      {/* After — full width base */}
+      {/* After. Full width base */}
       <div className="absolute inset-0">
         <Image src={after.src} alt={after.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
         <div className="absolute inset-0" style={{ background: "rgba(10,31,11,0.2)" }} />
       </div>
 
-      {/* Before — clipped */}
+      {/* Before, clipped */}
       <div
         className="absolute inset-0 overflow-hidden"
         style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}

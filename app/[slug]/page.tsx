@@ -61,7 +61,7 @@ export default async function SlugPage({ params }: PageProps) {
 
   const { area, service } = combo;
 
-  // Retired combo — 308 to the area landing page
+  // Retired combo. 308 to the area landing page
   if (!isComboInCurrentTier(area, service.prefix)) {
     permanentRedirect(`/areas/${area.slug}`);
   }
@@ -293,7 +293,7 @@ export default async function SlugPage({ params }: PageProps) {
                   "Waste transfer note on every job",
                   "Reusable items donated to local charities",
                   "Same-day uplifts where possible",
-                  "Fixed pricing — no hidden charges",
+                  "Fixed pricing, no hidden charges",
                 ].map((point) => (
                   <li
                     key={point}

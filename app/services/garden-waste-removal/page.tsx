@@ -10,12 +10,12 @@ import { SITE_URL } from "@/lib/site";
 // SERVICE HUB CONFIG
 // ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants — everything below the line is shared.
+// service hubs are these constants. Everything below the line is shared.
 
 const SERVICE_PREFIX = "garden-waste-removal";
 const SERVICE_NAME = "Garden Waste Removal";
 const SERVICE_H1 = "GARDEN WASTE REMOVAL";
-const HERO_TAGLINE = "Branches, hedge cuttings, turf, soil, decking. Composted or recovered — never landfilled.";
+const HERO_TAGLINE = "Branches, hedge cuttings, turf, soil, decking: composted or recovered, never landfilled.";
 
 const META_TITLE = "Garden Waste Removal Glasgow | Same-Day Uplifts | Envirocycle";
 const META_DESCRIPTION = "Garden waste removal across Glasgow. Branches, turf, hedge cuttings, soil, decking. Green waste composted at licensed facilities. Same-day available.";
@@ -26,14 +26,14 @@ const WHAT_WE_TAKE = [
   "Decking, fence panels, sheds",
   "Garden furniture (broken or unwanted)",
   "Old planters, gravel, and rockery stone",
-  "Mixed garden waste — sorted at a licensed facility",
+  "Mixed garden waste: sorted at a licensed facility",
 ];
 
 const HOW_IT_WORKS = [
   {
     step: "01",
     title: "Photo quote",
-    body: "Send a photo of what's in the garden — pile in the corner, bagged-up cuttings, whatever it is — and we'll quote within minutes.",
+    body: "Send a photo of what's in the garden (pile in the corner, bagged-up cuttings, whatever it is) and we'll quote within minutes.",
   },
   {
     step: "02",
@@ -59,7 +59,7 @@ const FAQ = [
   },
   {
     q: "Do I need to bag it up first?",
-    a: "Not unless you want to. We bring our own contractor bags and tarps. If you've already bagged it that's fine too — we'll take the bags as part of the job.",
+    a: "Not unless you want to. We bring our own contractor bags and tarps. If you've already bagged it that's fine too. We'll take the bags as part of the job.",
   },
   {
     q: "Can you take old turf and soil?",
@@ -67,11 +67,11 @@ const FAQ = [
   },
   {
     q: "What about Japanese knotweed?",
-    a: "We can't take Japanese knotweed — it requires a specialist licensed disposal route. If you've got it, call us and we can point you toward the right contractor.",
+    a: "We can't take Japanese knotweed. It requires a specialist licensed disposal route. If you've got it, call us and we can point you toward the right contractor.",
   },
   {
     q: "Do you cover commercial grounds maintenance?",
-    a: "Yes — we work with landscapers, grounds maintenance contractors, and groundskeepers across Glasgow. Scheduled tip runs available, with VAT invoices for trade accounts.",
+    a: "Yes. We work with landscapers, grounds maintenance contractors, and groundskeepers across Glasgow. Scheduled tip runs available, with VAT invoices for trade accounts.",
   },
 ];
 // ────────────────────────────────────────────────────────────────────────────

@@ -10,21 +10,21 @@ import { SITE_URL } from "@/lib/site";
 // SERVICE HUB CONFIG
 // ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants — everything below the line is shared.
+// service hubs are these constants. Everything below the line is shared.
 
 const SERVICE_PREFIX = "skip-hire-alternative";
 const SERVICE_NAME = "Skip Hire Alternative";
 const SERVICE_H1 = "SKIP HIRE ALTERNATIVE";
-const HERO_TAGLINE = "Don't need a skip blocking the driveway for a week. We turn up, load, and leave — pay for what we actually take.";
+const HERO_TAGLINE = "Don't need a skip blocking the driveway for a week. We turn up, load, and leave. Pay for what we actually take.";
 
 const META_TITLE = "Skip Hire Alternative Glasgow | No Permit Needed | Envirocycle";
-const META_DESCRIPTION = "Skip hire alternative across Glasgow. Pay for what you throw out — no permits, no skip blocking the driveway. Often cheaper than a small skip.";
+const META_DESCRIPTION = "Skip hire alternative across Glasgow. Pay for what you throw out: no permits, no skip blocking the driveway. Often cheaper than a small skip.";
 
 const WHAT_WE_TAKE = [
   "Everything you'd put in a small or midi skip",
   "Mixed household waste, garden waste, builders waste",
   "Furniture, white goods, mattresses",
-  "Renovation waste — kitchen, bathroom, plasterboard",
+  "Renovation waste: kitchen, bathroom, plasterboard",
   "Soil, turf, rubble, hardcore",
   "Single items to multiple van loads",
 ];
@@ -59,19 +59,19 @@ const FAQ = [
   },
   {
     q: "What about really big jobs?",
-    a: "For bigger projects (full renovations, large site clearances) where you're producing waste over multiple days, a skip might still make more sense. We can come back multiple times if you'd rather avoid the skip altogether — works well when you're filling gradually.",
+    a: "For bigger projects (full renovations, large site clearances) where you're producing waste over multiple days, a skip might still make more sense. We can come back multiple times if you'd rather avoid the skip altogether. Works well when you're filling gradually.",
   },
   {
     q: "Do I need a permit?",
-    a: "No — we're a van, not a skip. No road permit, no driveway permit, no council paperwork. We park briefly to load and we're gone within the hour.",
+    a: "No. We're a van, not a skip. No road permit, no driveway permit, no council paperwork. We park briefly to load and we're gone within the hour.",
   },
   {
     q: "Same as a 'man and van' service?",
-    a: "Similar idea, but with full waste-carrier licensing. The risk with unlicensed man-and-van rubbish removal is fly-tipping — if your waste gets dumped in a layby with your address on it, you can be fined. We're fully licensed (SEPA WCR/R/3021188) with a transfer note on every job.",
+    a: "Similar idea, but with full waste-carrier licensing. The risk with unlicensed man-and-van rubbish removal is fly-tipping: if your waste gets dumped in a layby with your address on it, you can be fined. We're fully licensed (SEPA WCR/R/3021188) with a transfer note on every job.",
   },
   {
     q: "Can you take heavy stuff like rubble?",
-    a: "Yes. Rubble, soil, and hardcore are fine — sometimes priced slightly lower than mixed waste because of where they go. Weight matters more than volume for these so we'll quote based on a photo.",
+    a: "Yes. Rubble, soil, and hardcore are fine. Sometimes priced slightly lower than mixed waste because of where they go. Weight matters more than volume for these so we'll quote based on a photo.",
   },
 ];
 // ────────────────────────────────────────────────────────────────────────────

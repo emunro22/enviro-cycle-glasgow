@@ -16,7 +16,7 @@ export const homepageFaqs: FAQItem[] = [
   },
   {
     q: "Are you a licensed waste carrier?",
-    a: "Yes — we're a SEPA-licensed waste carrier (Licence WCR/R/3021188) and fully insured, so your waste is disposed of legally and responsibly, with a transfer note for every job.",
+    a: "Yes. We're a SEPA-licensed waste carrier (Licence WCR/R/3021188) and fully insured, so your waste is disposed of legally and responsibly, with a transfer note for every job.",
   },
   {
     q: "Do you recycle what you collect?",
@@ -24,11 +24,11 @@ export const homepageFaqs: FAQItem[] = [
   },
   {
     q: "Do I need to be home for the collection?",
-    a: "Not necessarily — as long as the items are accessible and we've agreed the details in advance, we can often collect without you being there. Just mention this when you book or message us on WhatsApp.",
+    a: "Not necessarily: as long as the items are accessible and we've agreed the details in advance, we can often collect without you being there. Just mention this when you book or message us on WhatsApp.",
   },
   {
     q: "How much does it cost?",
-    a: "It depends on the volume and type of waste. Send a photo via WhatsApp or our booking form for a free, no-obligation quote — there's no minimum charge for small jobs.",
+    a: "It depends on the volume and type of waste. Send a photo via WhatsApp or our booking form for a free, no-obligation quote. There's no minimum charge for small jobs.",
   },
 ];
 

@@ -29,7 +29,7 @@ export default function RecyclingPage() {
       eyebrow="Sustainable Waste Solutions"
       title="Recycling Services"
       titleAccent="Glasgow"
-      intro="Segregated recycling collection for Glasgow businesses and homes — paper, plastic, metal and glass diverted from landfill, with recycling certification available for businesses."
+      intro="Segregated recycling collection for Glasgow businesses and homes: paper, plastic, metal and glass diverted from landfill, with recycling certification available for businesses."
       sections={[
         {
           heading: "Recycling that actually gets recycled",
@@ -41,7 +41,7 @@ export default function RecyclingPage() {
         {
           heading: "Recycling certification for businesses",
           body: [
-            "For commercial clients, we can provide certification of recycled waste — useful evidence for sustainability reporting, tenders and demonstrating your environmental commitments to customers.",
+            "For commercial clients, we can provide certification of recycled waste: useful evidence for sustainability reporting, tenders and demonstrating your environmental commitments to customers.",
             "It is a straightforward way to back up your green credentials with documentation.",
           ],
         },
@@ -55,7 +55,7 @@ export default function RecyclingPage() {
           heading: "Where your recycling actually goes",
           body: [
             "Materials collected for recycling go to licensed processing facilities rather than a general waste transfer station, which is what keeps them genuinely recycled rather than quietly landfilled further down the chain. We can tell you which facility handled a specific collection if you need that detail for a tender or audit.",
-            "For households, recycling collection works well alongside a wider clear-out — old furniture and general clutter uplifted at the same time as the recyclable materials, rather than needing two separate visits.",
+            "For households, recycling collection works well alongside a wider clear-out: old furniture and general clutter uplifted at the same time as the recyclable materials, rather than needing two separate visits.",
           ],
         },
       ]}
@@ -78,7 +78,7 @@ export default function RecyclingPage() {
         },
         {
           q: "Do you offer kerbside collection?",
-          a: "Yes — both on-site and kerbside pick-up options are available across Glasgow depending on your premises.",
+          a: "Yes. Both on-site and kerbside pick-up options are available across Glasgow depending on your premises.",
         },
         {
           q: "Is recycling collection available for households?",
@@ -86,7 +86,7 @@ export default function RecyclingPage() {
         },
         {
           q: "Can I combine a recycling collection with a general clearance?",
-          a: "Yes — most households book recycling alongside a wider uplift, so recyclable materials and general clutter are collected in a single visit.",
+          a: "Yes. Most households book recycling alongside a wider uplift, so recyclable materials and general clutter are collected in a single visit.",
         },
         {
           q: "Where does the material actually get processed?",

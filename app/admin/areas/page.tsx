@@ -110,7 +110,7 @@ export default function AdminAreasPage() {
       setTravelMinutes(20);
       setLocalHook("");
       setLandmarks("");
-      setSuccessMsg(`Area "${name}" added — it will appear on the site within a few minutes.`);
+      setSuccessMsg(`Area "${name}" added. It will appear on the site within a few minutes.`);
       await loadAreas();
       router.refresh();
       setTimeout(() => setSuccessMsg(""), 6000);
@@ -141,7 +141,7 @@ export default function AdminAreasPage() {
         <div>
           <span className="section-label">Admin</span>
           <h1 className="text-3xl md:text-4xl font-heading gold-text mt-2">Service Areas</h1>
-          <p className="text-cream/50 text-xs mt-1">Add new coverage areas — pages go live automatically.</p>
+          <p className="text-cream/50 text-xs mt-1">Add new coverage areas. Pages go live automatically.</p>
         </div>
         <Link
           href="/admin"

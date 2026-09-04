@@ -45,7 +45,7 @@ export default function AdminPricingPage() {
       if (!res.ok) throw new Error("Failed to save");
       const data = await res.json();
       setPrices(Array.isArray(data) ? data : []);
-      setSuccessMsg("Prices saved — new bookings will be quoted using these prices immediately.");
+      setSuccessMsg("Prices saved. New bookings will be quoted using these prices immediately.");
       setTimeout(() => setSuccessMsg(""), 6000);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");

@@ -106,7 +106,7 @@ export default function AboutPage() {
         >
           Envirocycle Glasgow is a SEPA-licensed waste removal company
           founded in 2025 by Chris Heenan and Liam McCormick. We&apos;re a
-          small, hands-on team — not a call centre — covering Glasgow and
+          small, hands-on team, not a call centre, covering Glasgow and
           the surrounding councils with same-day uplifts where possible.
         </p>
 
@@ -225,7 +225,7 @@ export default function AboutPage() {
           className="max-w-2xl mt-8 text-base leading-relaxed"
           style={{ color: "rgba(245,240,232,0.75)" }}
         >
-          Envirocycle Glasgow was started to fix a specific frustration —
+          Envirocycle Glasgow was started to fix a specific frustration:
           waste clearance that's either overpriced, unreliable, or vague
           about where your rubbish actually ends up. Chris and Liam built
           the business around fixed, upfront pricing and full paperwork on
@@ -289,12 +289,12 @@ export default function AboutPage() {
             </p>
             <ul className="space-y-3">
               {[
-                "SEPA-licensed waste carrier — WCR/R/3021188",
+                "SEPA-licensed waste carrier, WCR/R/3021188",
                 "£1–2 million public liability insurance",
                 "Waste transfer note on every commercial job",
                 "Reusable items donated to local charities",
                 "Same-day uplifts where possible",
-                "Fixed, upfront pricing — no hidden charges",
+                "Fixed, upfront pricing, no hidden charges",
               ].map((point) => (
                 <li
                   key={point}

@@ -1,4 +1,4 @@
-// Static option lists for the booking form's checkbox/radio groups —
+// Static option lists for the booking form's checkbox/radio groups:
 // mirrors the reference form's field structure.
 
 export const WASTE_LOCATIONS: string[] = [

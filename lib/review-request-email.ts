@@ -41,11 +41,11 @@ export function reviewRequestEmailHtml(firstName: string, context: ReviewRequest
         <div class="body">
           <h2>How did we do?</h2>
           <p>${intro}</p>
-          <p>If you've got a minute, a quick Google review helps other people in Glasgow find us — and means a lot to our small team.</p>
+          <p>If you've got a minute, a quick Google review helps other people in Glasgow find us, and means a lot to our small team.</p>
           <p style="text-align:center;">
             <a class="cta" href="${googleReviewsUrl}">Leave us a review on Google</a>
           </p>
-          <p>If anything wasn't right, just reply to this email and let us know — we'll sort it.</p>
+          <p>If anything wasn't right, just reply to this email and let us know. We'll sort it.</p>
         </div>
         <div class="footer">
           <p>Envirocycle Glasgow | Efficient Waste Solutions, Sustainable Future</p>
@@ -58,7 +58,7 @@ export function reviewRequestEmailHtml(firstName: string, context: ReviewRequest
 
 // For a booking with a preferred_date, fire 24h after that job day has
 // passed (noon UTC the day after) rather than 24h after the form was
-// submitted — a job booked for next week shouldn't get this tomorrow.
+// submitted. A job booked for next week shouldn't get this tomorrow.
 // Falls back to 24h from now if there's no date, or it's already passed.
 export function computeBookingReviewEmailScheduledAt(preferredDate: string | null): string {
   const now = Date.now();

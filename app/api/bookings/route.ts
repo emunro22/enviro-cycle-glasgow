@@ -183,7 +183,7 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from: "Envirocycle Website <noreply@envirocycleglasgow.com>",
       to: ["envirocycleglasgow@outlook.com"],
-      subject: `New Booking Request — ${firstName} ${lastName || ""} — ${wasteTypeLabels.join(", ")}`.trim(),
+      subject: `New booking request from ${[firstName, lastName].filter(Boolean).join(" ")}: ${wasteTypeLabels.join(", ")}`.trim(),
       html: emailShell(`
         <h2>New booking request</h2>
         <div class="quote-box">
@@ -210,16 +210,16 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from: "Envirocycle Glasgow <noreply@envirocycleglasgow.com>",
       to: [email],
-      subject: "Thanks for your booking request — Envirocycle Glasgow",
+      subject: "Thanks for your booking request, Envirocycle Glasgow",
       html: emailShell(`
         <h2>Thanks for booking, ${firstName}!</h2>
-        <p>We've received your booking request and will confirm the details shortly — usually within a few hours.</p>
+        <p>We've received your booking request and will confirm the details shortly. Usually within a few hours.</p>
         <div class="quote-box">
           <div class="label" style="margin-bottom:6px;">Your Estimated Quote</div>
           <div class="amount">${quoteDisplay}</div>
         </div>
         <p style="font-size:13px; color: rgba(220,238,222,0.8);">This estimate is based on the waste type(s) you selected. We'll confirm your final price once we've reviewed the details of your collection.</p>
-        <p>Preferred collection date: <strong>${formatDate(preferredDateVal)}</strong> — we'll be in touch to confirm this works for us.</p>
+        <p>Preferred collection date: <strong>${formatDate(preferredDateVal)}</strong>. We'll be in touch to confirm this works for us.</p>
         <div class="contact-box">
           <p>📞 +44 7450 435241</p>
           <p>📧 envirocycleglasgow@outlook.com</p>
@@ -230,7 +230,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Schedule a single "How did we do?" email 24h after the job's
-    // preferred date — claimed up front so a customer who also sent a
+    // preferred date. Claimed up front so a customer who also sent a
     // contact enquiry doesn't get a second one.
     if (await claimReviewEmailSlot(String(email).trim())) {
       await resend.emails.send({
@@ -261,7 +261,7 @@ export async function GET(request: NextRequest) {
     const month = searchParams.get("month"); // YYYY-MM
     const status = searchParams.get("status");
 
-    // Cast preferred_date to text in SQL — the driver otherwise round-trips
+    // Cast preferred_date to text in SQL. The driver otherwise round-trips
     // DATE columns through a JS Date object in local time, shifting the
     // value across midnight UTC when the server's local timezone isn't UTC.
     let rows: BookingRow[];

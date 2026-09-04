@@ -8,7 +8,7 @@ import { SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "All Services | Envirocycle Glasgow",
   description:
-    "Every waste removal, uplift and recycling service Envirocycle Glasgow offers — browse the full list and find the right one for your job.",
+    "Every waste removal, uplift and recycling service Envirocycle Glasgow offers. Browse the full list and find the right one for your job.",
   alternates: { canonical: "/services" },
 };
 
@@ -17,13 +17,13 @@ const allServices = [
     slug: "waste-management",
     name: "Waste Management",
     description:
-      "Dependable waste management for Glasgow homes and businesses — scheduled collections, fully compliant disposal and a recycling-first approach.",
+      "Dependable waste management for Glasgow homes and businesses: scheduled collections, fully compliant disposal and a recycling-first approach.",
   },
   {
     slug: "bulky-waste-uplifts",
     name: "Bulky Waste Uplifts",
     description:
-      "Furniture, appliances, white goods and garden waste removed across Glasgow — often same-day, always responsibly disposed of or donated.",
+      "Furniture, appliances, white goods and garden waste removed across Glasgow: often same-day, always responsibly disposed of or donated.",
   },
   {
     slug: "trade-waste-clearance",
@@ -35,31 +35,31 @@ const allServices = [
     slug: "recycling",
     name: "Recycling Services",
     description:
-      "Segregated recycling collection for Glasgow businesses and homes — paper, plastic, metal and glass diverted from landfill.",
+      "Segregated recycling collection for Glasgow businesses and homes: paper, plastic, metal and glass diverted from landfill.",
   },
   {
     slug: "site-clearance",
     name: "Site Clearance",
     description:
-      "Whole-property and outdoor clearances across Glasgow — house, garden and end-of-tenancy clear-outs, handled quickly and responsibly.",
+      "Whole-property and outdoor clearances across Glasgow: house, garden and end-of-tenancy clear-outs, handled quickly and responsibly.",
   },
   {
     slug: "waste-removal",
     name: "Waste Removal",
     description:
-      "Licensed waste removal, uplifts and recycling for domestic and commercial jobs — same-day available.",
+      "Licensed waste removal, uplifts and recycling for domestic and commercial jobs, same-day available.",
   },
   {
     slug: "rubbish-removal",
     name: "Rubbish Removal",
     description:
-      "Quick, no-fuss rubbish removal — single items to full van loads. Cheaper and faster than a skip.",
+      "Quick, no-fuss rubbish removal. Single items to full van loads. Cheaper and faster than a skip.",
   },
   {
     slug: "house-clearance",
     name: "House Clearance",
     description:
-      "Full or part house clearances — end-of-tenancy, probate, downsizing. Discreet and tidy.",
+      "Full or part house clearances: end-of-tenancy, probate, downsizing. Discreet and tidy.",
   },
   {
     slug: "office-clearance",
@@ -71,7 +71,7 @@ const allServices = [
     slug: "garden-waste-removal",
     name: "Garden Waste Removal",
     description:
-      "Branches, hedge cuttings, turf, soil, decking — uplifted and recycled.",
+      "Branches, hedge cuttings, turf, soil and decking, uplifted and recycled.",
   },
   {
     slug: "builders-waste-removal",
@@ -83,13 +83,13 @@ const allServices = [
     slug: "furniture-disposal",
     name: "Furniture Disposal",
     description:
-      "Sofas, beds, wardrobes, white goods — uplifted same-day where possible.",
+      "Sofas, beds, wardrobes and white goods, uplifted same-day where possible.",
   },
   {
     slug: "skip-hire-alternative",
     name: "Skip Hire Alternative",
     description:
-      "Pay for what you actually throw out — we uplift and go. No permit, no floor space wasted.",
+      "Pay for what you actually throw out. We uplift and go. No permit, no floor space wasted.",
   },
 ];
 

@@ -54,33 +54,13 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-        style={{
-          height: scrolled ? 80 : 100,
-          background: scrolled ? "rgba(10,31,11,0.96)" : "transparent",
-          backdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(212,160,23,0.15)" : "none",
-        }}
-      >
-        <div className="h-full max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-4">
-            <div
-              className="relative transition-all duration-300"
-              style={{
-                width: scrolled ? 55 : 70,
-                height: scrolled ? 55 : 70,
-              }}
-            >
+      <nav className="site-nav" data-scrolled={scrolled}>
+        <div className="h-full max-w-7xl mx-auto px-4 sm:px-5 md:px-10 flex items-center justify-between gap-3">
+          <Link href="/" className="flex items-center gap-2.5 md:gap-4 min-w-0">
+            <div className="site-nav-logo shrink-0">
               <Image src="/images/logo.webp" alt="Envirocycle" fill className="object-contain" priority />
             </div>
-            <span
-              className="hidden sm:block font-heading text-cream tracking-widest uppercase transition-all duration-300"
-              style={{
-                fontFamily: 'var(--font-heading)',
-                fontSize: scrolled ? '1.25rem' : '1.5rem',
-              }}
-            >
+            <span className="site-nav-wordmark text-cream uppercase truncate hidden min-[380px]:block">
               Envirocycle
             </span>
           </Link>
@@ -130,7 +110,7 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-1.5 shrink-0">
             <a
               href="https://www.instagram.com/envirocycle_ltd/"
               target="_blank"
@@ -149,7 +129,12 @@ export default function Navbar() {
             >
               <TikTokIcon size={14} />
             </a>
-            <button onClick={() => setMenuOpen(!menuOpen)} className="flex flex-col gap-1.5 z-50 p-2">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+              className="flex flex-col gap-1.5 p-2"
+            >
               <span className={`block w-6 h-0.5 bg-[var(--gold)] transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
               <span className={`block w-6 h-0.5 bg-[var(--gold)] transition-all ${menuOpen ? "opacity-0" : ""}`} />
               <span className={`block w-6 h-0.5 bg-[var(--gold)] transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
@@ -159,10 +144,10 @@ export default function Navbar() {
       </nav>
 
       <div
-        className="fixed inset-0 z-40 lg:hidden bg-[var(--forest-dark)] flex flex-col items-center justify-center transition-all duration-500"
+        className="site-nav-menu fixed inset-0 z-40 lg:hidden bg-[var(--forest-dark)] flex flex-col items-center justify-center transition-all duration-500"
         style={{ opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "all" : "none", backdropFilter: "blur(20px)" }}
       >
-        <div className="flex flex-col gap-6 text-center">
+        <div className="flex flex-col gap-5 sm:gap-6 text-center">
           <Link
             href="/book"
             onClick={() => setMenuOpen(false)}
@@ -176,7 +161,7 @@ export default function Navbar() {
               key={link.label}
               href={link.href}
               onClick={() => handleNavClick(link.href)}
-              className="text-4xl font-heading gold-text"
+              className="text-3xl sm:text-4xl font-heading gold-text"
               style={{ fontFamily: 'var(--font-heading)' }}
             >
               {link.label}

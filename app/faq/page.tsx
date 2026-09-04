@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/site";
 
 const META_TITLE = "FAQs | Envirocycle Glasgow";
 const META_DESCRIPTION =
-  "Answers to common questions about our waste removal, uplift, recycling and clearance services across Glasgow — areas covered, pricing, licensing, what we can and can't take, and more.";
+  "Answers to common questions about our waste removal, uplift, recycling and clearance services across Glasgow: areas covered, pricing, licensing, what we can and can't take, and more.";
 
 export const metadata: Metadata = {
   title: META_TITLE,
@@ -32,7 +32,7 @@ const faqs = [
   },
   {
     q: "Are you a licensed waste carrier?",
-    a: "Yes — we're a SEPA-licensed waste carrier (Licence WCR/R/3021188) and fully insured. Every job is disposed of legally and responsibly, with a waste transfer note provided.",
+    a: "Yes. We're a SEPA-licensed waste carrier (Licence WCR/R/3021188) and fully insured. Every job is disposed of legally and responsibly, with a waste transfer note provided.",
   },
   {
     q: "Do you recycle what you collect?",
@@ -40,15 +40,15 @@ const faqs = [
   },
   {
     q: "Do I need to be home for the collection?",
-    a: "Not necessarily — as long as the items are accessible and we've agreed the details in advance, we can often collect without you being there. Just mention this when you book or message us on WhatsApp.",
+    a: "Not necessarily: as long as the items are accessible and we've agreed the details in advance, we can often collect without you being there. Just mention this when you book or message us on WhatsApp.",
   },
   {
     q: "How much does it cost?",
-    a: "It depends on the volume and type of waste. Send a photo via WhatsApp or our booking form for a free, no-obligation quote — there's no minimum charge for small jobs.",
+    a: "It depends on the volume and type of waste. Send a photo via WhatsApp or our booking form for a free, no-obligation quote. There's no minimum charge for small jobs.",
   },
   {
     q: "What items can't you take?",
-    a: "We can't take asbestos, clinical or medical waste, chemicals, or hazardous liquids. Garden waste jobs can't include Japanese knotweed, which needs a specialist licensed disposal route. Most other household and commercial items — including paint, batteries, electricals, fridges, freezers and mattresses — are accepted and routed through the correct licensed disposal channel.",
+    a: "We can't take asbestos, clinical or medical waste, chemicals, or hazardous liquids. Garden waste jobs can't include Japanese knotweed, which needs a specialist licensed disposal route. Most other household and commercial items (including paint, batteries, electricals, fridges, freezers and mattresses) are accepted and routed through the correct licensed disposal channel.",
   },
   {
     q: "Can you clear a whole house or just a few items?",
@@ -56,11 +56,11 @@ const faqs = [
   },
   {
     q: "Do you provide a waste transfer note?",
-    a: "Yes — as a licensed waste carrier, we provide a transfer note for every job, which is useful if you need proof of compliant disposal (for example, for landlords or businesses).",
+    a: "Yes: as a licensed waste carrier, we provide a transfer note for every job, which is useful if you need proof of compliant disposal (for example, for landlords or businesses).",
   },
   {
     q: "Can I book online, or do I need to call?",
-    a: "You can book entirely online through our booking form — no need to pick up the phone. If you'd rather talk it through, you can also call or message us on WhatsApp.",
+    a: "You can book entirely online through our booking form. No need to pick up the phone. If you'd rather talk it through, you can also call or message us on WhatsApp.",
   },
   {
     q: "Do you work with businesses and trade customers?",
@@ -72,7 +72,7 @@ const faqs = [
   },
   {
     q: "Is there a minimum charge or call-out fee?",
-    a: "No — there's no minimum charge for small jobs and no call-out fee.",
+    a: "No. There's no minimum charge for small jobs and no call-out fee.",
   },
   {
     q: "Are you insured?",

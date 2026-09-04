@@ -18,11 +18,11 @@ async function ensureTable() {
   `;
 }
 
-// Public — powers the customer-facing calendar so it can disable these dates.
+// Public. Powers the customer-facing calendar so it can disable these dates.
 export async function GET() {
   try {
     await ensureTable();
-    // Cast DATE to text in SQL — the driver otherwise round-trips DATE columns
+    // Cast DATE to text in SQL. The driver otherwise round-trips DATE columns
     // through a JS Date object in local time, shifting the value across
     // midnight UTC when the server's local timezone isn't UTC.
     const rows = (await sql`

@@ -188,7 +188,7 @@ export default function TipFinder() {
         </h1>
         <p className="max-w-2xl text-base md:text-lg" style={{ color: "rgba(245,240,232,0.65)" }}>
           Enter the job postcode, pick a material, and we&apos;ll rank our
-          disposal sites by true total cost — disposal fee plus the van
+          disposal sites by true total cost. Disposal fee plus the van
           run there and back.
         </p>
       </div>
@@ -363,7 +363,7 @@ export default function TipFinder() {
 
                     <div className="grid grid-cols-3 md:grid-cols-3 gap-4 md:gap-6 md:text-right">
                       <Metric label="Rate" value={`£${r.rate.pricePerTonne}/t`} />
-                      <Metric label="Distance" value={origin ? `${r.driveMiles.toFixed(1)} mi` : "—"} />
+                      <Metric label="Distance" value={origin ? `${r.driveMiles.toFixed(1)} mi` : "-"} />
                       <Metric label="Total" value={`£${r.totalCost.toFixed(2)}`} highlight={i === 0} />
                     </div>
                   </div>
@@ -397,7 +397,7 @@ export default function TipFinder() {
             CHEAPEST <span className="gold-text">PER MATERIAL</span>
           </h2>
           <p className="text-sm mt-2" style={{ color: "rgba(245,240,232,0.5)" }}>
-            Ignoring distance — quick reference for planning. Gold = cheapest in network.
+            Ignoring distance. Quick reference for planning. Gold = cheapest in network.
           </p>
         </div>
 
@@ -429,7 +429,7 @@ export default function TipFinder() {
                             fontWeight: isCheapest ? 700 : 400,
                           }}
                         >
-                          {rate ? `£${rate.pricePerTonne}/t` : "—"}
+                          {rate ? `£${rate.pricePerTonne}/t` : "-"}
                         </td>
                       );
                     })}

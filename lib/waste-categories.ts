@@ -1,4 +1,4 @@
-// Single source of truth for waste-type categories — used by the booking
+// Single source of truth for waste-type categories. Used by the booking
 // form checkboxes, the admin pricing page, and the quote calculation in
 // app/api/bookings/route.ts. Keys are stable and stored in the DB, so don't
 // rename them without a migration.

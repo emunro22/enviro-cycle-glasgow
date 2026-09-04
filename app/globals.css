@@ -176,18 +176,16 @@ body::before {
   box-shadow: 0 0 20px rgba(212, 160, 23, 0.5);
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-/*  WhatsApp button + sticky contact bar                                    */
-/*  Append this block to the end of your existing globals.css               */
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+/* WhatsApp button + sticky contact bar
+   ================================================================ */
 
-/* â”€â”€ Desktop floating WhatsApp FAB â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Desktop floating WhatsApp FAB */
 .whatsapp-fab {
   position: fixed;
-  bottom: 2.4rem;
-  right: 2.4rem;
-  width: 6rem;
-  height: 6rem;
+  bottom: 1.8rem;
+  right: 1.8rem;
+  width: 4.4rem;
+  height: 4.4rem;
   border-radius: 50%;
   background: #25d366;
   color: #fff;
@@ -248,21 +246,27 @@ body::before {
   }
 }
 
-/* Hide the FAB on mobile â€” the sticky bar takes over below 768px */
+/* Below 768px the sticky contact bar replaces the FAB */
 @media (max-width: 768px) {
   .whatsapp-fab {
     display: none;
   }
 }
 
-/* Lift page content clear of the floating FAB so it never covers text/links */
+/* Keep the floating FAB clear of footer content. The padding lives on the
+   footer rather than the body, so the spare space stays footer-coloured
+   instead of showing a bare green block under the page. */
 @media (min-width: 769px) {
-  body {
-    padding-bottom: 9rem;
+  .site-footer {
+    padding-bottom: 4rem;
+  }
+
+  body:not(:has(.site-footer)) {
+    padding-bottom: 7rem;
   }
 }
 
-/* â”€â”€ Mobile sticky contact bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Mobile sticky contact bar */
 .sticky-contact-bar {
   display: none;
 }
@@ -284,8 +288,12 @@ body::before {
     box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
   }
 
-  /* Lift the page content above the bar so the footer/CTAs aren't hidden */
-  body {
+  /* Lift footer content above the bar so the bottom links aren't hidden */
+  .site-footer {
+    padding-bottom: calc(4.2rem + env(safe-area-inset-bottom));
+  }
+
+  body:not(:has(.site-footer)) {
     padding-bottom: calc(6.4rem + env(safe-area-inset-bottom));
   }
 }
@@ -346,12 +354,12 @@ body::before {
   opacity: 0.85;
 }
 
-/* ── WhatsApp follow-up email-capture card ──────────────────────────────── */
+/* WhatsApp follow-up email-capture card */
 .whatsapp-followup {
   position: fixed;
   z-index: 999;
-  bottom: calc(2.4rem + 6rem + 1rem);
-  right: 2.4rem;
+  bottom: calc(1.8rem + 4.4rem + 1rem);
+  right: 1.8rem;
   width: 320px;
   max-width: calc(100vw - 2.4rem);
   background: var(--forest-mid);
@@ -457,4 +465,122 @@ body::before {
   font-size: 0.8rem;
   color: #e08585;
   margin: 0.6rem 0 0;
+}
+
+/* Site navbar
+   ================================================================ */
+
+/* The bar paints its own background up into the iOS status-bar inset, so
+   nothing from the page shows through above it once you start scrolling. */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding-top: env(safe-area-inset-top);
+  height: calc(66px + env(safe-area-inset-top));
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: height 0.35s ease, background 0.35s ease, border-color 0.35s ease,
+    backdrop-filter 0.35s ease;
+}
+
+.site-nav[data-scrolled='true'] {
+  height: calc(58px + env(safe-area-inset-top));
+  background: rgba(10, 31, 11, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom-color: rgba(212, 160, 23, 0.15);
+}
+
+.site-nav-logo {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.site-nav[data-scrolled='true'] .site-nav-logo {
+  width: 36px;
+  height: 36px;
+}
+
+.site-nav-wordmark {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  letter-spacing: 0.14em;
+  transition: font-size 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .site-nav {
+    height: calc(100px + env(safe-area-inset-top));
+  }
+
+  .site-nav[data-scrolled='true'] {
+    height: calc(80px + env(safe-area-inset-top));
+  }
+
+  .site-nav-logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .site-nav[data-scrolled='true'] .site-nav-logo {
+    width: 55px;
+    height: 55px;
+  }
+
+  .site-nav-wordmark {
+    font-size: 1.5rem;
+  }
+
+  .site-nav[data-scrolled='true'] .site-nav-wordmark {
+    font-size: 1.25rem;
+  }
+}
+
+/* Full-screen mobile menu, offset for the notch */
+.site-nav-menu {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Anchor targets clear the fixed bar when jumped to */
+:target {
+  scroll-margin-top: calc(80px + env(safe-area-inset-top));
+}
+
+/* Mobile polish
+   ================================================================ */
+
+@media (max-width: 640px) {
+  /* Stop long words (emails, URLs, place names) blowing out narrow layouts */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3 {
+    overflow-wrap: break-word;
+  }
+
+  /* Taps shouldn't flash a blue box on iOS */
+  a,
+  button {
+    -webkit-tap-highlight-color: rgba(212, 160, 23, 0.15);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .whatsapp-fab {
+    animation: none;
+  }
 }

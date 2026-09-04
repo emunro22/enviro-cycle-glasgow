@@ -24,7 +24,7 @@ export interface ServicePageTemplateProps {
   sections: ServiceSection[];
   /** Bullet feature list */
   features: string[];
-  /** FAQ entries — also output as FAQPage structured data */
+  /** FAQ entries. Also output as FAQPage structured data */
   faqs: ServiceFAQ[];
   /** Internal links to sibling service pages */
   related: RelatedService[];
@@ -265,7 +265,7 @@ export default function ServicePageTemplate({
             </div>
           </section>
 
-          {/* Related services — internal linking */}
+          {/* Related services, internal linking */}
           {related.length > 0 && (
             <section className="animate-on-scroll">
               <h2

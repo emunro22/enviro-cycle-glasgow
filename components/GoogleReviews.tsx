@@ -102,7 +102,7 @@ export default function GoogleReviews() {
   const visibleReviews = expanded ? mergedReviews : mergedReviews.slice(0, INITIAL_COUNT);
 
   // Re-observe whenever the rendered card set actually changes (new live
-  // reviews merged in, or the "show all" toggle reveals more cards) —
+  // reviews merged in, or the "show all" toggle reveals more cards):
   // a fresh review shifting into an already-visible slot mounts a brand
   // new DOM node that a mount-only observer would never see.
   useEffect(() => {

@@ -7,7 +7,7 @@ import { COOKIE_CONSENT_EVENT, getCookieConsent } from "@/components/CookieConse
 // Set NEXT_PUBLIC_GA_MEASUREMENT_ID in the Vercel project's environment
 // variables once a GA4 property exists (Admin > Data Streams > your stream >
 // Measurement ID, looks like "G-XXXXXXXXXX"). Nothing loads until that's set
-// AND the visitor has accepted cookies — required under UK PECR since GA4
+// AND the visitor has accepted cookies. Required under UK PECR since GA4
 // sets tracking cookies.
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 

@@ -21,7 +21,7 @@ export default function Contact() {
     phone: "",
     service: "",
     message: "",
-    website: "", // honeypot — left blank by real visitors
+    website: "", // honeypot: left blank by real visitors
   });
 
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -105,7 +105,7 @@ export default function Contact() {
       }}
     >
       <div className="max-w-7xl mx-auto">
-        {/* Prominent booking banner — the primary path in, ahead of the general enquiry form below */}
+        {/* Prominent booking banner: the primary path in, ahead of the general enquiry form below */}
         <div
           className="animate-on-scroll rounded-3xl p-7 md:p-10 mb-12 md:mb-16 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left"
           style={{
@@ -245,7 +245,7 @@ export default function Contact() {
                     Send Message
                   </h3>
 
-                  {/* Honeypot field — hidden from real visitors, bots fill it */}
+                  {/* Honeypot field: hidden from real visitors, bots fill it */}
                   <input
                     type="text"
                     name="website"

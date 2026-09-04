@@ -10,7 +10,7 @@ import { SITE_URL } from "@/lib/site";
 // SERVICE HUB CONFIG
 // ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants — everything below the line is shared.
+// service hubs are these constants. Everything below the line is shared.
 
 const SERVICE_PREFIX = "office-clearance";
 const SERVICE_NAME = "Office Clearance";
@@ -23,10 +23,10 @@ const META_DESCRIPTION = "Commercial office clearances across Glasgow. Furniture
 const WHAT_WE_TAKE = [
   "Desks, chairs, partitions, and meeting room furniture",
   "Filing cabinets, storage units, shelving",
-  "IT equipment — computers, monitors, servers, printers (WEEE)",
-  "Confidential documents — shredded under audit",
+  "IT equipment: computers, monitors, servers, printers (WEEE)",
+  "Confidential documents, shredded under audit",
   "Kitchen/break-room appliances and crockery",
-  "Full office strip-outs — anything from a single floor to a whole building",
+  "Full office strip-outs: anything from a single floor to a whole building",
 ];
 
 const HOW_IT_WORKS = [
@@ -55,7 +55,7 @@ const HOW_IT_WORKS = [
 const FAQ = [
   {
     q: "Can you work out-of-hours?",
-    a: "Yes — most of our office work happens after 6pm or at weekends. We've worked through Friday and Saturday nights to have offices ready for Monday morning handover.",
+    a: "Yes. Most of our office work happens after 6pm or at weekends. We've worked through Friday and Saturday nights to have offices ready for Monday morning handover.",
   },
   {
     q: "What about confidential paperwork?",
@@ -63,7 +63,7 @@ const FAQ = [
   },
   {
     q: "Do you handle IT and electricals (WEEE)?",
-    a: "Yes. Computers, monitors, servers, printers — all collected and processed at a licensed WEEE facility. Hard drive destruction available where data security is a concern, with serial-numbered certificates.",
+    a: "Yes. Computers, monitors, servers, printers. All collected and processed at a licensed WEEE facility. Hard drive destruction available where data security is a concern, with serial-numbered certificates.",
   },
   {
     q: "Can you clear a whole building?",
@@ -71,7 +71,7 @@ const FAQ = [
   },
   {
     q: "What's your minimum job size?",
-    a: "No minimum for small jobs — a few chairs and a desk is fine. For ongoing trade-account work we offer scheduled monthly or weekly collections at a discounted rate.",
+    a: "No minimum for small jobs. A few chairs and a desk is fine. For ongoing trade-account work we offer scheduled monthly or weekly collections at a discounted rate.",
   },
 ];
 // ────────────────────────────────────────────────────────────────────────────

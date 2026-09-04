@@ -10,7 +10,7 @@ import { SITE_URL } from "@/lib/site";
 // SERVICE HUB CONFIG
 // ────────────────────────────────────────────────────────────────────────────
 // Clone this file for each of the 8 services. The only differences between
-// service hubs are these constants — everything below the line is shared.
+// service hubs are these constants. Everything below the line is shared.
 
 const SERVICE_PREFIX = "builders-waste-removal";
 const SERVICE_NAME = "Builders Waste Removal";
@@ -21,24 +21,24 @@ const META_TITLE = "Builders Waste Removal Glasgow | Trade Uplifts | Envirocycle
 const META_DESCRIPTION = "Builders waste removal across Glasgow for trades and homeowners. Renovation, kitchen, bathroom, and extension waste. Plasterboard kept separate as required.";
 
 const WHAT_WE_TAKE = [
-  "Kitchen rip-outs — units, worktops, white goods, tiling",
-  "Bathroom strip-outs — sanitaryware, tiles, old pipework",
-  "Plasterboard — kept separate as required by law",
-  "Inert rubble — bricks, concrete, hardcore (priced lower)",
+  "Kitchen rip-outs: units, worktops, white goods, tiling",
+  "Bathroom strip-outs: sanitaryware, tiles, old pipework",
+  "Plasterboard: kept separate as required by law",
+  "Inert rubble: bricks, concrete, hardcore (priced lower)",
   "Wood, MDF, skirting, doors, and frames",
-  "Mixed renovation waste — sorted at a licensed transfer station",
+  "Mixed renovation waste: sorted at a licensed transfer station",
 ];
 
 const HOW_IT_WORKS = [
   {
     step: "01",
     title: "Trade quote",
-    body: "Most trades just want a price per van load up-front. We do that — single van, double van, scheduled regular pickups, all priced clearly.",
+    body: "Most trades just want a price per van load up-front. We do that: single van, double van, scheduled regular pickups, all priced clearly.",
   },
   {
     step: "02",
     title: "Flexible collection",
-    body: "We can come back as often as the job needs — daily during a full kitchen fit-out is fine, or just at the end. Kerbside or driveway loading.",
+    body: "We can come back as often as the job needs: daily during a full kitchen fit-out is fine, or just at the end. Kerbside or driveway loading.",
   },
   {
     step: "03",
@@ -48,7 +48,7 @@ const HOW_IT_WORKS = [
   {
     step: "04",
     title: "Compliance for clients",
-    body: "Waste transfer notes provided for every load — useful when your customer asks where the waste went, or when you need it for VAT receipts.",
+    body: "Waste transfer notes provided for every load: useful when your customer asks where the waste went, or when you need it for VAT receipts.",
   },
 ];
 
@@ -59,7 +59,7 @@ const FAQ = [
   },
   {
     q: "Why is plasterboard priced separately?",
-    a: "Plasterboard can't be tipped with general waste — it has to go to a specialist gypsum recycling facility. We bag it separately, weigh it, and price accordingly. Required by law for any UK-licensed waste carrier.",
+    a: "Plasterboard can't be tipped with general waste. It has to go to a specialist gypsum recycling facility. We bag it separately, weigh it, and price accordingly. Required by law for any UK-licensed waste carrier.",
   },
   {
     q: "Do you offer trade accounts?",
@@ -71,7 +71,7 @@ const FAQ = [
   },
   {
     q: "Same-day for emergency clearance?",
-    a: "Often yes, especially if your job's overrunning and you need the waste off-site before another trade arrives. Call us — most weekdays we can fit emergency uplifts in.",
+    a: "Often yes, especially if your job's overrunning and you need the waste off-site before another trade arrives. Call us. Most weekdays we can fit emergency uplifts in.",
   },
 ];
 // ────────────────────────────────────────────────────────────────────────────

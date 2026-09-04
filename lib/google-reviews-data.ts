@@ -186,7 +186,7 @@ export const googleReviews: GoogleReview[] = [
     meta: "2 reviews",
     date: "9 months ago",
     stars: 5,
-    text: "Excellent service — reliable, professional, and on time. Highly recommend to anyone 👍",
+    text: "Excellent service: reliable, professional, and on time. Highly recommend to anyone 👍",
   },
   {
     name: "Gary Adair",

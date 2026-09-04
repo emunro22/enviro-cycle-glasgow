@@ -119,7 +119,7 @@ export default function AdminDashboard() {
       const input = document.getElementById("imageInput") as HTMLInputElement | null;
       if (input) input.value = "";
 
-      setSuccessMsg("Project added — it will appear on the homepage within a few seconds.");
+      setSuccessMsg("Project added. It will appear on the homepage within a few seconds.");
       await loadProjects();
       // Trigger a router refresh so the homepage re-renders if the user navigates back
       router.refresh();
@@ -181,7 +181,7 @@ export default function AdminDashboard() {
           className="block bg-black/20 border border-[var(--gold)]/20 rounded-sm p-6 hover:border-[var(--gold)]/50 transition"
         >
           <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-1">Bookings</p>
-          <p className="text-cream/60 text-sm mb-4">See what&apos;s booked in — calendar and list views, block dates, update status.</p>
+          <p className="text-cream/60 text-sm mb-4">See what&apos;s booked in: calendar and list views, block dates, update status.</p>
           <span className="text-xs text-[var(--gold-light)] font-semibold">Manage bookings →</span>
         </a>
         <a
@@ -203,13 +203,13 @@ export default function AdminDashboard() {
         <div className="bg-black/20 border border-[var(--gold)]/20 rounded-sm p-6">
           <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-1">Work Gallery</p>
           <p className="text-cream/60 text-sm mb-4">Add, remove and reorder project photos shown on the homepage.</p>
-          <p className="text-cream/40 text-xs">You&apos;re already here — scroll down to manage.</p>
+          <p className="text-cream/40 text-xs">You&apos;re already here. Scroll down to manage.</p>
         </div>
         <div className="bg-black/20 border border-[var(--gold)]/20 rounded-sm p-6">
           <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-1">Google Business Profile</p>
           <p className="text-cream/60 text-sm mb-4">
             Connect to pull every review automatically instead of just Google&apos;s top 5. Requires
-            Google&apos;s Business Profile API access to be approved first — the listing needs to be
+            Google&apos;s Business Profile API access to be approved first. The listing needs to be
             60+ days old and verified.
           </p>
           {googleConnected === null ? (
@@ -240,7 +240,7 @@ export default function AdminDashboard() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="w-full px-4 py-3 bg-black/40 border border-[var(--gold)]/30 rounded-sm text-cream focus:outline-none focus:border-[var(--gold)] transition text-base"
-              placeholder="e.g. Garden Clearance — Bearsden"
+              placeholder="e.g. Garden Clearance, Bearsden"
               required
             />
           </div>

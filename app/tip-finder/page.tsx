@@ -3,10 +3,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import TipFinder from "@/components/TipFinder";
 
-// Internal ops tool — keep out of search engines. Supplier rates are
+// Internal ops tool. Keep out of search engines. Supplier rates are
 // commercially sensitive; consider adding a PIN gate before launching.
 export const metadata: Metadata = {
-  title: "Tip Finder — Internal Tool",
+  title: "Tip Finder, Internal Tool",
   description: "Find the cheapest disposal route per material across our network.",
   robots: { index: false, follow: false },
 };

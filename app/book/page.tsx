@@ -220,7 +220,7 @@ export default function BookPage() {
             BOOK YOUR <span className="gold-text">COLLECTION</span>
           </h1>
           <p className="max-w-xl mx-auto text-base md:text-lg leading-relaxed" style={{ color: "rgba(245,240,232,0.7)" }}>
-            Tell us what needs uplifted and we&apos;ll email you an estimated quote right away —
+            Tell us what needs uplifted and we&apos;ll email you an estimated quote right away:
             no need to pick up the phone.
           </p>
         </section>
@@ -239,7 +239,7 @@ export default function BookPage() {
                 <div className="text-5xl mb-4">✓</div>
                 <h2 className="text-2xl md:text-3xl font-heading gold-text mb-3">Booking Received</h2>
                 <p className="text-sm md:text-base max-w-md mx-auto" style={{ color: "rgba(245,240,232,0.65)" }}>
-                  Thanks — we&apos;ve emailed you an estimated quote. We&apos;ll be in touch shortly to confirm your
+                  Thanks. We&apos;ve emailed you an estimated quote. We&apos;ll be in touch shortly to confirm your
                   collection date and finalise the details.
                 </p>
                 <Link
@@ -340,7 +340,7 @@ export default function BookPage() {
                   <p className="text-xs mt-3" style={{ color: "rgba(245,240,232,0.4)" }}>
                     {preferredDate
                       ? `Selected: ${new Date(`${preferredDate}T00:00:00`).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}`
-                      : "Optional — we'll confirm a suitable time with you using your contact details."}
+                      : "Optional. We'll confirm a suitable time with you using your contact details."}
                   </p>
                 </section>
 

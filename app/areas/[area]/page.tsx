@@ -53,7 +53,7 @@ export default async function AreaPage({ params }: PageProps) {
     .map((prefix) => servicePrefixes.find((s) => s.prefix === prefix))
     .filter((s): s is NonNullable<typeof s> => s !== undefined);
 
-  // Other services not generated as combo pages — link to the service hub instead
+  // Other services not generated as combo pages. Link to the service hub instead
   const otherServices = servicePrefixes.filter(
     (s) => !getCombosForArea(area).includes(s.prefix),
   );
@@ -187,7 +187,7 @@ export default async function AreaPage({ params }: PageProps) {
             <div className="space-y-4 text-base md:text-lg" style={{ color: "rgba(245,240,232,0.75)", lineHeight: 1.7 }}>
               <p>{area.localHook}</p>
               <p>
-                Envirocycle is based locally and covers all of {area.name} —
+                Envirocycle is based locally and covers all of {area.name}:
                 from {area.landmarks[0]} across to{" "}
                 {area.landmarks[area.landmarks.length - 1]}. Our average
                 response time here is around {area.travelMinutes} minutes from

@@ -30,6 +30,7 @@ export default function Footer() {
 
   return (
     <footer
+      className="site-footer"
       style={{
         background: "linear-gradient(180deg, rgba(10,31,11,0.98) 0%, #050e06 100%)",
         borderTop: "1px solid rgba(212,160,23,0.1)",
@@ -37,18 +38,18 @@ export default function Footer() {
     >
       {/* CTA Banner */}
       <div
-        className="py-14 md:py-20 px-5 md:px-12 text-center"
+        className="py-10 md:py-16 px-5 md:px-12 text-center"
         style={{
           background: "linear-gradient(135deg, rgba(26,68,29,0.3) 0%, rgba(212,160,23,0.06) 50%, rgba(26,68,29,0.3) 100%)",
           borderBottom: "1px solid rgba(212,160,23,0.08)",
         }}
       >
-        <p className="section-label mb-4">Ready to get started?</p>
+        <p className="section-label mb-3">Ready to get started?</p>
         <h2
-          className="leading-none mb-6"
+          className="leading-none mb-5"
           style={{
             fontFamily: "var(--font-heading)",
-            fontSize: "clamp(2.5rem, 7vw, 5rem)",
+            fontSize: "clamp(2.2rem, 6vw, 4rem)",
             color: "var(--cream)",
             letterSpacing: "0.02em",
           }}
@@ -57,16 +58,16 @@ export default function Footer() {
           <span className="gold-text">TODAY</span>
         </h2>
         <p
-          className="max-w-md mx-auto mb-10 text-base leading-relaxed"
+          className="max-w-md mx-auto mb-8 text-[0.95rem] md:text-base leading-relaxed"
           style={{ color: "rgba(245,240,232,0.6)" }}
         >
           Whether it&apos;s a single uplift or ongoing waste management,
           we&apos;ve got you covered across Glasgow.
         </p>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 max-w-sm sm:max-w-none mx-auto">
           <Link
             href="/book"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-base transition-all duration-300"
+            className="inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-full font-semibold text-base transition-all duration-300"
             style={{
               background: "linear-gradient(135deg, #d4a017, #f0c040)",
               color: "#0a1f0b",
@@ -88,7 +89,7 @@ export default function Footer() {
           </Link>
           <a
             href="tel:+447450435241"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-base transition-all duration-300"
+            className="inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-full font-semibold text-base transition-all duration-300"
             style={{
               background: "rgba(255,255,255,0.04)",
               border: "1.5px solid rgba(245,240,232,0.15)",
@@ -110,20 +111,20 @@ export default function Footer() {
       </div>
 
       {/* Main footer */}
-      <div className="py-14 px-5 md:px-12">
+      <div className="py-10 md:py-12 px-5 md:px-12">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-9 md:gap-14 mb-9">
             {/* Brand col */}
             <div>
-                            <Image
-                src="/images/logo.webp"
-                alt="Envirocycle logo"
-                width={60}
-                height={60}
-              />
-              <div>   
+              <div className="flex items-center gap-3 mb-4">
+                <Image
+                  src="/images/logo.webp"
+                  alt="Envirocycle logo"
+                  width={48}
+                  height={48}
+                />
                 <span
-                  className="text-xl tracking-widest"
+                  className="text-xl"
                   style={{
                     fontFamily: "var(--font-heading)",
                     color: "var(--cream)",
@@ -134,12 +135,12 @@ export default function Footer() {
                 </span>
               </div>
               <p
-                className="text-sm leading-relaxed mb-6"
+                className="text-sm leading-relaxed mb-5"
                 style={{ color: "rgba(245,240,232,0.5)" }}
               >
                 Efficient waste solutions and a sustainable future for
                 Glasgow and surrounding areas. Founded by Christopher and
-                Liam — passionate about making Glasgow cleaner and greener.
+                Liam. Passionate about making Glasgow cleaner and greener.
               </p>
               <div className="flex flex-wrap items-center gap-3">
                 <a
@@ -192,12 +193,12 @@ export default function Footer() {
             {/* Nav links */}
             <div>
               <h4
-                className="text-sm font-semibold tracking-widest uppercase mb-6"
+                className="text-sm font-semibold tracking-widest uppercase mb-4"
                 style={{ color: "var(--gold)", opacity: 0.8 }}
               >
                 Navigation
               </h4>
-              <ul className="space-y-3">
+              <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 gap-x-4 gap-y-2.5">
                 {navLinks.map((link) => (
                   <li key={link.href}>
                     <Link
@@ -222,12 +223,12 @@ export default function Footer() {
             {/* Contact */}
             <div>
               <h4
-                className="text-sm font-semibold tracking-widest uppercase mb-6"
+                className="text-sm font-semibold tracking-widest uppercase mb-4"
                 style={{ color: "var(--gold)", opacity: 0.8 }}
               >
                 Contact
               </h4>
-              <ul className="space-y-4">
+              <ul className="space-y-3.5">
                 {[
                   {
                     icon: (
@@ -296,7 +297,7 @@ export default function Footer() {
 
           {/* Bottom bar */}
           <div
-            className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
+            className="pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left"
             style={{ borderTop: "1px solid rgba(212,160,23,0.08)" }}
           >
             <p className="text-xs" style={{ color: "rgba(245,240,232,0.3)" }}>

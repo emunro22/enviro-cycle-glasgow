@@ -113,7 +113,7 @@ async function dedupeExistingGooglePhotos(): Promise<number> {
       } else {
         seenHashes.add(entry.hash);
         // Backfill so the next run recognizes this survivor by content
-        // hash — otherwise it has no hash on record and looks "new" again.
+        // hash. Otherwise it has no hash on record and looks "new" again.
         await sql`
           UPDATE google_photos_synced SET content_hash = ${entry.hash}
           WHERE project_id = ${entry.row.id} AND content_hash IS NULL
@@ -187,7 +187,7 @@ export async function GET(request: NextRequest) {
   let newReviews = 0;
   let reviewSource: "business_profile" | "places_api" = "places_api";
 
-  // Prefer the Business Profile API when connected — it returns every
+  // Prefer the Business Profile API when connected. It returns every
   // review, not just Google's own "5 most relevant" via Places API.
   try {
     const accessToken = await getGoogleBusinessAccessToken();
@@ -254,7 +254,7 @@ export async function GET(request: NextRequest) {
   let photoSource: "business_profile" | "places_api" = "places_api";
   let sourcePhotos: { name: string; url: string }[] = [];
 
-  // Prefer the Business Profile Media API when connected — real photos
+  // Prefer the Business Profile Media API when connected, real photos
   // from the actual business listing, with permanent (non-rotating)
   // resource names, instead of the Places API's small, semi-random set.
   try {
@@ -288,7 +288,7 @@ export async function GET(request: NextRequest) {
       const buf = Buffer.from(await mediaRes.arrayBuffer());
       const contentHash = createHash("sha256").update(buf).digest("hex");
 
-      // Dedup by the actual image content — the only identity that can't
+      // Dedup by the actual image content. The only identity that can't
       // rotate out from under us, regardless of source.
       const existing = await sql`
         SELECT 1 FROM google_photos_synced WHERE content_hash = ${contentHash}

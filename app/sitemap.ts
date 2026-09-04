@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const { getAllAreas } = await import("@/lib/get-all-areas");
     areas = await getAllAreas();
   } catch {
-    // DB unavailable at build time — use static areas only
+    // DB unavailable at build time. Use static areas only
   }
 
   // ── Static / top-level pages ───────────────────────────────────────────

@@ -1,5 +1,5 @@
 // Shared month-grid date math used by both the customer BookingCalendar
-// and the admin bookings calendar view — keeps the grid layout identical
+// and the admin bookings calendar view. Keeps the grid layout identical
 // between the two without duplicating the arithmetic.
 
 export type CalendarCell = {

@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       phone,
       service,
       message,
-      website, // honeypot — real users never see/fill this field
+      website, // honeypot. Real users never see/fill this field
       formLoadedAt,
     } = body;
 
@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from: "Envirocycle Glasgow <noreply@envirocycleglasgow.com>",
       to: [email],
-      subject: "We've received your enquiry — Envirocycle Glasgow",
+      subject: "We've received your enquiry, Envirocycle Glasgow",
       html: `
         <!DOCTYPE html>
         <html>
@@ -182,7 +182,7 @@ export async function POST(request: NextRequest) {
             </div>
             <div class="body">
               <h2>Thanks for getting in touch, ${firstName}!</h2>
-              <p>We've received your enquiry and will get back to you as soon as possible — usually within a few hours.</p>
+              <p>We've received your enquiry and will get back to you as soon as possible. Usually within a few hours.</p>
               <div class="contact-box">
                 <p>📞 +44 7450 435241</p>
                 <p>📧 envirocycleglasgow@outlook.com</p>
@@ -199,7 +199,7 @@ export async function POST(request: NextRequest) {
       `,
     });
 
-    // Schedule a single "How did we do?" email 24h from now — claimed
+    // Schedule a single "How did we do?" email 24h from now, claimed
     // up front so a customer who also books later doesn't get a second one.
     if (await claimReviewEmailSlot(String(email).trim())) {
       await resend.emails.send({

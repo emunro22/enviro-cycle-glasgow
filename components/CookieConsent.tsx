@@ -33,15 +33,18 @@ export default function CookieConsent() {
     setVisible(false);
   };
 
+  // z-index sits above the sticky contact bar (900) and the WhatsApp FAB
+  // (998) so the banner and its privacy link are never covered.
   return (
     <div
       role="dialog"
       aria-label="Cookie consent"
-      className="fixed inset-x-0 bottom-0 z-[200] px-5 py-5 md:px-8"
+      className="fixed inset-x-0 bottom-0 z-[1200] px-5 pt-5 md:px-8"
       style={{
         background: "linear-gradient(180deg, rgba(10,31,11,0.98) 0%, #050e06 100%)",
         borderTop: "1px solid rgba(212,160,23,0.2)",
         boxShadow: "0 -8px 32px rgba(0,0,0,0.35)",
+        paddingBottom: "calc(1.25rem + env(safe-area-inset-bottom))",
       }}
     >
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-4 md:gap-8">
