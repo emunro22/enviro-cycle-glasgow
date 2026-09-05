@@ -10,12 +10,25 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import OurWork from "@/components/Ourwork";
 import ScrollAnimations from "@/components/ScrollAnimations";
+import { sql, type Project } from "@/lib/db";
 
 // This is now a Server Component, no "use client".
 // That's what lets metadata (in layout.tsx) and structured data be picked
 // up cleanly by search engine crawlers.
 
-export default function Home() {
+export default async function Home() {
+  // Fetched here (server-side) rather than inside OurWork via useEffect, so
+  // the portfolio grid is present in the initial server-rendered HTML for
+  // SEO/crawlers instead of only appearing after client-side hydration.
+  let projects: Project[] = [];
+  try {
+    projects = (await sql`
+      SELECT * FROM projects ORDER BY display_order ASC, created_at DESC
+    `) as Project[];
+  } catch (err) {
+    console.error("Failed to load projects", err);
+  }
+
   return (
     <main className="min-h-screen">
       {/* Drives the .in-view scroll animations from globals.css */}
@@ -26,7 +39,7 @@ export default function Home() {
       <Services />
       <Stats />
       <BeforeAfter />
-      <OurWork />
+      <OurWork projects={projects} />
       <Packages />
       <GoogleReviews />
       <FAQ />

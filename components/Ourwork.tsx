@@ -13,16 +13,8 @@ type Project = {
 
 const PREVIEW_COUNT = 8;
 
-export default function OurWork() {
-  const [projects, setProjects] = useState<Project[] | null>(null);
+export default function OurWork({ projects }: { projects: Project[] }) {
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetch(`/api/projects?t=${Date.now()}`, { cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : []))
-      .then((data) => setProjects(Array.isArray(data) ? data : []))
-      .catch(() => setProjects([]));
-  }, []);
 
   useEffect(() => {
     if (selectedImg) {
@@ -35,9 +27,9 @@ export default function OurWork() {
     };
   }, [selectedImg]);
 
-  const visibleProjects = projects ? projects.slice(0, PREVIEW_COUNT) : null;
-  const hasMore = projects ? projects.length > PREVIEW_COUNT : false;
-  const totalCount = projects ? projects.length : 0;
+  const visibleProjects = projects.slice(0, PREVIEW_COUNT);
+  const hasMore = projects.length > PREVIEW_COUNT;
+  const totalCount = projects.length;
 
   return (
     <section id="our-work" className="py-16 md:py-24 bg-[var(--forest-dark)] relative">
@@ -54,16 +46,7 @@ export default function OurWork() {
           </p>
         </div>
 
-        {visibleProjects === null ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div
-                key={i}
-                className="h-[280px] sm:h-[360px] lg:h-[400px] bg-black/20 rounded-sm animate-pulse"
-              />
-            ))}
-          </div>
-        ) : visibleProjects.length === 0 ? (
+        {visibleProjects.length === 0 ? (
           <p className="text-center text-cream/50 uppercase tracking-widest text-xs">
             Gallery coming soon
           </p>
