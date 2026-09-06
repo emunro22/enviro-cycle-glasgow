@@ -3,12 +3,7 @@ import { put, del } from "@vercel/blob";
 import { createHash } from "crypto";
 import { sql } from "@/lib/db";
 import { revalidatePath } from "next/cache";
-import {
-  getGoogleBusinessAccessToken,
-  resolveLocationName,
-  fetchAllBusinessProfileReviews,
-  fetchAllBusinessProfileMedia,
-} from "@/lib/google-business";
+import { perceptualHash, hammingDistance, DUPLICATE_THRESHOLD } from "@/lib/image-hash";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -65,19 +60,23 @@ async function ensureTables() {
   `;
   // Places API photo reference tokens rotate over time, which defeats
   // name-based dedup and re-syncs the same photo under a "new" name. A
-  // content hash of the actual image bytes is the only reliable identity.
+  // content hash of the actual image bytes was meant to be the reliable
+  // identity, but Google's photo endpoint re-encodes on every fetch, so
+  // even the same photo comes back as different bytes each time. A
+  // perceptual hash (phash) is the only thing stable across that noise.
   await sql`ALTER TABLE google_photos_synced ADD COLUMN IF NOT EXISTS content_hash TEXT`;
   await sql`
     CREATE UNIQUE INDEX IF NOT EXISTS google_photos_synced_content_hash_idx
     ON google_photos_synced (content_hash) WHERE content_hash IS NOT NULL
   `;
+  await sql`ALTER TABLE google_photos_synced ADD COLUMN IF NOT EXISTS phash TEXT`;
 }
 
 /**
- * Collapses any 'Google Photos' projects that are pixel-identical
- * duplicates (created when a rotated Places API photo reference was
- * re-synced as if it were new) down to a single canonical row each,
- * keeping the oldest. Cheap no-op once the gallery is already clean.
+ * Collapses any 'Google Photos' projects that are near-duplicates (the
+ * same real photo, re-encoded slightly differently by Google on each
+ * fetch, so their raw bytes never match) down to a single canonical row
+ * each, keeping the oldest. Cheap no-op once the gallery is already clean.
  */
 async function dedupeExistingGooglePhotos(): Promise<number> {
   const rows = (await sql`
@@ -86,7 +85,7 @@ async function dedupeExistingGooglePhotos(): Promise<number> {
     ORDER BY created_at ASC
   `) as { id: number; image_url: string }[];
 
-  const seenHashes = new Set<string>();
+  const survivors: { id: number; hash: string }[] = [];
   const idsToDelete: number[] = [];
   const urlsToDelete: string[] = [];
 
@@ -99,7 +98,7 @@ async function dedupeExistingGooglePhotos(): Promise<number> {
           const res = await fetch(row.image_url);
           if (!res.ok) return null;
           const buf = Buffer.from(await res.arrayBuffer());
-          return { row, hash: createHash("sha256").update(buf).digest("hex") };
+          return { row, hash: await perceptualHash(buf) };
         } catch {
           return null;
         }
@@ -107,24 +106,32 @@ async function dedupeExistingGooglePhotos(): Promise<number> {
     );
     for (const entry of hashed) {
       if (!entry) continue;
-      if (seenHashes.has(entry.hash)) {
+      const dupOf = survivors.find(
+        (s) => hammingDistance(s.hash, entry.hash) <= DUPLICATE_THRESHOLD
+      );
+      if (dupOf) {
         idsToDelete.push(entry.row.id);
         urlsToDelete.push(entry.row.image_url);
       } else {
-        seenHashes.add(entry.hash);
-        // Backfill so the next run recognizes this survivor by content
-        // hash. Otherwise it has no hash on record and looks "new" again.
+        survivors.push({ id: entry.row.id, hash: entry.hash });
+        // Backfill so the next run recognizes this survivor by phash.
+        // Otherwise it has no hash on record and looks "new" again.
         await sql`
-          UPDATE google_photos_synced SET content_hash = ${entry.hash}
-          WHERE project_id = ${entry.row.id} AND content_hash IS NULL
+          UPDATE google_photos_synced SET phash = ${entry.hash}
+          WHERE project_id = ${entry.row.id} AND phash IS NULL
         `;
       }
     }
   }
 
   if (idsToDelete.length > 0) {
-    await sql`DELETE FROM projects WHERE id = ANY(${idsToDelete})`;
-    await sql`DELETE FROM google_photos_synced WHERE project_id = ANY(${idsToDelete})`;
+    // One row at a time: this table stays small (tens of rows), so the
+    // extra round trips are cheap and it sidesteps ever wondering whether
+    // the driver bound `= ANY(${array})` the way we expect.
+    for (const id of idsToDelete) {
+      await sql`DELETE FROM projects WHERE id = ${id}`;
+      await sql`DELETE FROM google_photos_synced WHERE project_id = ${id}`;
+    }
     try {
       await del(urlsToDelete);
     } catch {
@@ -185,64 +192,23 @@ export async function GET(request: NextRequest) {
   `;
 
   let newReviews = 0;
-  let reviewSource: "business_profile" | "places_api" = "places_api";
 
-  // Prefer the Business Profile API when connected. It returns every
-  // review, not just Google's own "5 most relevant" via Places API.
-  try {
-    const accessToken = await getGoogleBusinessAccessToken();
-    if (accessToken) {
-      const locationName = await resolveLocationName(accessToken);
-      if (locationName) {
-        const allReviews = await fetchAllBusinessProfileReviews(
-          accessToken,
-          locationName
-        );
-        reviewSource = "business_profile";
-        for (const review of allReviews) {
-          const inserted = await sql`
-            INSERT INTO google_reviews_cache
-              (google_review_id, author_name, rating, review_text, relative_time, publish_time)
-            VALUES (
-              ${`gbp:${review.reviewId}`},
-              ${review.authorName},
-              ${review.rating},
-              ${review.text},
-              ${""},
-              ${review.createTime}
-            )
-            ON CONFLICT (google_review_id) DO UPDATE
-            SET rating = EXCLUDED.rating,
-                review_text = EXCLUDED.review_text,
-                synced_at = NOW()
-            RETURNING (xmax = 0) AS was_insert
-          `;
-          if (inserted[0]?.was_insert) newReviews++;
-        }
-      }
-    }
-  } catch (err) {
-    console.error("Business Profile review sync failed, falling back to Places API", err);
-  }
-
-  if (reviewSource === "places_api") {
-    for (const review of data.reviews ?? []) {
-      const inserted = await sql`
-        INSERT INTO google_reviews_cache
-          (google_review_id, author_name, rating, review_text, relative_time, publish_time)
-        VALUES (
-          ${review.name},
-          ${review.authorAttribution?.displayName ?? "Google user"},
-          ${review.rating},
-          ${review.text?.text ?? ""},
-          ${review.relativePublishTimeDescription ?? ""},
-          ${review.publishTime ?? null}
-        )
-        ON CONFLICT (google_review_id) DO NOTHING
-        RETURNING id
-      `;
-      if (inserted.length > 0) newReviews++;
-    }
+  for (const review of data.reviews ?? []) {
+    const inserted = await sql`
+      INSERT INTO google_reviews_cache
+        (google_review_id, author_name, rating, review_text, relative_time, publish_time)
+      VALUES (
+        ${review.name},
+        ${review.authorAttribution?.displayName ?? "Google user"},
+        ${review.rating},
+        ${review.text?.text ?? ""},
+        ${review.relativePublishTimeDescription ?? ""},
+        ${review.publishTime ?? null}
+      )
+      ON CONFLICT (google_review_id) DO NOTHING
+      RETURNING id
+    `;
+    if (inserted.length > 0) newReviews++;
   }
 
   // Self-heal first: collapse any photos already duplicated by the old
@@ -251,34 +217,18 @@ export async function GET(request: NextRequest) {
   const dedupedPhotos = await dedupeExistingGooglePhotos();
 
   let newPhotos = 0;
-  let photoSource: "business_profile" | "places_api" = "places_api";
-  let sourcePhotos: { name: string; url: string }[] = [];
+  const sourcePhotos = (data.photos ?? []).map((photo) => ({
+    name: photo.name,
+    url: `https://places.googleapis.com/v1/${photo.name}/media?maxWidthPx=1600&key=${apiKey}`,
+  }));
 
-  // Prefer the Business Profile Media API when connected, real photos
-  // from the actual business listing, with permanent (non-rotating)
-  // resource names, instead of the Places API's small, semi-random set.
-  try {
-    const accessToken = await getGoogleBusinessAccessToken();
-    if (accessToken) {
-      const locationName = await resolveLocationName(accessToken);
-      if (locationName) {
-        const media = await fetchAllBusinessProfileMedia(accessToken, locationName);
-        if (media.length > 0) {
-          photoSource = "business_profile";
-          sourcePhotos = media.map((m) => ({ name: m.name, url: m.googleUrl }));
-        }
-      }
-    }
-  } catch (err) {
-    console.error("Business Profile media sync failed, falling back to Places API", err);
-  }
-
-  if (sourcePhotos.length === 0) {
-    sourcePhotos = (data.photos ?? []).map((photo) => ({
-      name: photo.name,
-      url: `https://places.googleapis.com/v1/${photo.name}/media?maxWidthPx=1600&key=${apiKey}`,
-    }));
-  }
+  // Loaded once and appended to as we go, so photos that are near-dupes
+  // of each other within this same sync run are also caught.
+  const knownHashes = (
+    (await sql`SELECT phash FROM google_photos_synced WHERE phash IS NOT NULL`) as {
+      phash: string;
+    }[]
+  ).map((r) => r.phash);
 
   for (const photo of sourcePhotos) {
     try {
@@ -287,13 +237,13 @@ export async function GET(request: NextRequest) {
 
       const buf = Buffer.from(await mediaRes.arrayBuffer());
       const contentHash = createHash("sha256").update(buf).digest("hex");
+      const phash = await perceptualHash(buf);
 
-      // Dedup by the actual image content. The only identity that can't
-      // rotate out from under us, regardless of source.
-      const existing = await sql`
-        SELECT 1 FROM google_photos_synced WHERE content_hash = ${contentHash}
-      `;
-      if (existing.length > 0) continue;
+      // Dedup by perceptual similarity, the only identity stable across
+      // Google re-encoding the same photo differently on every fetch.
+      if (knownHashes.some((h) => hammingDistance(h, phash) <= DUPLICATE_THRESHOLD)) {
+        continue;
+      }
 
       const uploaded = await put(`google-photos/${contentHash}.jpg`, buf, {
         access: "public",
@@ -313,10 +263,11 @@ export async function GET(request: NextRequest) {
       `;
 
       await sql`
-        INSERT INTO google_photos_synced (google_photo_name, project_id, content_hash)
-        VALUES (${photo.name}, ${projectRows[0].id}, ${contentHash})
+        INSERT INTO google_photos_synced (google_photo_name, project_id, content_hash, phash)
+        VALUES (${photo.name}, ${projectRows[0].id}, ${contentHash}, ${phash})
         ON CONFLICT (google_photo_name) DO NOTHING
       `;
+      knownHashes.push(phash);
       newPhotos++;
     } catch {
       // Skip this photo, keep going with the rest.
@@ -351,9 +302,7 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     ok: true,
     newReviews,
-    reviewSource,
     newPhotos,
-    photoSource,
     dedupedPhotos,
   });
 }

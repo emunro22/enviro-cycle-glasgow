@@ -1,6 +1,13 @@
 import { neon } from '@neondatabase/serverless';
 
-export const sql = neon(process.env.DATABASE_URL!);
+// Next.js patches the global fetch() and, absent an explicit cache
+// directive, was serving stale results for repeated identical queries
+// (e.g. a SELECT re-run moments after a DELETE still showed deleted
+// rows). neon's HTTP driver runs its queries through fetch() internally,
+// so it inherits that caching unless told not to.
+export const sql = neon(process.env.DATABASE_URL!, {
+  fetchOptions: { cache: 'no-store' },
+});
 
 export type Project = {
   id: number;
