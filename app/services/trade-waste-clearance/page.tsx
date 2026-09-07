@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ServicePageTemplate from "@/components/ServicePageTemplate";
 
 export const metadata: Metadata = {
-  title: "Trade Waste Clearance Glasgow | Compliant Business Waste Collection",
+  title: { absolute: "Trade Waste Clearance Glasgow | Business Collections" },
   description:
     "Trade waste clearance for Glasgow businesses and trades. Flexible collections, full waste transfer notes and compliant, recycling-focused disposal. Get a free quote.",
   keywords: [

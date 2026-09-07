@@ -17,7 +17,7 @@ const SERVICE_NAME = "Office Clearance";
 const SERVICE_H1 = "OFFICE CLEARANCE";
 const HERO_TAGLINE = "Office strip-outs, IT disposal, furniture removal. Evening and weekend bookings standard so your team isn't interrupted.";
 
-const META_TITLE = "Office Clearance Glasgow | Commercial Strip-Outs & IT Disposal | Envirocycle";
+const META_TITLE = "Office Clearance Glasgow | Strip-Outs & IT Disposal";
 const META_DESCRIPTION = "Commercial office clearances across Glasgow. Furniture, IT/WEEE, document destruction. Evening and weekend bookings standard. VAT invoices on request.";
 
 const WHAT_WE_TAKE = [
@@ -79,7 +79,7 @@ const FAQ = [
 // ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: META_TITLE,
+  title: { absolute: META_TITLE },
   description: META_DESCRIPTION,
   alternates: { canonical: `/services/${SERVICE_PREFIX}` },
   openGraph: {

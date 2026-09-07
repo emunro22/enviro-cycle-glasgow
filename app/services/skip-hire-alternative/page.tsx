@@ -17,7 +17,7 @@ const SERVICE_NAME = "Skip Hire Alternative";
 const SERVICE_H1 = "SKIP HIRE ALTERNATIVE";
 const HERO_TAGLINE = "Don't need a skip blocking the driveway for a week. We turn up, load, and leave. Pay for what we actually take.";
 
-const META_TITLE = "Skip Hire Alternative Glasgow | No Permit Needed | Envirocycle";
+const META_TITLE = "Skip Hire Alternative Glasgow | No Permit Needed";
 const META_DESCRIPTION = "Skip hire alternative across Glasgow. Pay for what you throw out: no permits, no skip blocking the driveway. Often cheaper than a small skip.";
 
 const WHAT_WE_TAKE = [
@@ -79,7 +79,7 @@ const FAQ = [
 // ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: META_TITLE,
+  title: { absolute: META_TITLE },
   description: META_DESCRIPTION,
   alternates: { canonical: `/services/${SERVICE_PREFIX}` },
   openGraph: {

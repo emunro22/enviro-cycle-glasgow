@@ -17,7 +17,7 @@ const SERVICE_NAME = "Rubbish Removal";
 const SERVICE_H1 = "RUBBISH REMOVAL";
 const HERO_TAGLINE = "Single items to full van loads: cheaper than a skip, faster than the council.";
 
-const META_TITLE = "Rubbish Removal Glasgow | Same-Day Service from £40 | Envirocycle";
+const META_TITLE = "Rubbish Removal Glasgow | Same-Day Uplifts from £40";
 const META_DESCRIPTION = "Licensed rubbish removal across Glasgow and surrounding areas. Single sofas to full house clearances. Same-day available, transfer note included.";
 
 const WHAT_WE_TAKE = [
@@ -80,7 +80,7 @@ const FAQ = [
 // ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: META_TITLE,
+  title: { absolute: META_TITLE },
   description: META_DESCRIPTION,
   alternates: { canonical: `/services/${SERVICE_PREFIX}` },
   openGraph: {

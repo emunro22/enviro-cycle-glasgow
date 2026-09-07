@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ServicePageTemplate from "@/components/ServicePageTemplate";
 
 export const metadata: Metadata = {
-  title: "Site Clearance Glasgow | House, Garden & End of Tenancy Clearance",
+  title: { absolute: "Site Clearance Glasgow | House & Garden Clearance" },
   description:
     "Full site clearance in Glasgow: house clearance, garden clearance, end of tenancy and builders waste removal. Fast, fully licensed, free quotes available.",
   keywords: [

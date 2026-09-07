@@ -17,7 +17,7 @@ const SERVICE_NAME = "Builders Waste Removal";
 const SERVICE_H1 = "BUILDERS WASTE REMOVAL";
 const HERO_TAGLINE = "Trade waste uplifts for renovations, kitchens, bathrooms, and extensions. Cheaper than a skip, no permit needed.";
 
-const META_TITLE = "Builders Waste Removal Glasgow | Trade Uplifts | Envirocycle";
+const META_TITLE = "Builders Waste Removal Glasgow | Trade Uplifts";
 const META_DESCRIPTION = "Builders waste removal across Glasgow for trades and homeowners. Renovation, kitchen, bathroom, and extension waste. Plasterboard kept separate as required.";
 
 const WHAT_WE_TAKE = [
@@ -79,7 +79,7 @@ const FAQ = [
 // ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: META_TITLE,
+  title: { absolute: META_TITLE },
   description: META_DESCRIPTION,
   alternates: { canonical: `/services/${SERVICE_PREFIX}` },
   openGraph: {

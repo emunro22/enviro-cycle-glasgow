@@ -17,7 +17,7 @@ const SERVICE_NAME = "Waste Removal";
 const SERVICE_H1 = "WASTE REMOVAL";
 const HERO_TAGLINE = "Licensed waste removal for homes, businesses, and trades. Sorted properly, recycled where possible, full paperwork on every job.";
 
-const META_TITLE = "Waste Removal Glasgow | Licensed Carrier | Envirocycle Glasgow";
+const META_TITLE = "Waste Removal Glasgow | Licensed Waste Carrier";
 const META_DESCRIPTION = "Licensed waste removal across Glasgow. Domestic, commercial, and trade: sorted at a licensed transfer station, transfer note included on every job.";
 
 const WHAT_WE_TAKE = [
@@ -79,7 +79,7 @@ const FAQ = [
 // ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: META_TITLE,
+  title: { absolute: META_TITLE },
   description: META_DESCRIPTION,
   alternates: { canonical: `/services/${SERVICE_PREFIX}` },
   openGraph: {

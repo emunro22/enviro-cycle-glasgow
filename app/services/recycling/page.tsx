@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ServicePageTemplate from "@/components/ServicePageTemplate";
 
 export const metadata: Metadata = {
-  title: "Recycling Services Glasgow | Business & Commercial Recycling",
+  title: { absolute: "Recycling Services Glasgow | Business & Commercial" },
   description:
     "Recycling services for Glasgow businesses and homes. Segregated collection of paper, plastic, metal and glass with recycling certification for businesses. Free quote.",
   keywords: [

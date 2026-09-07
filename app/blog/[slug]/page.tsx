@@ -4,7 +4,12 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Contact from "@/components/Contact";
-import { blogPosts, getBlogPost, getRecentPosts } from "@/lib/blog-data";
+import {
+  blogPosts,
+  getBlogPost,
+  getRecentPosts,
+  getRelatedServices,
+} from "@/lib/blog-data";
 import { SITE_URL } from "@/lib/site";
 
 interface Props {
@@ -116,6 +121,7 @@ export default function BlogPostPage({ params }: Props) {
   const relatedPosts = getRecentPosts(6).filter(
     (p) => p.slug !== post.slug,
   ).slice(0, 3);
+  const relatedServices = getRelatedServices(post.category);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -262,6 +268,32 @@ export default function BlogPostPage({ params }: Props) {
           </div>
         </div>
       </article>
+
+      {/* Services relevant to this post's category. Keyword anchors, so the
+          blog's ranking strength feeds the commercial pages it supports. */}
+      {relatedServices.length > 0 && (
+        <section className="pb-4 px-5 md:px-8">
+          <div className="max-w-3xl mx-auto">
+            <p className="section-label mb-4">Related Services</p>
+            <div className="flex flex-wrap gap-3">
+              {relatedServices.map((s) => (
+                <Link
+                  key={s.href}
+                  href={s.href}
+                  className="rounded-full px-4 py-2 text-sm transition-colors"
+                  style={{
+                    background: "rgba(26,68,29,0.35)",
+                    border: "1px solid rgba(212,160,23,0.25)",
+                    color: "var(--cream)",
+                  }}
+                >
+                  {s.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related posts */}
       {relatedPosts.length > 0 && (

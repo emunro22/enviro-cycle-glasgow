@@ -25,6 +25,50 @@ export const blogCategories = [
 
 export type BlogCategory = (typeof blogCategories)[number];
 
+export interface RelatedService {
+  href: string;
+  label: string;
+}
+
+// The blog ranks far better than the service pages it supports: posts sit
+// around position 5-10 while the commercial pages they feed sit at 25-40,
+// with almost nothing linking to them. Every post now carries links into
+// the services relevant to its category, using the term each target page
+// is actually trying to rank for as the anchor text.
+const SERVICE_LINKS: Record<string, RelatedService> = {
+  "rubbish-removal": { href: "/services/rubbish-removal", label: "Rubbish removal Glasgow" },
+  "waste-removal": { href: "/services/waste-removal", label: "Waste removal Glasgow" },
+  "waste-management": { href: "/services/waste-management", label: "Waste management Glasgow" },
+  "house-clearance": { href: "/services/house-clearance", label: "House clearance Glasgow" },
+  "office-clearance": { href: "/services/office-clearance", label: "Office clearance Glasgow" },
+  "site-clearance": { href: "/services/site-clearance", label: "Site clearance Glasgow" },
+  "garden-waste-removal": { href: "/services/garden-waste-removal", label: "Garden waste removal Glasgow" },
+  "builders-waste-removal": { href: "/services/builders-waste-removal", label: "Builders waste removal Glasgow" },
+  "trade-waste-clearance": { href: "/services/trade-waste-clearance", label: "Trade waste clearance Glasgow" },
+  "furniture-disposal": { href: "/services/furniture-disposal", label: "Furniture disposal Glasgow" },
+  "bulky-waste-uplifts": { href: "/services/bulky-waste-uplifts", label: "Bulky waste uplifts Glasgow" },
+  "skip-hire-alternative": { href: "/services/skip-hire-alternative", label: "Skip hire alternative Glasgow" },
+  recycling: { href: "/services/recycling", label: "Recycling services Glasgow" },
+};
+
+const SERVICES_BY_CATEGORY: Record<string, string[]> = {
+  "Waste Disposal Guides": ["rubbish-removal", "bulky-waste-uplifts", "furniture-disposal"],
+  "Glasgow Tips & Info": ["rubbish-removal", "waste-removal", "bulky-waste-uplifts"],
+  Recycling: ["recycling", "waste-management", "waste-removal"],
+  "House Clearance": ["house-clearance", "furniture-disposal", "site-clearance"],
+  "Commercial Waste": ["trade-waste-clearance", "office-clearance", "waste-management"],
+  "Seasonal Tips": ["garden-waste-removal", "rubbish-removal", "bulky-waste-uplifts"],
+  "Regulations & Compliance": ["waste-management", "trade-waste-clearance", "waste-removal"],
+  "Eco-Friendly Living": ["recycling", "waste-removal", "furniture-disposal"],
+  "Garden Waste": ["garden-waste-removal", "site-clearance", "rubbish-removal"],
+  "Construction & Renovation": ["builders-waste-removal", "site-clearance", "skip-hire-alternative"],
+};
+
+export function getRelatedServices(category: string): RelatedService[] {
+  const keys = SERVICES_BY_CATEGORY[category] ?? ["rubbish-removal", "waste-removal"];
+  return keys.map((k) => SERVICE_LINKS[k]).filter(Boolean);
+}
+
 export const blogPosts: BlogPost[] = [
   // ── WASTE DISPOSAL GUIDES ────────────────────────────────────────────────
   {
@@ -527,7 +571,7 @@ export const blogPosts: BlogPost[] = [
       "## Penalties for Non-Compliance",
       "Fines for breaching waste duty of care can reach £40,000. Directors can be held personally liable. Beyond fines, enforcement notices can disrupt business operations and damage your reputation.",
       "## Our Commercial Services",
-      "We provide regular or ad-hoc commercial waste collections across Glasgow. From office clearances to restaurant strip-outs, trade waste pickups to IT disposal. All collections include waste transfer notes and can be invoiced monthly for your accounts.",
+      "We provide regular or ad-hoc [commercial waste collections across Glasgow](/services/waste-management). From [office clearances](/services/office-clearance) to restaurant strip-outs, trade waste pickups to IT disposal. All collections include waste transfer notes and can be invoiced monthly for your accounts.",
     ],
   },
   {
@@ -635,7 +679,7 @@ export const blogPosts: BlogPost[] = [
       "## Garden Furniture",
       "Clean and store furniture that can survive another season. Broken or rotting furniture should be disposed of: timber goes to wood recycling, metals to scrap, and plastic furniture to general waste.",
       "## Fencing and Decking",
-      "Check fences and decking for storm damage from the summer. Damaged panels and rotten timber should be replaced before winter storms make things worse. We collect old fencing and decking as part of our garden waste service.",
+      "Check fences and decking for storm damage from the summer. Damaged panels and rotten timber should be replaced before winter storms make things worse. We collect old fencing and decking as part of our [garden waste removal](/services/garden-waste-removal) service.",
       "## Bulk Garden Clearance",
       "If your autumn garden clear-up generates more waste than your brown bin can handle, send us a photo. We collect garden waste of all kinds (leaves, branches, soil, turf, old sheds, broken furniture) and take it to a licensed composting or recycling facility.",
     ],

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ServicePageTemplate from "@/components/ServicePageTemplate";
 
 export const metadata: Metadata = {
-  title: "Waste Management Glasgow | Commercial & Residential Collections",
+  title: { absolute: "Waste Management Glasgow | Commercial & Residential" },
   description:
     "Reliable, fully licensed waste management in Glasgow for homes and businesses. Scheduled collections, compliant disposal and recycling. Get a free quote today.",
   keywords: [

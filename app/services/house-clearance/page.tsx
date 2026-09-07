@@ -17,7 +17,7 @@ const SERVICE_NAME = "House Clearance";
 const SERVICE_H1 = "HOUSE CLEARANCE";
 const HERO_TAGLINE = "Full or partial house clearances: probate, end-of-tenancy or downsizing, handled with care, discretion, and zero fuss.";
 
-const META_TITLE = "House Clearance Glasgow | Probate, End of Tenancy & Downsizing | Envirocycle";
+const META_TITLE = "House Clearance Glasgow | Probate & End of Tenancy";
 const META_DESCRIPTION = "Full and part house clearances across Glasgow. Probate, end-of-tenancy, downsizing. Discreet, licensed, and reusable items go to local charities.";
 
 const WHAT_WE_TAKE = [
@@ -79,7 +79,7 @@ const FAQ = [
 // ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: META_TITLE,
+  title: { absolute: META_TITLE },
   description: META_DESCRIPTION,
   alternates: { canonical: `/services/${SERVICE_PREFIX}` },
   openGraph: {

@@ -17,7 +17,7 @@ const SERVICE_NAME = "Garden Waste Removal";
 const SERVICE_H1 = "GARDEN WASTE REMOVAL";
 const HERO_TAGLINE = "Branches, hedge cuttings, turf, soil, decking: composted or recovered, never landfilled.";
 
-const META_TITLE = "Garden Waste Removal Glasgow | Same-Day Uplifts | Envirocycle";
+const META_TITLE = "Garden Waste Removal Glasgow | Same-Day Uplifts";
 const META_DESCRIPTION = "Garden waste removal across Glasgow. Branches, turf, hedge cuttings, soil, decking. Green waste composted at licensed facilities. Same-day available.";
 
 const WHAT_WE_TAKE = [
@@ -79,7 +79,7 @@ const FAQ = [
 // ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: META_TITLE,
+  title: { absolute: META_TITLE },
   description: META_DESCRIPTION,
   alternates: { canonical: `/services/${SERVICE_PREFIX}` },
   openGraph: {

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import ServicePageTemplate from "@/components/ServicePageTemplate";
 
 export const metadata: Metadata = {
-  title: "Bulky Waste Uplifts Glasgow | Furniture & Appliance Removal",
+  title: { absolute: "Bulky Waste Uplifts Glasgow | Furniture & Appliances" },
   description:
     "Same-day bulky waste uplifts in Glasgow. Furniture, appliances, white goods and garden waste removed quickly and responsibly. Free quotes. Get in touch today.",
   keywords: [

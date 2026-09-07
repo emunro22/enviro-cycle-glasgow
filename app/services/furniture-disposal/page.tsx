@@ -17,7 +17,7 @@ const SERVICE_NAME = "Furniture Disposal";
 const SERVICE_H1 = "FURNITURE DISPOSAL";
 const HERO_TAGLINE = "Sofas, beds, wardrobes and white goods, uplifted same-day where possible. Anything reusable goes to local charities.";
 
-const META_TITLE = "Furniture Disposal Glasgow | Same-Day Sofa & Bed Removal | Envirocycle";
+const META_TITLE = "Furniture Disposal Glasgow | Sofa & Bed Removal";
 const META_DESCRIPTION = "Furniture disposal across Glasgow. Sofas, beds, wardrobes, white goods. Same-day uplifts available. Reusable items go to local charities.";
 
 const WHAT_WE_TAKE = [
@@ -79,7 +79,7 @@ const FAQ = [
 // ────────────────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: META_TITLE,
+  title: { absolute: META_TITLE },
   description: META_DESCRIPTION,
   alternates: { canonical: `/services/${SERVICE_PREFIX}` },
   openGraph: {
