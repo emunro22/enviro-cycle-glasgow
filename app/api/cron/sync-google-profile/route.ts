@@ -29,6 +29,20 @@ interface PlaceDetailsResponse {
   photos?: PlacesPhoto[];
 }
 
+// This route is only ever invoked unattended, by Vercel cron, so its
+// output is the only account of what happened. It used to swallow every
+// per-photo failure silently and answer {ok: true, newPhotos: 0} whether
+// it had found nothing new, crashed on every photo, or been rejected by
+// Google - which made a run that failed indistinguishable from a cron
+// that never fired at all.
+function log(message: string) {
+  console.log(`[sync-google-profile] ${message}`);
+}
+
+function errorText(err: unknown): string {
+  return err instanceof Error ? err.message : String(err);
+}
+
 async function ensureTables() {
   await sql`
     CREATE TABLE IF NOT EXISTS google_place_stats (
@@ -96,10 +110,14 @@ async function dedupeExistingGooglePhotos(): Promise<number> {
       batch.map(async (row) => {
         try {
           const res = await fetch(row.image_url);
-          if (!res.ok) return null;
+          if (!res.ok) {
+            log(`dedupe: project ${row.id} image fetch ${res.status}`);
+            return null;
+          }
           const buf = Buffer.from(await res.arrayBuffer());
           return { row, hash: await perceptualHash(buf) };
-        } catch {
+        } catch (err) {
+          log(`dedupe: project ${row.id} hash failed - ${errorText(err)}`);
           return null;
         }
       })
@@ -151,6 +169,13 @@ export async function GET(request: NextRequest) {
     !!process.env.MANUAL_SYNC_SECRET && manualSecret === process.env.MANUAL_SYNC_SECRET;
 
   if (!isVercelCron && !isManualTrigger) {
+    // Worth logging: if CRON_SECRET is ever missing from the environment,
+    // Vercel's cron sends no Authorization header, every run 401s here,
+    // and the sync looks like it simply stopped happening.
+    log(
+      `unauthorized request (CRON_SECRET ${process.env.CRON_SECRET ? "set" : "MISSING"}, ` +
+        `auth header ${authHeader ? "present" : "absent"})`
+    );
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -158,8 +183,14 @@ export async function GET(request: NextRequest) {
   const placeId = process.env.GOOGLE_PLACE_ID;
 
   if (!apiKey || !placeId) {
-    return NextResponse.json({ error: "Not configured" });
+    log("aborted: GOOGLE_PLACES_API_KEY or GOOGLE_PLACE_ID is not set");
+    return NextResponse.json({ error: "Not configured" }, { status: 500 });
   }
+
+  log(`start (trigger: ${isVercelCron ? "cron" : "manual"})`);
+
+  const photoErrors: string[] = [];
+  let skippedPhotos = 0;
 
   await ensureTables();
 
@@ -174,6 +205,8 @@ export async function GET(request: NextRequest) {
   );
 
   if (!detailsRes.ok) {
+    const body = await detailsRes.text().catch(() => "");
+    log(`aborted: Places API ${detailsRes.status} ${body.slice(0, 500)}`);
     return NextResponse.json(
       { error: `Places API ${detailsRes.status}` },
       { status: 502 }
@@ -222,26 +255,60 @@ export async function GET(request: NextRequest) {
     url: `https://places.googleapis.com/v1/${photo.name}/media?maxWidthPx=1600&key=${apiKey}`,
   }));
 
+  // Place Details returns at most ~10 photos, picked by Google, with no
+  // pagination: it's a sample of the Business Profile library, not the
+  // whole thing. Logging the count is what distinguishes "Google served
+  // the same sample again" from "the run failed" or "the cron never
+  // fired" - all three used to look identical from the outside.
+  log(`places returned ${sourcePhotos.length} photo(s)`);
+
   // Loaded once and appended to as we go, so photos that are near-dupes
-  // of each other within this same sync run are also caught.
-  const knownHashes = (
-    (await sql`SELECT phash FROM google_photos_synced WHERE phash IS NOT NULL`) as {
-      phash: string;
-    }[]
-  ).map((r) => r.phash);
+  // of each other within this same sync run are also caught. Names and
+  // content hashes are pre-checked too: both carry a unique constraint
+  // and ON CONFLICT can only name one of them, so catching a repeat here
+  // is what keeps the insert below from having to fail.
+  const trackedRows = (await sql`
+    SELECT google_photo_name, content_hash, phash FROM google_photos_synced
+  `) as {
+    google_photo_name: string;
+    content_hash: string | null;
+    phash: string | null;
+  }[];
+
+  const knownNames = new Set(trackedRows.map((r) => r.google_photo_name));
+  const knownContentHashes = new Set(
+    trackedRows.map((r) => r.content_hash).filter((h): h is string => !!h)
+  );
+  const knownHashes = trackedRows
+    .map((r) => r.phash)
+    .filter((h): h is string => !!h);
 
   for (const photo of sourcePhotos) {
     try {
+      if (knownNames.has(photo.name)) {
+        skippedPhotos++;
+        continue;
+      }
+
       const mediaRes = await fetch(photo.url);
-      if (!mediaRes.ok) continue;
+      if (!mediaRes.ok) {
+        photoErrors.push(`${photo.name}: media fetch ${mediaRes.status}`);
+        continue;
+      }
 
       const buf = Buffer.from(await mediaRes.arrayBuffer());
       const contentHash = createHash("sha256").update(buf).digest("hex");
       const phash = await perceptualHash(buf);
 
+      if (knownContentHashes.has(contentHash)) {
+        skippedPhotos++;
+        continue;
+      }
+
       // Dedup by perceptual similarity, the only identity stable across
       // Google re-encoding the same photo differently on every fetch.
       if (knownHashes.some((h) => hammingDistance(h, phash) <= DUPLICATE_THRESHOLD)) {
+        skippedPhotos++;
         continue;
       }
 
@@ -261,16 +328,42 @@ export async function GET(request: NextRequest) {
         )
         RETURNING id
       `;
+      const projectId = projectRows[0].id as number;
 
-      await sql`
-        INSERT INTO google_photos_synced (google_photo_name, project_id, content_hash, phash)
-        VALUES (${photo.name}, ${projectRows[0].id}, ${contentHash}, ${phash})
-        ON CONFLICT (google_photo_name) DO NOTHING
-      `;
+      // The gallery row and its tracking row have to land together. If the
+      // tracking insert is lost - the name collides, or the partial unique
+      // index on content_hash fires, which the ON CONFLICT clause can't
+      // also cover - the gallery row is left with no phash on record, so
+      // every later run sees the photo as new and adds it again. Undo the
+      // gallery row instead of leaving that behind.
+      let tracked: { id: number }[] = [];
+      try {
+        tracked = (await sql`
+          INSERT INTO google_photos_synced (google_photo_name, project_id, content_hash, phash)
+          VALUES (${photo.name}, ${projectId}, ${contentHash}, ${phash})
+          ON CONFLICT (google_photo_name) DO NOTHING
+          RETURNING id
+        `) as { id: number }[];
+      } catch (err) {
+        photoErrors.push(`${photo.name}: tracking insert failed, ${errorText(err)}`);
+      }
+
+      if (tracked.length === 0) {
+        await sql`DELETE FROM projects WHERE id = ${projectId}`;
+        try {
+          await del(uploaded.url);
+        } catch {
+          // Blob cleanup failing shouldn't block the DB rollback.
+        }
+        continue;
+      }
+
+      knownNames.add(photo.name);
+      knownContentHashes.add(contentHash);
       knownHashes.push(phash);
       newPhotos++;
-    } catch {
-      // Skip this photo, keep going with the rest.
+    } catch (err) {
+      photoErrors.push(`${photo.name}: ${errorText(err)}`);
     }
   }
 
@@ -299,10 +392,23 @@ export async function GET(request: NextRequest) {
   revalidatePath("/");
   revalidatePath("/work");
 
+  log(
+    `done: ${newPhotos} new photo(s), ${skippedPhotos} already had, ` +
+      `${dedupedPhotos} deduped, ${newReviews} new review(s), ` +
+      `${photoErrors.length} photo error(s)`
+  );
+  for (const err of photoErrors) log(`photo error - ${err}`);
+
   return NextResponse.json({
     ok: true,
     newReviews,
     newPhotos,
+    skippedPhotos,
     dedupedPhotos,
+    // Google only ever exposes a ~10 photo sample of the Business Profile
+    // library through Place Details, so this is the ceiling on newPhotos,
+    // not a count of what's on the listing.
+    photosOfferedByPlaces: sourcePhotos.length,
+    photoErrors,
   });
 }
