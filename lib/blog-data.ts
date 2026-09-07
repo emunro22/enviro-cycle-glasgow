@@ -30,7 +30,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-dispose-of-a-mattress-in-glasgow",
     title: "How to Dispose of a Mattress in Glasgow",
-    metaTitle: "How to Dispose of a Mattress in Glasgow | Envirocycle",
+    metaTitle: "How to Dispose of a Mattress in Glasgow",
     metaDescription:
       "Complete guide to mattress disposal in Glasgow. Learn about council uplift, recycling options, and same-day mattress removal services from Envirocycle.",
     category: "Waste Disposal Guides",
@@ -43,7 +43,7 @@ export const blogPosts: BlogPost[] = [
       "## Council Bulky Uplift",
       "Glasgow City Council offers a bulky waste uplift service, but there's usually a waiting list of 2-4 weeks. You'll need to book online or by phone, and the mattress must be left at the front of your property on collection day. The cost varies depending on how many items you're having collected.",
       "## Recycling Centres (Tips)",
-      "You can take a mattress to one of Glasgow's household waste recycling centres yourself. The main ones are at Dawsholm, Polmadie, Shieldhall, and Easter Queenslie. You'll need to bring ID and proof of address. The downside is you need a vehicle big enough to transport it.",
+      "You can take a mattress to one of [Glasgow's household waste recycling centres](/blog/glasgow-recycling-centres-complete-guide) yourself. The main ones are at Dawsholm, Polmadie, Shieldhall, and Easter Queenslie. You'll need to bring ID and proof of address. The downside is you need a vehicle big enough to transport it.",
       "## Professional Removal",
       "This is where we come in. We offer same-day mattress removal across Glasgow and surrounding areas. We'll carry it down stairs, out of flats, from any room. No need to drag it outside yourself. Pricing starts from around £40 for a single mattress.",
       "## What Happens to Your Old Mattress?",
@@ -57,7 +57,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-dispose-of-a-fridge-freezer-in-glasgow",
     title: "How to Dispose of a Fridge Freezer in Glasgow",
-    metaTitle: "How to Dispose of a Fridge Freezer in Glasgow | Envirocycle",
+    metaTitle: "How to Dispose of a Fridge Freezer in Glasgow",
     metaDescription:
       "Guide to fridge freezer disposal in Glasgow. WEEE regulations, recycling options, and professional removal services explained.",
     category: "Waste Disposal Guides",
@@ -82,7 +82,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-dispose-of-paint-in-glasgow",
     title: "How to Dispose of Paint in Glasgow: A Complete Guide",
-    metaTitle: "How to Dispose of Paint in Glasgow | Envirocycle",
+    metaTitle: "How to Dispose of Paint in Glasgow",
     metaDescription:
       "Learn how to safely dispose of leftover paint in Glasgow. Covers water-based, oil-based, and spray paints plus local disposal options.",
     category: "Waste Disposal Guides",
@@ -95,7 +95,7 @@ export const blogPosts: BlogPost[] = [
       "## Water-Based (Emulsion) Paint",
       "This is the most common type for interior walls and ceilings. Small amounts can be left to dry out in the tin with the lid off, then put in your general waste bin. For larger quantities, pour it onto newspaper or cardboard, let it dry, then bin it. Never pour liquid paint into any bin.",
       "## Oil-Based (Gloss) Paint",
-      "Oil-based paints are classified as hazardous waste. They cannot go in your household bins or be poured down drains. Take them to a household waste recycling centre: Dawsholm, Polmadie, and Shieldhall all have hazardous waste collection points.",
+      "Oil-based paints are classified as hazardous waste. They cannot go in your household bins or be poured down drains. Take them to a [household waste recycling centre](/blog/glasgow-recycling-centres-complete-guide): Dawsholm, Polmadie, and Shieldhall all have hazardous waste collection points.",
       "## Spray Paint Cans",
       "Empty aerosol cans can go in your blue recycling bin. If they still contain paint, they count as hazardous waste and should go to a recycling centre. Never puncture aerosol cans.",
       "## Community Paint Schemes",
@@ -107,7 +107,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-dispose-of-electrical-items-in-glasgow",
     title: "How to Dispose of Electrical Items in Glasgow",
-    metaTitle: "Electrical Item Disposal Glasgow | WEEE Guide | Envirocycle",
+    metaTitle: "Electrical Item Disposal Glasgow | WEEE Guide",
     metaDescription:
       "How to properly dispose of old electronics, TVs, computers, and appliances in Glasgow. WEEE regulations and recycling explained.",
     category: "Waste Disposal Guides",
@@ -122,7 +122,7 @@ export const blogPosts: BlogPost[] = [
       "## Small Electricals",
       "Items smaller than a piece of A4 paper can be returned to any large electrical retailer. They're legally required to accept them, even without a purchase. Look for the WEEE collection bins near the entrance of Currys, Argos, or supermarkets.",
       "## Large Electricals",
-      "TVs, washing machines, dishwashers, and cookers need to go to a household waste recycling centre or be collected by a professional service. Most retailers will take your old appliance when delivering a new one.",
+      "TVs, washing machines, dishwashers, and cookers need to go to a [household waste recycling centre](/blog/glasgow-recycling-centres-complete-guide) or be collected by a professional service. Most retailers will take your old appliance when delivering a new one.",
       "## Data Security",
       "Before disposing of computers, phones, or tablets, make sure to factory reset them and remove any storage drives. If you're disposing of business IT equipment, we can arrange data destruction certificates.",
       "## Professional WEEE Collection",
@@ -134,7 +134,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-get-rid-of-old-furniture-in-glasgow",
     title: "How to Get Rid of Old Furniture in Glasgow",
-    metaTitle: "Furniture Disposal Glasgow | Remove Old Sofas & Beds | Envirocycle",
+    metaTitle: "Furniture Disposal Glasgow | Remove Old Sofas & Beds",
     metaDescription:
       "Complete guide to getting rid of old furniture in Glasgow. Charity donation, council uplift, and same-day furniture removal options.",
     category: "Waste Disposal Guides",
@@ -161,7 +161,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-dispose-of-a-washing-machine-in-glasgow",
     title: "How to Dispose of a Washing Machine in Glasgow",
-    metaTitle: "Washing Machine Disposal Glasgow | Envirocycle",
+    metaTitle: "Washing Machine Disposal Glasgow",
     metaDescription:
       "Need to get rid of an old washing machine in Glasgow? Learn about WEEE rules, recycling options, and professional removal.",
     category: "Waste Disposal Guides",
@@ -188,36 +188,40 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "glasgow-recycling-centres-complete-guide",
     title: "Glasgow Recycling Centres: A Complete Guide",
-    metaTitle: "Glasgow Recycling Centres Guide | Locations & Opening Times",
+    metaTitle: "Glasgow Recycling Centres: Opening Times, ID & Van Permits",
     metaDescription:
-      "Complete guide to Glasgow's household waste recycling centres. Locations, opening hours, what you can take, and tips for visiting.",
+      "Dawsholm, Polmadie, Shieldhall and Easter Queenslie: opening times, the ID you need at the barrier, van and trailer permit rules, and what each centre won't take.",
     category: "Glasgow Tips & Info",
     date: "2026-06-12",
-    readTime: "6 min read",
+    readTime: "7 min read",
     excerpt:
-      "Glasgow has several household waste recycling centres (tips). Here's everything you need to know before visiting one.",
+      "Glasgow has several household waste recycling centres (tips). Here's everything you need to know before visiting one, including the van permit rule that catches most people out.",
     content: [
-      "Glasgow City Council operates several household waste recycling centres across the city. These are free to use for Glasgow residents, but there are rules about what you can bring and how you need to prepare.",
+      "Glasgow City Council operates several household waste recycling centres across the city. They're free to use for Glasgow residents, but there are rules about what you can bring, what ID you need at the barrier, and whether your vehicle needs a permit before you turn up.",
       "## Main Recycling Centre Locations",
       "**Dawsholm** (off Maryhill Road, G20): the largest and most popular. Can get very busy on weekends. **Polmadie** (off Polmadie Road, G42): convenient for south-side residents. **Shieldhall** (off Renfrew Road, G51): west-end access. **Easter Queenslie** (off Hallhill Road, G33): serves the east end.",
-      "## What You Need to Bring",
-      "Photo ID and proof of a Glasgow City Council address (utility bill, council tax letter). If you're using a van or trailer, you may need a permit. Check the council website before visiting.",
-      "## What They Accept",
-      "Most household waste including furniture, mattresses, electricals, garden waste, wood, metal, textiles, cardboard, glass, batteries, paint, oil, and small amounts of rubble. They do NOT accept commercial waste, asbestos, or large quantities of construction materials.",
+      "## Which Glasgow Recycling Centre Should You Use?",
+      "The nearest site isn't always the quickest. Dawsholm is the busiest in the city, so if you're roughly equidistant between Dawsholm and Shieldhall on a Saturday, Shieldhall will usually get you in and out faster. South of the river, Polmadie is the default. East end, Easter Queenslie. One thing that catches people out: these are Glasgow City Council sites, for Glasgow City Council residents. If you're in Rutherglen or Cambuslang you're South Lanarkshire, and Bishopbriggs is East Dunbartonshire, so you'll need your own council's centres instead.",
       "## Opening Times",
-      "Most centres open 8am-6pm in summer and 8am-4pm in winter, seven days a week. Check the Glasgow City Council website for the latest hours as they can change seasonally.",
+      "Most centres open 8am-6pm in summer and 8am-4pm in winter, seven days a week. Hours change seasonally and sites close on some public holidays, so check the Glasgow City Council website for current times before setting off. Don't cut it fine at the end of the day either, as staff start closing lanes before the posted closing time.",
+      "## What You Need to Bring",
+      "Photo ID and proof of a Glasgow City Council address, such as a utility bill or council tax letter. A driving licence showing your current address covers both at once. Without proof of address you can be turned away at the barrier, so it's worth checking before you load the car.",
+      "## Van and Trailer Permits",
+      "Vans, pickups and anything towing a trailer need a permit arranged with Glasgow City Council in advance. This is the single most common reason people get turned away. Permits are normally tied to a specific vehicle and allow a limited number of visits, and hired vans count the same as owned ones. If you've borrowed or hired a van purely to avoid paying for a collection, price the whole trip up first: between hire, fuel, the permit and your Saturday, a [rubbish removal](/services/rubbish-removal) service often works out cheaper.",
+      "## What They Accept",
+      "Most household waste including furniture, mattresses, electricals, garden waste, wood, metal, textiles, cardboard, glass, batteries, paint, oil, and small amounts of rubble. They do NOT accept commercial waste, asbestos, or large quantities of construction materials. If you're emptying a whole property rather than dropping off a car boot, our [house clearance in Glasgow](/blog/complete-guide-to-house-clearance-in-glasgow) guide covers the volumes involved.",
       "## Tips for a Smooth Visit",
-      "Go mid-week to avoid queues. Separate your items before arriving. Staff will direct you to different skips for different materials. Be prepared to unload everything yourself. Wear sturdy shoes and bring gloves if handling rough materials.",
+      "Go mid-week to avoid queues. Separate your items before arriving, because staff will direct you to different skips for different materials and sorting on the spot holds up the lane behind you. Be prepared to unload everything yourself. Wear sturdy shoes and bring gloves if handling rough materials. If you're unsure what belongs in which bin at home, our guide to [Glasgow bin colours](/blog/what-bin-colours-mean-in-glasgow) covers the kerbside side of it.",
       "## When a Recycling Centre Isn't the Answer",
-      "If you don't have transport, have too much to carry, or the items are too heavy to handle alone, a professional collection service is the alternative. We can sort and dispose of mixed loads. You don't need to separate anything.",
+      "If you don't have transport, can't get a van permit, have more than fits in a car, or the items are too heavy to handle alone, a professional collection service is the alternative. We can sort and dispose of mixed loads. You don't need to separate anything, and we carry it out ourselves rather than leaving you to load it.",
     ],
   },
   {
     slug: "what-bin-colours-mean-in-glasgow",
     title: "What Do the Different Bin Colours Mean in Glasgow?",
-    metaTitle: "Glasgow Bin Colours Explained | What Goes in Each Bin",
+    metaTitle: "Glasgow Bin Colours: Blue, Brown, Green & Purple Explained",
     metaDescription:
-      "Guide to Glasgow's bin colours: blue, brown, green, purple, and grey. What goes in each bin and common mistakes to avoid.",
+      "What goes in Glasgow's blue, brown, green, purple and grey bins, the mistakes that get a bin left unemptied, and what to do when yours is overflowing.",
     category: "Glasgow Tips & Info",
     date: "2026-06-01",
     readTime: "4 min read",
@@ -238,13 +242,13 @@ export const blogPosts: BlogPost[] = [
       "## Collection Schedule",
       "Bins are collected on a fortnightly rotation. Download the Glasgow City Council app or check their website to find your exact collection days. Bins should be out by 7am on collection day.",
       "## What If You Have Too Much?",
-      "If your bins are overflowing, you can take excess to a recycling centre or book a professional uplift. We handle overflow waste regularly. A quick photo and we'll quote you.",
+      "If your bins are overflowing, you can take the excess to one of [Glasgow's recycling centres](/blog/glasgow-recycling-centres-complete-guide) or book a professional uplift. Bear in mind the centres need proof of a Glasgow address, and a van or trailer needs a permit arranged in advance. We handle overflow waste regularly. A quick photo and we'll quote you.",
     ],
   },
   {
     slug: "fly-tipping-in-glasgow-laws-fines-and-reporting",
     title: "Fly-Tipping in Glasgow: Laws, Fines & How to Report It",
-    metaTitle: "Fly-Tipping Glasgow | Fines, Laws & Reporting | Envirocycle",
+    metaTitle: "Fly-Tipping Glasgow | Fines, Laws & Reporting",
     metaDescription:
       "Everything about fly-tipping in Glasgow: current fines, how to report it, and how to avoid accidentally breaking the law.",
     category: "Glasgow Tips & Info",
@@ -271,7 +275,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-much-does-rubbish-removal-cost-in-glasgow",
     title: "How Much Does Rubbish Removal Cost in Glasgow?",
-    metaTitle: "Rubbish Removal Costs Glasgow | 2026 Price Guide | Envirocycle",
+    metaTitle: "Rubbish Removal Costs Glasgow | 2026 Price Guide",
     metaDescription:
       "What does rubbish removal cost in Glasgow? Transparent pricing guide covering single items, van loads, and house clearances.",
     category: "Glasgow Tips & Info",
@@ -327,7 +331,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "what-can-and-cant-be-recycled-in-glasgow",
     title: "What Can and Can't Be Recycled in Glasgow",
-    metaTitle: "Glasgow Recycling Guide | What Goes in the Blue Bin | Envirocycle",
+    metaTitle: "Glasgow Recycling Guide | What Goes in the Blue Bin",
     metaDescription:
       "Clear guide to what can and can't be recycled in Glasgow's blue bin. Common mistakes and recycling tips for Glasgow residents.",
     category: "Recycling",
@@ -352,7 +356,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "the-importance-of-recycling-in-scotland",
     title: "The Importance of Recycling in Scotland",
-    metaTitle: "Why Recycling Matters in Scotland | Facts & Stats | Envirocycle",
+    metaTitle: "Why Recycling Matters in Scotland | Facts & Stats",
     metaDescription:
       "Scotland's recycling targets, current performance, and why proper waste sorting matters. Key facts and statistics for Scottish households.",
     category: "Recycling",
@@ -377,7 +381,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "scrap-metal-recycling-in-glasgow",
     title: "Scrap Metal Recycling in Glasgow: What You Need to Know",
-    metaTitle: "Scrap Metal Recycling Glasgow | Guide & Tips | Envirocycle",
+    metaTitle: "Scrap Metal Recycling Glasgow | Guide & Tips",
     metaDescription:
       "Guide to scrap metal recycling in Glasgow. What metals are accepted, where to take them, and current regulations.",
     category: "Recycling",
@@ -392,7 +396,7 @@ export const blogPosts: BlogPost[] = [
       "## Scrap Metal Dealers Act 2013",
       "Under this legislation, scrap dealers in Scotland must be licensed, verify your identity, and keep detailed records. Cash payments for scrap metal are banned. All payments must be traceable (bank transfer or cheque). This law was introduced to combat metal theft.",
       "## Where to Take Scrap Metal",
-      "Glasgow has several licensed scrap merchants. You can also take small amounts of metal to household recycling centres. For larger quantities like renovation waste, demolition materials or industrial equipment, a professional collection service is more practical.",
+      "Glasgow has several licensed scrap merchants. You can also take small amounts of metal to [household recycling centres](/blog/glasgow-recycling-centres-complete-guide). For larger quantities like renovation waste, demolition materials or industrial equipment, a professional collection service is more practical.",
       "## How Much Is Scrap Metal Worth?",
       "Prices fluctuate with global commodity markets. Copper and brass are the most valuable per kilo. Steel and iron are worth less per kilo but are collected in larger volumes. A full radiator might fetch a few pounds; a batch of copper pipe significantly more.",
       "## Our Approach",
@@ -404,7 +408,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "complete-guide-to-house-clearance-in-glasgow",
     title: "The Complete Guide to House Clearance in Glasgow",
-    metaTitle: "House Clearance Glasgow | Complete Guide | Envirocycle",
+    metaTitle: "House Clearance Glasgow | Complete Guide",
     metaDescription:
       "Everything you need to know about house clearance in Glasgow. From planning to completion, including costs, timelines, and what to expect.",
     category: "House Clearance",
@@ -433,7 +437,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "end-of-tenancy-clearance-guide-for-glasgow-landlords",
     title: "End-of-Tenancy Clearance Guide for Glasgow Landlords",
-    metaTitle: "End of Tenancy Clearance Glasgow | Landlord Guide | Envirocycle",
+    metaTitle: "End of Tenancy Clearance Glasgow | Landlord Guide",
     metaDescription:
       "Guide for Glasgow landlords on end-of-tenancy clearances. Legal obligations, timelines, and professional clearance services.",
     category: "House Clearance",
@@ -460,7 +464,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "probate-house-clearance-a-sensitive-guide",
     title: "Probate House Clearance: A Sensitive Guide",
-    metaTitle: "Probate House Clearance Glasgow | Compassionate Service | Envirocycle",
+    metaTitle: "Probate House Clearance Glasgow | Compassionate Service",
     metaDescription:
       "Guidance on managing a probate house clearance in Glasgow. Practical steps, emotional support considerations, and professional help.",
     category: "House Clearance",
@@ -491,7 +495,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "commercial-waste-disposal-guide-for-glasgow-businesses",
     title: "Commercial Waste Disposal Guide for Glasgow Businesses",
-    metaTitle: "Commercial Waste Disposal Glasgow | Business Guide | Envirocycle",
+    metaTitle: "Commercial Waste Disposal Glasgow | Business Guide",
     metaDescription:
       "Guide to commercial waste disposal for Glasgow businesses. Legal requirements, duty of care, and waste management solutions.",
     category: "Commercial Waste",
@@ -516,7 +520,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "office-clearance-tips-for-glasgow-businesses",
     title: "Office Clearance Tips for Glasgow Businesses",
-    metaTitle: "Office Clearance Glasgow | Tips & Services | Envirocycle",
+    metaTitle: "Office Clearance Glasgow | Tips & Services",
     metaDescription:
       "Planning an office move or clearance in Glasgow? Practical tips for furniture disposal, IT equipment, and minimising disruption.",
     category: "Commercial Waste",
@@ -543,7 +547,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "trade-waste-management-for-builders-in-glasgow",
     title: "Trade Waste Management for Builders in Glasgow",
-    metaTitle: "Builders Waste Management Glasgow | Trade Services | Envirocycle",
+    metaTitle: "Builders Waste Management Glasgow | Trade Services",
     metaDescription:
       "Builders and tradespeople in Glasgow: how to manage site waste legally and affordably. Skip alternatives and regular collections.",
     category: "Commercial Waste",
@@ -572,7 +576,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "spring-cleaning-declutter-guide-for-glasgow-homes",
     title: "Spring Cleaning & Declutter Guide for Glasgow Homes",
-    metaTitle: "Spring Cleaning Glasgow | Declutter Guide | Envirocycle",
+    metaTitle: "Spring Cleaning Glasgow | Declutter Guide",
     metaDescription:
       "Spring cleaning tips for Glasgow homes. Room-by-room decluttering guide with advice on what to keep, donate, and dispose of.",
     category: "Seasonal Tips",
@@ -599,7 +603,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "garden-waste-removal-tips-for-autumn-in-glasgow",
     title: "Garden Waste Removal Tips for Autumn in Glasgow",
-    metaTitle: "Autumn Garden Waste Removal Glasgow | Tips & Service | Envirocycle",
+    metaTitle: "Autumn Garden Waste Removal Glasgow | Tips & Service",
     metaDescription:
       "Autumn garden clear-up tips for Glasgow. How to handle fallen leaves, branches, dead plants, and prepare your garden for winter.",
     category: "Seasonal Tips",
@@ -626,7 +630,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "post-christmas-declutter-and-waste-disposal-tips",
     title: "Post-Christmas Declutter and Waste Disposal Tips",
-    metaTitle: "Post-Christmas Waste Disposal Glasgow | Declutter Guide | Envirocycle",
+    metaTitle: "Post-Christmas Waste Disposal Glasgow | Declutter Guide",
     metaDescription:
       "How to handle post-Christmas waste in Glasgow. Christmas tree disposal, packaging recycling, and clearing out for the new year.",
     category: "Seasonal Tips",
@@ -651,7 +655,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "summer-garden-clearance-tips-for-glasgow",
     title: "Summer Garden Clearance Tips for Glasgow",
-    metaTitle: "Summer Garden Clearance Glasgow | Tips & Advice | Envirocycle",
+    metaTitle: "Summer Garden Clearance Glasgow | Tips & Advice",
     metaDescription:
       "Summer garden clear-up tips for Glasgow. Managing overgrown gardens, landscaping waste, and making the most of outdoor spaces.",
     category: "Seasonal Tips",
@@ -680,7 +684,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "waste-carrier-licence-what-it-means-and-why-it-matters",
     title: "Waste Carrier Licence: What It Means and Why It Matters",
-    metaTitle: "Waste Carrier Licence Explained | SEPA Registration | Envirocycle",
+    metaTitle: "Waste Carrier Licence Explained | SEPA Registration",
     metaDescription:
       "What is a waste carrier licence? Why it matters when hiring rubbish removal in Glasgow, and how to check if a company is licensed.",
     category: "Regulations & Compliance",
@@ -707,7 +711,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "scotland-waste-regulations-what-households-need-to-know",
     title: "Scotland's Waste Regulations: What Households Need to Know",
-    metaTitle: "Scotland Waste Regulations | Household Guide | Envirocycle",
+    metaTitle: "Scotland Waste Regulations | Household Guide",
     metaDescription:
       "Key waste regulations affecting Scottish households. Recycling obligations, duty of care, and penalties for non-compliance.",
     category: "Regulations & Compliance",
@@ -736,7 +740,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "reduce-household-waste-practical-tips",
     title: "10 Practical Ways to Reduce Household Waste",
-    metaTitle: "Reduce Household Waste | 10 Practical Tips | Envirocycle",
+    metaTitle: "Reduce Household Waste | 10 Practical Tips",
     metaDescription:
       "Practical, realistic tips for reducing household waste. From shopping habits to composting, small changes that make a real difference.",
     category: "Eco-Friendly Living",
@@ -800,7 +804,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-dispose-of-garden-waste-in-glasgow",
     title: "How to Dispose of Garden Waste in Glasgow",
-    metaTitle: "Garden Waste Disposal Glasgow | All Options | Envirocycle",
+    metaTitle: "Garden Waste Disposal Glasgow | All Options",
     metaDescription:
       "Complete guide to garden waste disposal in Glasgow. Brown bin rules, recycling centres, composting tips, and professional collection.",
     category: "Garden Waste",
@@ -815,7 +819,7 @@ export const blogPosts: BlogPost[] = [
       "## Composting at Home",
       "If you have space, a compost bin is the most environmentally friendly option for garden waste. Grass cuttings, leaves, plant material, and fruit/veg peelings break down into nutrient-rich compost over 6-12 months. Glasgow City Council occasionally offers subsidised composting bins.",
       "## Recycling Centres",
-      "All of Glasgow's household waste recycling centres accept garden waste in bulk. This is the best option for large clearances: soil, turf, branches, and mixed green waste. You'll need to transport it yourself.",
+      "All of [Glasgow's household waste recycling centres](/blog/glasgow-recycling-centres-complete-guide) accept garden waste in bulk. This is the best option for large clearances: soil, turf, branches, and mixed green waste. You'll need to transport it yourself.",
       "## Professional Collection",
       "For garden clearances that exceed what your brown bin or car can handle, we collect all types of garden waste: hedge trimmings, branches, soil, turf, decking, fencing, tree stumps, and general garden debris. Green waste goes to licensed composting facilities.",
       "## Bonfires",
@@ -827,7 +831,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "composting-guide-for-glasgow-gardens",
     title: "A Beginner's Guide to Composting in Glasgow",
-    metaTitle: "Composting Guide Glasgow | Start Composting at Home | Envirocycle",
+    metaTitle: "Composting Guide Glasgow | Start Composting at Home",
     metaDescription:
       "How to start composting at home in Glasgow. What to compost, what to avoid, and tips for successful composting in Scottish weather.",
     category: "Garden Waste",
@@ -858,7 +862,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "managing-renovation-waste-in-glasgow",
     title: "Managing Renovation Waste in Glasgow: A Practical Guide",
-    metaTitle: "Renovation Waste Glasgow | Management Guide | Envirocycle",
+    metaTitle: "Renovation Waste Glasgow | Management Guide",
     metaDescription:
       "How to manage waste from home renovations in Glasgow. Skip alternatives, plasterboard rules, and cost-effective disposal options.",
     category: "Construction & Renovation",
@@ -885,7 +889,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "skip-hire-vs-man-and-van-which-is-better-value",
     title: "Skip Hire vs. Man and Van: Which Is Better Value?",
-    metaTitle: "Skip Hire vs Man and Van Glasgow | Cost Comparison | Envirocycle",
+    metaTitle: "Skip Hire vs Man and Van Glasgow | Cost Comparison",
     metaDescription:
       "Comparing skip hire and man-and-van rubbish removal in Glasgow. Costs, convenience, and which option suits different situations.",
     category: "Construction & Renovation",
@@ -912,7 +916,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-dispose-of-rubble-and-concrete-in-glasgow",
     title: "How to Dispose of Rubble and Concrete in Glasgow",
-    metaTitle: "Rubble & Concrete Disposal Glasgow | Guide | Envirocycle",
+    metaTitle: "Rubble & Concrete Disposal Glasgow | Guide",
     metaDescription:
       "Guide to disposing of rubble, concrete, bricks, and hardcore in Glasgow. Recycling options and professional collection services.",
     category: "Construction & Renovation",
@@ -927,7 +931,7 @@ export const blogPosts: BlogPost[] = [
       "## Recycling Options",
       "Most concrete and brick rubble is crushed and used as aggregate for road construction, drainage, and backfill. Clean rubble (without timber, plasterboard, or plastic contamination) commands the lowest disposal charges because it can go straight to crushing.",
       "## Household Recycling Centres",
-      "Glasgow's recycling centres accept small amounts of rubble from domestic projects. There are usually limits on quantity per visit. Check before loading up your car. They won't accept commercial quantities.",
+      "[Glasgow's recycling centres](/blog/glasgow-recycling-centres-complete-guide) accept small amounts of rubble from domestic projects. There are usually limits on quantity per visit. Check before loading up your car. They won't accept commercial quantities.",
       "## Professional Collection",
       "For renovation rubble, we collect and transport it to licensed facilities. We price rubble loads separately from general waste because disposal costs differ. Keeping rubble separate from other waste (no wood, plasterboard, or plastic mixed in) gets you a better price.",
       "## Weight Warning",
@@ -941,7 +945,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "benefits-of-hiring-a-local-waste-removal-company",
     title: "5 Benefits of Hiring a Local Waste Removal Company",
-    metaTitle: "Benefits of Local Waste Removal Glasgow | Envirocycle",
+    metaTitle: "Benefits of Local Waste Removal Glasgow",
     metaDescription:
       "Why choosing a local Glasgow waste removal company beats national chains. Faster response, local knowledge, and community investment.",
     category: "Waste Disposal Guides",
@@ -966,7 +970,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "what-happens-to-your-waste-after-collection",
     title: "What Happens to Your Waste After We Collect It?",
-    metaTitle: "What Happens to Your Waste After Collection | Envirocycle",
+    metaTitle: "What Happens to Your Waste After Collection",
     metaDescription:
       "Ever wondered where your waste goes after collection? Follow the journey from pickup to recycling, donation, and disposal.",
     category: "Recycling",
@@ -993,7 +997,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-prepare-for-a-rubbish-removal-service",
     title: "How to Prepare for a Rubbish Removal Service",
-    metaTitle: "Prepare for Rubbish Removal | Tips | Envirocycle Glasgow",
+    metaTitle: "Prepare for Rubbish Removal | Tips",
     metaDescription:
       "How to prepare for a rubbish removal collection. Tips on access, sorting, and making the most of your waste collection appointment.",
     category: "Waste Disposal Guides",
@@ -1020,7 +1024,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "loft-clearance-guide-for-glasgow-homeowners",
     title: "Loft Clearance Guide for Glasgow Homeowners",
-    metaTitle: "Loft Clearance Glasgow | Complete Guide | Envirocycle",
+    metaTitle: "Loft Clearance Glasgow | Complete Guide",
     metaDescription:
       "How to clear your loft in Glasgow. What to keep, what to dispose of, and how to handle a loft full of years of accumulated clutter.",
     category: "House Clearance",
@@ -1047,7 +1051,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "garage-clearance-tips-for-glasgow-homeowners",
     title: "Garage Clearance Tips for Glasgow Homeowners",
-    metaTitle: "Garage Clearance Glasgow | Tips & Services | Envirocycle",
+    metaTitle: "Garage Clearance Glasgow | Tips & Services",
     metaDescription:
       "Tips for clearing out your garage in Glasgow. How to sort, dispose, and reclaim your garage space efficiently.",
     category: "House Clearance",
@@ -1074,7 +1078,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "dealing-with-asbestos-in-glasgow-properties",
     title: "Dealing with Asbestos in Glasgow Properties",
-    metaTitle: "Asbestos in Glasgow Properties | What to Know | Envirocycle",
+    metaTitle: "Asbestos in Glasgow Properties | What to Know",
     metaDescription:
       "Guide to identifying and dealing with asbestos in Glasgow homes. When to worry, when to leave it alone, and who to call.",
     category: "Construction & Renovation",
@@ -1103,7 +1107,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "waste-removal-and-rubbish-clearance-in-hamilton",
     title: "Waste Removal and Rubbish Clearance in Hamilton: A Local Guide",
-    metaTitle: "Waste Removal & Rubbish Clearance Hamilton | Envirocycle",
+    metaTitle: "Waste Removal & Rubbish Clearance Hamilton",
     metaDescription:
       "A local guide to waste removal and rubbish clearance in Hamilton: house clearances, bulky uplifts, and garden waste collection explained.",
     category: "Glasgow Tips & Info",
@@ -1128,7 +1132,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "rubbish-removal-in-east-kilbride-what-residents-need-to-know",
     title: "Rubbish Removal in East Kilbride: What Residents Need to Know",
-    metaTitle: "Rubbish Removal in East Kilbride | Envirocycle",
+    metaTitle: "Rubbish Removal in East Kilbride",
     metaDescription:
       "What East Kilbride residents need to know about rubbish removal: council uplift waiting times, recycling centres, and same-day collection options.",
     category: "Glasgow Tips & Info",
@@ -1153,7 +1157,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "house-clearance-and-waste-removal-in-paisley",
     title: "House Clearance and Waste Removal in Paisley: Local Guide",
-    metaTitle: "House Clearance & Waste Removal Paisley | Envirocycle",
+    metaTitle: "House Clearance & Waste Removal Paisley",
     metaDescription:
       "A local guide to house clearance and waste removal in Paisley: covering town-centre tenements, Foxbar and Glenburn housing, and clearance costs.",
     category: "House Clearance",
@@ -1180,7 +1184,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "waste-collection-and-rubbish-removal-in-clydebank",
     title: "Waste Collection and Rubbish Removal in Clydebank",
-    metaTitle: "Waste Collection & Rubbish Removal Clydebank | Envirocycle",
+    metaTitle: "Waste Collection & Rubbish Removal Clydebank",
     metaDescription:
       "Guide to waste collection and rubbish removal in Clydebank: covering West Dunbartonshire council options, Queens Quay, and same-day uplift.",
     category: "Glasgow Tips & Info",
@@ -1205,7 +1209,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "rubbish-removal-in-bishopbriggs-local-guide",
     title: "Rubbish Removal in Bishopbriggs: Local Waste Disposal Guide",
-    metaTitle: "Rubbish Removal in Bishopbriggs | Envirocycle",
+    metaTitle: "Rubbish Removal in Bishopbriggs",
     metaDescription:
       "A local guide to rubbish removal in Bishopbriggs: East Dunbartonshire council uplift, recycling centres, and same-day collection for bulky waste.",
     category: "Glasgow Tips & Info",
@@ -1230,7 +1234,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "waste-removal-in-kirkintilloch-what-you-need-to-know",
     title: "Waste Removal in Kirkintilloch: What You Need to Know",
-    metaTitle: "Waste Removal in Kirkintilloch | Envirocycle",
+    metaTitle: "Waste Removal in Kirkintilloch",
     metaDescription:
       "What you need to know about waste removal in Kirkintilloch: canal-side properties, Lenzie estates, garden waste, and booking a same-day collection.",
     category: "Glasgow Tips & Info",
@@ -1255,7 +1259,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "rubbish-and-garden-waste-removal-in-cumbernauld",
     title: "Rubbish and Garden Waste Removal in Cumbernauld",
-    metaTitle: "Garden Waste Removal in Cumbernauld | Envirocycle",
+    metaTitle: "Garden Waste Removal in Cumbernauld",
     metaDescription:
       "Guide to rubbish and garden waste removal in Cumbernauld: covering Kildrum, Seafar, industrial estate trade waste, and brown bin alternatives.",
     category: "Garden Waste",
@@ -1280,7 +1284,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "waste-removal-and-house-clearance-in-coatbridge",
     title: "Waste Removal and House Clearance in Coatbridge",
-    metaTitle: "Waste Removal & House Clearance Coatbridge | Envirocycle",
+    metaTitle: "Waste Removal & House Clearance Coatbridge",
     metaDescription:
       "Local guide to waste removal and house clearance in Coatbridge: covering town-centre tenements, Drumpellier, Gartcosh, and industrial trade waste.",
     category: "House Clearance",
@@ -1307,7 +1311,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "rubbish-removal-in-airdrie-local-waste-disposal-options",
     title: "Rubbish Removal in Airdrie: Local Waste Disposal Options",
-    metaTitle: "Rubbish Removal in Airdrie | Envirocycle",
+    metaTitle: "Rubbish Removal in Airdrie",
     metaDescription:
       "Local waste disposal options for Airdrie residents: council uplift, recycling centres, and same-day rubbish removal for homes and small businesses.",
     category: "Glasgow Tips & Info",
@@ -1332,7 +1336,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "waste-removal-and-bulky-uplift-in-motherwell",
     title: "Waste Removal and Bulky Uplift in Motherwell",
-    metaTitle: "Waste Removal & Bulky Uplift Motherwell | Envirocycle",
+    metaTitle: "Waste Removal & Bulky Uplift Motherwell",
     metaDescription:
       "Guide to waste removal and bulky uplift in Motherwell: covering Forgewood, Knowetop, the Civic Centre district, and same-day collection options.",
     category: "Glasgow Tips & Info",
@@ -1357,7 +1361,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "house-clearance-and-rubbish-removal-in-rutherglen",
     title: "House Clearance and Rubbish Removal in Rutherglen",
-    metaTitle: "House Clearance & Rubbish Removal Rutherglen | Envirocycle",
+    metaTitle: "House Clearance & Rubbish Removal Rutherglen",
     metaDescription:
       "House clearance and rubbish removal in Rutherglen: covering Main Street tenements, Burnside and Cathkin family homes, and probate clearances.",
     category: "House Clearance",
@@ -1384,7 +1388,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "waste-removal-in-shawlands-and-the-southside",
     title: "Waste Removal in Shawlands and the Southside",
-    metaTitle: "Waste Removal in Shawlands & Southside | Envirocycle",
+    metaTitle: "Waste Removal in Shawlands & Southside",
     metaDescription:
       "Guide to waste removal in Shawlands and Glasgow's Southside: tenement end-of-tenancy clearances, Kilmarnock Road commercial waste, and booking tips.",
     category: "Glasgow Tips & Info",
@@ -1409,7 +1413,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "rubbish-removal-and-waste-collection-in-baillieston",
     title: "Rubbish Removal and Waste Collection in Baillieston",
-    metaTitle: "Rubbish Removal in Baillieston | Envirocycle",
+    metaTitle: "Rubbish Removal in Baillieston",
     metaDescription:
       "Local guide to rubbish removal and waste collection in Baillieston: covering Garrowhill housing, small business units, and builders' waste.",
     category: "Glasgow Tips & Info",
@@ -1436,7 +1440,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-dispose-of-an-old-shed-in-glasgow",
     title: "How to Dispose of an Old Shed in Glasgow",
-    metaTitle: "How to Dispose of an Old Shed in Glasgow | Envirocycle",
+    metaTitle: "How to Dispose of an Old Shed in Glasgow",
     metaDescription:
       "Getting rid of an old garden shed in Glasgow? Here's how to dismantle it safely, what happens to the materials, and when to call in professional help.",
     category: "Garden Waste",
@@ -1463,7 +1467,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-dispose-of-a-hot-tub-in-glasgow",
     title: "How to Dispose of a Hot Tub or Paddling Pool in Glasgow",
-    metaTitle: "Hot Tub Disposal in Glasgow | Envirocycle",
+    metaTitle: "Hot Tub Disposal in Glasgow",
     metaDescription:
       "How to safely dispose of an old hot tub, inflatable spa, or paddling pool in Glasgow, including draining, dismantling, and recycling the materials.",
     category: "Waste Disposal Guides",
@@ -1490,7 +1494,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-dispose-of-carpets-and-flooring-in-glasgow",
     title: "How to Dispose of Carpets and Flooring in Glasgow",
-    metaTitle: "Carpet & Flooring Disposal in Glasgow | Envirocycle",
+    metaTitle: "Carpet & Flooring Disposal in Glasgow",
     metaDescription:
       "How to dispose of old carpets, underlay, laminate, and vinyl flooring in Glasgow. Recycling options, council rules, and professional removal.",
     category: "Waste Disposal Guides",
@@ -1517,7 +1521,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "skip-hire-permits-in-glasgow-what-you-need-to-know",
     title: "Skip Hire Permits in Glasgow: What You Need to Know",
-    metaTitle: "Skip Hire Permits in Glasgow | Envirocycle",
+    metaTitle: "Skip Hire Permits in Glasgow",
     metaDescription:
       "Do you need a permit for a skip in Glasgow? Rules on public roads, private land, costs, and what happens if you skip the paperwork.",
     category: "Regulations & Compliance",
@@ -1544,7 +1548,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "what-is-a-waste-transfer-note-and-why-it-matters",
     title: "What Is a Waste Transfer Note and Why It Matters",
-    metaTitle: "What Is a Waste Transfer Note? | Envirocycle",
+    metaTitle: "What Is a Waste Transfer Note?",
     metaDescription:
       "What a waste transfer note is, why UK law requires one, and why keeping yours protects you if your waste is ever traced back to illegal dumping.",
     category: "Regulations & Compliance",
@@ -1571,7 +1575,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "recycling-symbols-explained-a-glasgow-household-guide",
     title: "Recycling Symbols Explained: A Glasgow Household Guide",
-    metaTitle: "Recycling Symbols Explained | Envirocycle Glasgow",
+    metaTitle: "Recycling Symbols Explained",
     metaDescription:
       "What do the recycling symbols on packaging actually mean? A plain-English guide to the Mobius loop, resin codes, and widely recycled labels.",
     category: "Recycling",
@@ -1598,7 +1602,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "student-house-clearance-end-of-year-guide-for-glasgow",
     title: "Student House Clearance: End of Year Guide for Glasgow",
-    metaTitle: "Student House Clearance Glasgow | Envirocycle",
+    metaTitle: "Student House Clearance Glasgow",
     metaDescription:
       "End of year student house clearance in Glasgow made simple. Tips for landlords and tenants on furniture, rubbish, and deposit-friendly clear-outs.",
     category: "House Clearance",
@@ -1625,7 +1629,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "downsizing-guide-for-glasgow-retirees",
     title: "Downsizing Guide for Glasgow Retirees",
-    metaTitle: "Downsizing Guide for Glasgow Retirees | Envirocycle",
+    metaTitle: "Downsizing Guide for Glasgow Retirees",
     metaDescription:
       "Practical, unhurried advice for Glasgow retirees downsizing to a smaller home. What to keep, what to let go of, and how to manage the clearance.",
     category: "House Clearance",
@@ -1654,7 +1658,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-to-dispose-of-an-old-piano-in-glasgow",
     title: "How to Dispose of an Old Piano in Glasgow",
-    metaTitle: "How to Dispose of an Old Piano in Glasgow | Envirocycle",
+    metaTitle: "How to Dispose of an Old Piano in Glasgow",
     metaDescription:
       "Getting rid of an old upright or grand piano in Glasgow? Here's why it's harder than most furniture, your options, and what happens to the materials.",
     category: "Waste Disposal Guides",
@@ -1681,7 +1685,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "airbnb-short-term-let-changeover-waste-removal",
     title: "Airbnb and Short-Term Let Changeover Waste Removal",
-    metaTitle: "Short-Term Let Changeover Waste | Envirocycle",
+    metaTitle: "Short-Term Let Changeover Waste",
     metaDescription:
       "Waste removal support for Glasgow Airbnb and short-term let hosts: fast changeover turnarounds, bulky item uplift, and regular collection options.",
     category: "Commercial Waste",
@@ -1708,7 +1712,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "how-much-waste-does-a-house-clearance-produce",
     title: "How Much Waste Does a House Clearance Actually Produce?",
-    metaTitle: "How Much Waste Does House Clearance Produce? | Envirocycle",
+    metaTitle: "How Much Waste Does House Clearance Produce?",
     metaDescription:
       "Wondering how much waste a typical house clearance generates? A realistic breakdown by property size, and where all of it actually ends up.",
     category: "House Clearance",
@@ -1737,7 +1741,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "hoarding-clearance-a-compassionate-approach",
     title: "Hoarding Clearance: A Compassionate Approach",
-    metaTitle: "Hoarding Clearance in Glasgow | Envirocycle",
+    metaTitle: "Hoarding Clearance in Glasgow",
     metaDescription:
       "A compassionate, judgement-free approach to hoarding clearance in Glasgow, covering how to start, working with family, and what to expect on the day.",
     category: "House Clearance",
@@ -1766,7 +1770,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "reducing-waste-as-a-small-business-in-glasgow",
     title: "Reducing Waste as a Small Business in Glasgow",
-    metaTitle: "Reducing Waste as a Small Business | Envirocycle",
+    metaTitle: "Reducing Waste as a Small Business",
     metaDescription:
       "Practical, low-cost ways for small Glasgow businesses to reduce waste, cut disposal costs, and meet their legal duty of care obligations.",
     category: "Eco-Friendly Living",

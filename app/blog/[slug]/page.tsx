@@ -20,7 +20,13 @@ export function generateMetadata({ params }: Props): Metadata {
   if (!post) return {};
 
   return {
-    title: post.metaTitle,
+    // `absolute` opts out of the root layout's "%s | Envirocycle Glasgow"
+    // template. Applied to it, every post title rendered past the ~60
+    // characters Google shows - so the end of each title was cut off in
+    // the results - and the 62 posts whose metaTitle already ended in a
+    // brand came out double-branded, e.g. "... | Envirocycle | Envirocycle
+    // Glasgow". metaTitle is now the whole title, exactly as written.
+    title: { absolute: post.metaTitle },
     description: post.metaDescription,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
@@ -33,6 +39,46 @@ export function generateMetadata({ params }: Props): Metadata {
       publishedTime: post.date,
     },
   };
+}
+
+// Post bodies are plain strings, but they have always been written with
+// `**bold**` lead-ins, which rendered as literal asterisks on the page -
+// visible on /blog/glasgow-recycling-centres-complete-guide, the single
+// highest-impression page on the site. Markdown-style links are supported
+// here too so posts can link to each other with real keyword anchor text
+// instead of only through the related-posts strip at the foot of a page.
+const INLINE_PATTERN = /(\[[^\]]+\]\([^)]+\)|\*\*[^*]+\*\*)/g;
+
+function renderInline(block: string, keyPrefix: string) {
+  return block.split(INLINE_PATTERN).map((part, i) => {
+    if (!part) return null;
+    const key = `${keyPrefix}-${i}`;
+
+    const link = /^\[([^\]]+)\]\(([^)]+)\)$/.exec(part);
+    if (link) {
+      return (
+        <Link
+          key={key}
+          href={link[2]}
+          className="underline underline-offset-2 transition-colors hover:text-[var(--gold)]"
+          style={{ color: "var(--gold-light)" }}
+        >
+          {link[1]}
+        </Link>
+      );
+    }
+
+    const bold = /^\*\*([^*]+)\*\*$/.exec(part);
+    if (bold) {
+      return (
+        <strong key={key} style={{ color: "var(--cream)" }}>
+          {bold[1]}
+        </strong>
+      );
+    }
+
+    return <span key={key}>{part}</span>;
+  });
 }
 
 function renderContent(content: string[]) {
@@ -57,7 +103,7 @@ function renderContent(content: string[]) {
         className="text-base leading-relaxed mb-5"
         style={{ color: "rgba(245,240,232,0.78)" }}
       >
-        {block}
+        {renderInline(block, String(i))}
       </p>
     );
   });
