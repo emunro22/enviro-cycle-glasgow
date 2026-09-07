@@ -1183,7 +1183,7 @@ export const blogPosts: BlogPost[] = [
       "## Garden Waste",
       "Hamilton's slightly larger gardens compared with inner-city Glasgow mean we get called out for hedge cuttings, old fencing, and shed clearances fairly often, particularly in spring and autumn. If your brown bin can't keep up with a big clear-out, we'll take the lot in one visit.",
       "## Booking a Collection",
-      "We cover Hamilton as part of our regular South Lanarkshire round, so response times here are generally quick, often same-day. Send us photos of what needs to go and we'll get back to you with a price, usually within the hour. Full details of what we offer locally are on our Hamilton page.",
+      "We cover Hamilton as part of our regular South Lanarkshire round, so response times here are generally quick, often same-day. Send us photos of what needs to go and we'll get back to you with a price, usually within the hour. Everything we cover locally is on our [waste removal in Hamilton](/areas/hamilton) page.",
     ],
   },
   {
@@ -1208,7 +1208,7 @@ export const blogPosts: BlogPost[] = [
       "## Garden Waste",
       "Many East Kilbride properties have decent-sized gardens, and we get regular calls for hedge trimmings, old sheds, and general garden clear-outs that go beyond what a brown bin can handle in one go.",
       "## Same-Day Collections",
-      "Because East Kilbride is such a regular part of our round, we can usually offer same-day or next-day collection rather than the multi-week wait that comes with council bulky uplift. Send us photos and a postcode and we'll quote straight away.",
+      "Because East Kilbride is such a regular part of our round, we can usually offer same-day or next-day collection rather than the multi-week wait that comes with council bulky uplift. Send us photos and a postcode and we'll quote straight away. Everything we cover locally is on our [house clearance in East Kilbride](/areas/east-kilbride) page.",
     ],
   },
   {
@@ -1235,7 +1235,7 @@ export const blogPosts: BlogPost[] = [
       "## What a Professional Clearance Covers",
       "We clear the property room by room, separate anything suitable for charity donation, and take the rest to a licensed transfer station for sorting. Most flat clearances in Paisley take half a day; full family homes with a garage and garden usually need a full day.",
       "## Getting Started",
-      "Send photos of each room, or the whole property if you can, along with your postcode. We'll quote based on volume and access, and can usually fit Paisley jobs in within a few days.",
+      "Send photos of each room, or the whole property if you can, along with your postcode. We'll quote based on volume and access, and can usually fit Paisley jobs in within a few days. Everything we cover locally is on our [house clearance in Paisley](/areas/paisley) page.",
     ],
   },
   {
@@ -1285,7 +1285,7 @@ export const blogPosts: BlogPost[] = [
       "## What Goes Where",
       "Furniture and appliances in good condition are set aside for local charity donation rather than landfill. Everything else goes to a licensed transfer station for sorting. You'll get a waste transfer note for your records.",
       "## Getting a Same-Day Quote",
-      "Bishopbriggs is a regular stop on our round, so same-day or next-day collection is usually possible. Send photos and your postcode and we'll come back with a price quickly.",
+      "Bishopbriggs is a regular stop on our round, so same-day or next-day collection is usually possible. Send photos and your postcode and we'll come back with a price quickly. Everything we cover locally is on our [rubbish removal in Bishopbriggs](/areas/bishopbriggs) page.",
     ],
   },
   {
@@ -1310,7 +1310,7 @@ export const blogPosts: BlogPost[] = [
       "## Lenzie and Newer Estates",
       "The newer housing around Lenzie tends to generate more furniture uplifts and renovation waste as families extend or update their homes.",
       "## Booking with Us",
-      "We cover Kirkintilloch regularly, so turnaround is usually quick. Send us a few photos of what needs collecting and your postcode, and we'll quote the same day.",
+      "We cover Kirkintilloch regularly, so turnaround is usually quick. Send us a few photos of what needs collecting and your postcode, and we'll quote the same day. Everything we cover locally is on our [waste removal in Kirkintilloch](/areas/kirkintilloch) page.",
     ],
   },
   {
@@ -1335,7 +1335,7 @@ export const blogPosts: BlogPost[] = [
       "## Trade and Commercial Waste",
       "Cumbernauld's industrial estates generate a steady stream of trade waste for us, from workshop clear-outs to office strip-outs. We offer regular collection arrangements for businesses that need this on an ongoing basis.",
       "## Booking a Collection",
-      "We run Cumbernauld as part of our regular North Lanarkshire round. Send photos of the job, whether it's a garden or a house, and we'll quote quickly, usually with same-day or next-day availability.",
+      "We run Cumbernauld as part of our regular North Lanarkshire round. Send photos of the job, whether it's a garden or a house, and we'll quote quickly, usually with same-day or next-day availability. Everything we cover locally is on our [garden waste removal in Cumbernauld](/areas/cumbernauld) page.",
     ],
   },
   {
@@ -1362,7 +1362,7 @@ export const blogPosts: BlogPost[] = [
       "## What a Clearance Involves",
       "We clear room by room, set aside anything suitable for charity donation, and take the rest to a licensed transfer station. Most flat clearances take half a day; larger family homes with a garage and garden usually need a full day.",
       "## Getting a Quote",
-      "Send us photos of the property or the rooms that need clearing, along with your postcode. We'll come back with a price quickly and can usually fit Coatbridge jobs in within a few days.",
+      "Send us photos of the property or the rooms that need clearing, along with your postcode. We'll come back with a price quickly and can usually fit Coatbridge jobs in within a few days. Everything we cover locally is on our [house clearance in Coatbridge](/areas/coatbridge) page.",
     ],
   },
   {
@@ -1387,7 +1387,7 @@ export const blogPosts: BlogPost[] = [
       "## Trade Waste Off the A89",
       "The trade units and small industrial premises around Airdrie generate a fair amount of commercial waste for us: workshop clearances, renovation waste, and regular trade collections.",
       "## Same-Day Options",
-      "We typically batch Airdrie jobs with other Lanarkshire pickups to keep things efficient, but same-day or next-day collection is usually available. Send photos and a postcode for a quick quote.",
+      "We typically batch Airdrie jobs with other Lanarkshire pickups to keep things efficient, but same-day or next-day collection is usually available. Send photos and a postcode for a quick quote. Everything we cover locally is on our [rubbish removal in Airdrie](/areas/airdrie) page.",
     ],
   },
   {
@@ -1412,7 +1412,7 @@ export const blogPosts: BlogPost[] = [
       "## Why Bulky Uplift Isn't Always the Best Option",
       "If you need something gone today rather than in a few weeks, or you've got a mixed load that doesn't fit the council's item limits, a professional collection is usually quicker and not much more expensive once you factor in your own time.",
       "## Booking a Collection",
-      "We cover Motherwell as a regular part of our round, so same-day or next-day collection is usually available. A few photos and your postcode gets you a quote fast.",
+      "We cover Motherwell as a regular part of our round, so same-day or next-day collection is usually available. A few photos and your postcode gets you a quote fast. Everything we cover locally is on our [bulky uplifts in Motherwell](/areas/motherwell) page.",
     ],
   },
   {
@@ -1439,7 +1439,7 @@ export const blogPosts: BlogPost[] = [
       "## What's Involved in a Clearance",
       "We work room by room, separate anything suitable for charity donation, and take the rest to a licensed transfer station. Most flat clearances take half a day; larger family homes usually need a full day.",
       "## Getting a Quote",
-      "Send photos of the property and your postcode, and we'll quote quickly: Rutherglen is a regular part of our round, so turnaround is usually fast.",
+      "Send photos of the property and your postcode, and we'll quote quickly: Rutherglen is a regular part of our round, so turnaround is usually fast. Everything we cover locally is on our [house clearance in Rutherglen](/areas/rutherglen) page.",
     ],
   },
   {
@@ -1464,7 +1464,7 @@ export const blogPosts: BlogPost[] = [
       "## Garden Waste",
       "Not every Shawlands property has outdoor space, but where there are back gardens or shared courts, we handle general tidy-ups alongside the main clearance.",
       "## Booking a Collection",
-      "Shawlands and the Southside are a regular part of our route, so we can usually offer quick turnaround. Often within a day or two. Get in touch with photos and your postcode for a fast quote.",
+      "Shawlands and the Southside are a regular part of our route, so we can usually offer quick turnaround. Often within a day or two. Get in touch with photos and your postcode for a fast quote. Everything we cover locally is on our [house clearance in Shawlands](/areas/shawlands) page.",
     ],
   },
   {
