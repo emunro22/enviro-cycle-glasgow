@@ -5,7 +5,11 @@ export interface PlacesReview {
   relativePublishTimeDescription?: string;
   rating: number;
   text?: { text: string };
-  authorAttribution?: { displayName?: string };
+  authorAttribution?: {
+    displayName?: string;
+    uri?: string;
+    photoUri?: string;
+  };
   publishTime?: string;
 }
 
@@ -60,6 +64,12 @@ export async function ensureReviewTables() {
   // Without it the cache only grows: reviews Google has since dropped from
   // its sample would stay on the site forever.
   await sql`ALTER TABLE google_reviews_cache ADD COLUMN IF NOT EXISTS last_seen_at TIMESTAMPTZ`;
+  // The reviewer's Google account picture and profile link, both supplied
+  // by Places under authorAttribution. Google's terms require the author
+  // attribution to be shown with the review, so these are stored rather
+  // than dropped.
+  await sql`ALTER TABLE google_reviews_cache ADD COLUMN IF NOT EXISTS author_photo_url TEXT`;
+  await sql`ALTER TABLE google_reviews_cache ADD COLUMN IF NOT EXISTS author_uri TEXT`;
   // Rows cached before the column existed are all from the most recent
   // sync, so they get one shared timestamp and count as the current batch.
   // Per-row synced_at values are milliseconds apart (separate statements),
@@ -98,9 +108,9 @@ export async function fetchPlaceDetails(
 /**
  * Writes the rating and whatever reviews Google returned into the cache.
  * Place Details hands back at most 5 reviews, chosen as "most relevant"
- * with no sort or paging option, so the cache is cumulative on purpose:
- * as Google rotates which 5 it serves, the set on the site grows rather
- * than churning.
+ * with no sort or paging option. Rows for reviews Google has stopped
+ * serving are kept rather than deleted, but only the latest batch is
+ * displayed: see readCache below.
  */
 export async function cacheReviewData(
   placeId: string,
@@ -129,7 +139,7 @@ export async function cacheReviewData(
     const rows = await sql`
       INSERT INTO google_reviews_cache
         (google_review_id, author_name, rating, review_text, relative_time,
-         publish_time, last_seen_at)
+         publish_time, last_seen_at, author_photo_url, author_uri)
       VALUES (
         ${review.name},
         ${review.authorAttribution?.displayName ?? "Google user"},
@@ -137,7 +147,9 @@ export async function cacheReviewData(
         ${review.text?.text ?? ""},
         ${review.relativePublishTimeDescription ?? ""},
         ${review.publishTime ?? null},
-        ${seenAt}
+        ${seenAt},
+        ${review.authorAttribution?.photoUri ?? null},
+        ${review.authorAttribution?.uri ?? null}
       )
       ON CONFLICT (google_review_id) DO UPDATE
       SET author_name = EXCLUDED.author_name,
@@ -146,6 +158,8 @@ export async function cacheReviewData(
           relative_time = EXCLUDED.relative_time,
           publish_time = EXCLUDED.publish_time,
           last_seen_at = EXCLUDED.last_seen_at,
+          author_photo_url = EXCLUDED.author_photo_url,
+          author_uri = EXCLUDED.author_uri,
           synced_at = NOW()
       RETURNING (xmax = 0) AS inserted
     `;
@@ -160,6 +174,8 @@ export interface DisplayReview {
   text: string;
   stars: number;
   date: string;
+  photoUrl: string | null;
+  profileUrl: string | null;
 }
 
 export interface ReviewsPayload {
@@ -207,7 +223,8 @@ async function readCache() {
   // the current sample: a review Google has since dropped would otherwise
   // linger on the page indefinitely.
   const reviewRows = await sql`
-    SELECT author_name, rating, review_text, relative_time, publish_time
+    SELECT author_name, rating, review_text, relative_time, publish_time,
+           author_photo_url, author_uri
     FROM google_reviews_cache
     WHERE last_seen_at = (SELECT MAX(last_seen_at) FROM google_reviews_cache)
     ORDER BY publish_time DESC NULLS LAST, synced_at DESC
@@ -263,6 +280,8 @@ export async function getReviewsForDisplay(): Promise<ReviewsPayload> {
           r.publish_time as string | null,
           r.relative_time as string
         ),
+        photoUrl: (r.author_photo_url as string | null) ?? null,
+        profileUrl: (r.author_uri as string | null) ?? null,
       })),
     };
   } catch {

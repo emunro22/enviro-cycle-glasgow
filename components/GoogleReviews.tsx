@@ -14,10 +14,60 @@ interface LiveReview {
   text: string;
   stars: number;
   date: string;
+  photoUrl?: string | null;
+  profileUrl?: string | null;
 }
+
+/** A curated or live review, plus the Google account picture when we have one. */
+type DisplayCard = GoogleReview & {
+  photoUrl?: string | null;
+  profileUrl?: string | null;
+};
 
 function normalize(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+/**
+ * The reviewer's Google account picture, falling back to the initial
+ * badge. The fallback is not just for reviews without a photo: these are
+ * hotlinked from googleusercontent, and a URL that has rotated or a
+ * blocked request would otherwise leave a broken image in the card.
+ */
+function Avatar({ review }: { review: DisplayCard }) {
+  const [failed, setFailed] = useState(false);
+  const showPhoto = !!review.photoUrl && !failed;
+
+  return (
+    <div
+      className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 overflow-hidden"
+      style={{
+        background: showPhoto
+          ? "rgba(212,160,23,0.15)"
+          : "linear-gradient(135deg, #d4a017, #f0c040)",
+        color: "#0a1f0b",
+        fontFamily: "var(--font-heading)",
+      }}
+    >
+      {showPhoto ? (
+        // Plain img rather than next/image: these are remote Google URLs
+        // and images are unoptimized project-wide anyway.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={review.photoUrl as string}
+          alt={`${review.name} on Google`}
+          width={40}
+          height={40}
+          loading="lazy"
+          referrerPolicy="no-referrer"
+          className="w-full h-full object-cover"
+          onError={() => setFailed(true)}
+        />
+      ) : (
+        review.initial
+      )}
+    </div>
+  );
 }
 
 /**
@@ -122,11 +172,11 @@ export default function GoogleReviews({ initial }: { initial?: GoogleReviewsData
   // The curated list survives only as a fallback for when the API or the
   // database is unreachable, so the section never renders empty on a live
   // site. In normal operation it is not used.
-  const liveDisplayReviews = useMemo<GoogleReview[]>(
+  const liveDisplayReviews = useMemo<DisplayCard[]>(
     () =>
       liveReviews
         .filter((r) => r.text)
-        .map<GoogleReview>((r) => {
+        .map<DisplayCard>((r) => {
           // Reuse the curated entry's byline ("Local Guide · 30 reviews")
           // where we happen to have one: Places does not return it.
           const curated = googleReviews.find((c) => isSameReview(c, r));
@@ -137,13 +187,17 @@ export default function GoogleReviews({ initial }: { initial?: GoogleReviewsData
             date: r.date,
             text: r.text,
             stars: r.stars,
+            photoUrl: r.photoUrl ?? null,
+            profileUrl: r.profileUrl ?? null,
           };
         }),
     [liveReviews]
   );
 
   const usingFallback = !loaded || liveDisplayReviews.length === 0;
-  const mergedReviews = usingFallback ? googleReviews : liveDisplayReviews;
+  const mergedReviews: DisplayCard[] = usingFallback
+    ? googleReviews
+    : liveDisplayReviews;
 
   const visibleReviews = expanded ? mergedReviews : mergedReviews.slice(0, INITIAL_COUNT);
 
@@ -235,16 +289,7 @@ export default function GoogleReviews({ initial }: { initial?: GoogleReviewsData
               </div>
 
               <div className="flex items-center gap-3 mb-3 pr-6">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0"
-                  style={{
-                    background: "linear-gradient(135deg, #d4a017, #f0c040)",
-                    color: "#0a1f0b",
-                    fontFamily: "var(--font-heading)",
-                  }}
-                >
-                  {review.initial}
-                </div>
+                <Avatar review={review} />
                 <div className="min-w-0">
                   <p className="font-semibold truncate" style={{ color: "var(--cream)" }}>
                     {review.name}
