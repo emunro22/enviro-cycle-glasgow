@@ -2,31 +2,28 @@ import { NextRequest, NextResponse } from "next/server";
 import { put, del } from "@vercel/blob";
 import { createHash } from "crypto";
 import { sql } from "@/lib/db";
+import { isAdmin } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { perceptualHash, hammingDistance, DUPLICATE_THRESHOLD } from "@/lib/image-hash";
+import {
+  cacheReviewData,
+  ensureReviewTables,
+  fetchPlaceDetails,
+  PlacesFetchError,
+  type PlaceDetailsResponse,
+} from "@/lib/google-places-sync";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-interface PlacesReview {
-  name: string;
-  relativePublishTimeDescription?: string;
-  rating: number;
-  text?: { text: string };
-  authorAttribution?: { displayName?: string };
-  publishTime?: string;
-}
-
-interface PlacesPhoto {
-  name: string;
-  authorAttributions?: { displayName?: string }[];
-}
-
-interface PlaceDetailsResponse {
-  rating?: number;
-  userRatingCount?: number;
-  reviews?: PlacesReview[];
-  photos?: PlacesPhoto[];
+interface SyncResult {
+  newReviews: number;
+  newPhotos: number;
+  skippedPhotos: number;
+  dedupedPhotos: number;
+  reviewsOfferedByPlaces: number;
+  photosOfferedByPlaces: number;
+  photoErrors: string[];
 }
 
 // This route is only ever invoked unattended, by Vercel cron, so its
@@ -43,27 +40,19 @@ function errorText(err: unknown): string {
   return err instanceof Error ? err.message : String(err);
 }
 
+/** A failure worth reporting with a specific HTTP status rather than a 500. */
+class SyncFailure extends Error {
+  status: number;
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
+  }
+}
+
 async function ensureTables() {
-  await sql`
-    CREATE TABLE IF NOT EXISTS google_place_stats (
-      place_id TEXT PRIMARY KEY,
-      rating NUMERIC,
-      user_rating_count INT,
-      synced_at TIMESTAMPTZ DEFAULT NOW()
-    )
-  `;
-  await sql`
-    CREATE TABLE IF NOT EXISTS google_reviews_cache (
-      id SERIAL PRIMARY KEY,
-      google_review_id TEXT UNIQUE NOT NULL,
-      author_name TEXT NOT NULL,
-      rating INT NOT NULL,
-      review_text TEXT,
-      relative_time TEXT,
-      publish_time TIMESTAMPTZ,
-      synced_at TIMESTAMPTZ DEFAULT NOW()
-    )
-  `;
+  // The rating and review tables are defined once, next to the code that
+  // writes them, and shared with the public reviews route.
+  await ensureReviewTables();
   await sql`
     CREATE TABLE IF NOT EXISTS google_photos_synced (
       id SERIAL PRIMARY KEY,
@@ -84,6 +73,68 @@ async function ensureTables() {
     ON google_photos_synced (content_hash) WHERE content_hash IS NOT NULL
   `;
   await sql`ALTER TABLE google_photos_synced ADD COLUMN IF NOT EXISTS phash TEXT`;
+}
+
+/**
+ * Every run leaves a row here, successful or not. Without it there is no
+ * way to tell "the cron fired and Google had nothing new" apart from "the
+ * cron never fired", "the API key was rejected" or "the function timed
+ * out" - all of which look identical from the front of the site.
+ */
+async function ensureRunTable() {
+  await sql`
+    CREATE TABLE IF NOT EXISTS google_sync_runs (
+      id SERIAL PRIMARY KEY,
+      started_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      finished_at TIMESTAMPTZ,
+      trigger TEXT NOT NULL,
+      status TEXT NOT NULL,
+      duration_ms INT,
+      new_reviews INT DEFAULT 0,
+      new_photos INT DEFAULT 0,
+      skipped_photos INT DEFAULT 0,
+      deduped_photos INT DEFAULT 0,
+      reviews_offered INT DEFAULT 0,
+      photos_offered INT DEFAULT 0,
+      error_message TEXT,
+      photo_errors TEXT
+    )
+  `;
+}
+
+async function recordRun(
+  trigger: string,
+  startedAtMs: number,
+  status: "success" | "failed",
+  result: SyncResult | null,
+  errorMessage: string | null
+) {
+  try {
+    await ensureRunTable();
+    await sql`
+      INSERT INTO google_sync_runs (
+        started_at, finished_at, trigger, status, duration_ms,
+        new_reviews, new_photos, skipped_photos, deduped_photos,
+        reviews_offered, photos_offered, error_message, photo_errors
+      ) VALUES (
+        ${new Date(startedAtMs).toISOString()}, NOW(), ${trigger}, ${status},
+        ${Date.now() - startedAtMs},
+        ${result?.newReviews ?? 0}, ${result?.newPhotos ?? 0},
+        ${result?.skippedPhotos ?? 0}, ${result?.dedupedPhotos ?? 0},
+        ${result?.reviewsOfferedByPlaces ?? 0}, ${result?.photosOfferedByPlaces ?? 0},
+        ${errorMessage},
+        ${result && result.photoErrors.length > 0 ? result.photoErrors.join("\n") : null}
+      )
+    `;
+    // Keep the audit trail useful without letting it grow forever.
+    await sql`
+      DELETE FROM google_sync_runs
+      WHERE id NOT IN (SELECT id FROM google_sync_runs ORDER BY started_at DESC LIMIT 100)
+    `;
+  } catch (err) {
+    // Never let bookkeeping turn a good sync into a failed request.
+    log(`could not record run - ${errorText(err)}`);
+  }
 }
 
 /**
@@ -128,6 +179,14 @@ async function dedupeExistingGooglePhotos(): Promise<number> {
         (s) => hammingDistance(s.hash, entry.hash) <= DUPLICATE_THRESHOLD
       );
       if (dupOf) {
+        // Logged with the distance because this step deletes gallery rows.
+        // If the threshold is ever too loose, "new photo arrives, next run
+        // eats it" is otherwise indistinguishable from "Google never sent
+        // a new photo", and both look like a cron that does nothing.
+        log(
+          `dedupe: project ${entry.row.id} dropped as a duplicate of ${dupOf.id} ` +
+            `(distance ${hammingDistance(dupOf.hash, entry.hash)} of ${DUPLICATE_THRESHOLD} allowed)`
+        );
         idsToDelete.push(entry.row.id);
         urlsToDelete.push(entry.row.image_url);
       } else {
@@ -160,89 +219,55 @@ async function dedupeExistingGooglePhotos(): Promise<number> {
   return idsToDelete.length;
 }
 
-export async function GET(request: NextRequest) {
-  const authHeader = request.headers.get("authorization");
-  const manualSecret = request.nextUrl.searchParams.get("secret");
-  const isVercelCron =
-    !!process.env.CRON_SECRET && authHeader === `Bearer ${process.env.CRON_SECRET}`;
-  const isManualTrigger =
-    !!process.env.MANUAL_SYNC_SECRET && manualSecret === process.env.MANUAL_SYNC_SECRET;
-
-  if (!isVercelCron && !isManualTrigger) {
-    // Worth logging: if CRON_SECRET is ever missing from the environment,
-    // Vercel's cron sends no Authorization header, every run 401s here,
-    // and the sync looks like it simply stopped happening.
-    log(
-      `unauthorized request (CRON_SECRET ${process.env.CRON_SECRET ? "set" : "MISSING"}, ` +
-        `auth header ${authHeader ? "present" : "absent"})`
-    );
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
+async function runSync(trigger: string): Promise<SyncResult> {
   const apiKey = process.env.GOOGLE_PLACES_API_KEY;
   const placeId = process.env.GOOGLE_PLACE_ID;
 
   if (!apiKey || !placeId) {
     log("aborted: GOOGLE_PLACES_API_KEY or GOOGLE_PLACE_ID is not set");
-    return NextResponse.json({ error: "Not configured" }, { status: 500 });
+    throw new SyncFailure(
+      "GOOGLE_PLACES_API_KEY or GOOGLE_PLACE_ID is not set",
+      500
+    );
   }
 
-  log(`start (trigger: ${isVercelCron ? "cron" : "manual"})`);
+  log(`start (trigger: ${trigger})`);
 
   const photoErrors: string[] = [];
   let skippedPhotos = 0;
 
   await ensureTables();
 
-  const detailsRes = await fetch(
-    `https://places.googleapis.com/v1/places/${placeId}`,
-    {
-      headers: {
-        "X-Goog-Api-Key": apiKey,
-        "X-Goog-FieldMask": "rating,userRatingCount,reviews,photos",
-      },
-    }
-  );
-
-  if (!detailsRes.ok) {
-    const body = await detailsRes.text().catch(() => "");
-    log(`aborted: Places API ${detailsRes.status} ${body.slice(0, 500)}`);
-    return NextResponse.json(
-      { error: `Places API ${detailsRes.status}` },
-      { status: 502 }
+  // One Places call covers reviews and photos together. Splitting it into
+  // two would double a per-request billed SKU for no benefit.
+  let data: PlaceDetailsResponse;
+  try {
+    data = await fetchPlaceDetails(
+      apiKey,
+      placeId,
+      "rating,userRatingCount,reviews,photos"
+    );
+  } catch (err) {
+    const message = errorText(err);
+    log(`aborted: ${message}`);
+    throw new SyncFailure(
+      message,
+      err instanceof PlacesFetchError ? 502 : 500
     );
   }
 
-  const data: PlaceDetailsResponse = await detailsRes.json();
+  // Shared with the public /api/google-reviews route, which refreshes the
+  // same cache on its own when this cron has not run. Keeping one writer
+  // for the rating and review tables is what stops the two paths drifting.
+  const { newReviews, reviewsOffered } = await cacheReviewData(placeId, data);
 
-  await sql`
-    INSERT INTO google_place_stats (place_id, rating, user_rating_count, synced_at)
-    VALUES (${placeId}, ${data.rating ?? null}, ${data.userRatingCount ?? null}, NOW())
-    ON CONFLICT (place_id) DO UPDATE
-    SET rating = EXCLUDED.rating,
-        user_rating_count = EXCLUDED.user_rating_count,
-        synced_at = NOW()
-  `;
-
-  let newReviews = 0;
-
-  for (const review of data.reviews ?? []) {
-    const inserted = await sql`
-      INSERT INTO google_reviews_cache
-        (google_review_id, author_name, rating, review_text, relative_time, publish_time)
-      VALUES (
-        ${review.name},
-        ${review.authorAttribution?.displayName ?? "Google user"},
-        ${review.rating},
-        ${review.text?.text ?? ""},
-        ${review.relativePublishTimeDescription ?? ""},
-        ${review.publishTime ?? null}
-      )
-      ON CONFLICT (google_review_id) DO NOTHING
-      RETURNING id
-    `;
-    if (inserted.length > 0) newReviews++;
-  }
+  // Place Details caps this at 5 reviews, chosen by Google as "most
+  // relevant" rather than newest, with no sort or paging option. So a
+  // brand new review often simply is not in the payload, and a run that
+  // reports 0 new reviews is usually Google repeating itself rather than
+  // anything here being broken. Logging the count is what makes that
+  // difference visible.
+  log(`places returned ${reviewsOffered} review(s)`);
 
   // Self-heal first: collapse any photos already duplicated by the old
   // name-based dedup (defeated by Places API's rotating photo references)
@@ -399,16 +424,55 @@ export async function GET(request: NextRequest) {
   );
   for (const err of photoErrors) log(`photo error - ${err}`);
 
-  return NextResponse.json({
-    ok: true,
+  return {
     newReviews,
     newPhotos,
     skippedPhotos,
     dedupedPhotos,
-    // Google only ever exposes a ~10 photo sample of the Business Profile
-    // library through Place Details, so this is the ceiling on newPhotos,
-    // not a count of what's on the listing.
+    // Google only ever exposes a small fixed sample of the Business
+    // Profile through Place Details: ~10 photos and at most 5 reviews.
+    // These are the ceilings on newPhotos / newReviews, not a count of
+    // what is actually on the listing.
+    reviewsOfferedByPlaces: reviewsOffered,
     photosOfferedByPlaces: sourcePhotos.length,
     photoErrors,
-  });
+  };
+}
+
+export async function GET(request: NextRequest) {
+  const authHeader = request.headers.get("authorization");
+  const manualSecret = request.nextUrl.searchParams.get("secret");
+  const isVercelCron =
+    !!process.env.CRON_SECRET && authHeader === `Bearer ${process.env.CRON_SECRET}`;
+  const isSecretTrigger =
+    !!process.env.MANUAL_SYNC_SECRET && manualSecret === process.env.MANUAL_SYNC_SECRET;
+  // A signed-in admin can run this from the dashboard, so diagnosing a
+  // stalled sync doesn't depend on knowing a secret query param.
+  const isAdminTrigger = !isVercelCron && !isSecretTrigger && (await isAdmin());
+
+  if (!isVercelCron && !isSecretTrigger && !isAdminTrigger) {
+    // Worth logging: if CRON_SECRET is ever missing from the environment,
+    // Vercel's cron sends no Authorization header, every run 401s here,
+    // and the sync looks like it simply stopped happening.
+    log(
+      `unauthorized request (CRON_SECRET ${process.env.CRON_SECRET ? "set" : "MISSING"}, ` +
+        `auth header ${authHeader ? "present" : "absent"})`
+    );
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const trigger = isVercelCron ? "cron" : isAdminTrigger ? "admin" : "manual";
+  const startedAt = Date.now();
+
+  try {
+    const result = await runSync(trigger);
+    await recordRun(trigger, startedAt, "success", result, null);
+    return NextResponse.json({ ok: true, ...result });
+  } catch (err) {
+    const message = errorText(err);
+    const status = err instanceof SyncFailure ? err.status : 500;
+    log(`run failed - ${message}`);
+    await recordRun(trigger, startedAt, "failed", null, message);
+    return NextResponse.json({ ok: false, error: message }, { status });
+  }
 }

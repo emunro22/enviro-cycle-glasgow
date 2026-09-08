@@ -16,8 +16,27 @@ interface LiveReview {
   date: string;
 }
 
-function dedupeKey(name: string, text: string) {
-  return `${name.trim().toLowerCase()}|${text.trim().slice(0, 40).toLowerCase()}`;
+function normalize(value: string) {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+/**
+ * Same author, and one review's text starts with the other's opening.
+ * The prefix check rather than an equality check is deliberate: several
+ * curated entries were copied from the Google listing while still
+ * truncated with an ellipsis, so the synced copy of the same review is
+ * the longer string and would never compare equal.
+ */
+function isSameReview(
+  a: { name: string; text: string },
+  b: { name: string; text: string }
+) {
+  if (normalize(a.name) !== normalize(b.name)) return false;
+  const textA = normalize(a.text);
+  const textB = normalize(b.text);
+  if (!textA || !textB) return false;
+  const head = Math.min(40, textA.length, textB.length);
+  return textA.slice(0, head) === textB.slice(0, head);
 }
 
 function GoogleLogo({ size = 20 }: { size?: number }) {
@@ -80,23 +99,38 @@ export default function GoogleReviews() {
   const displayRating = liveRating ?? googleAverageRating;
   const displayCount = liveCount ?? googleReviewCount;
 
-  // Merge in any freshly-synced Google reviews that aren't already in the
-  // curated list, newest first, so genuinely new reviews surface automatically.
+  // What Google is serving right now leads the list, and wins on any
+  // duplicate. This ordering is the whole point: the Places API only ever
+  // returns about 5 reviews, and the curated list below was originally
+  // copied off the same Google listing, so letting the curated copy win
+  // meant every live review was discarded as "already known" and nothing
+  // ever looked synced. The curated entries now only fill in behind the
+  // live ones, which keeps the section deep and keeps it rendering if the
+  // API or the database is unreachable.
   const mergedReviews = useMemo<GoogleReview[]>(() => {
-    const existingKeys = new Set(
-      googleReviews.map((r) => dedupeKey(r.name, r.text))
+    const live = liveReviews
+      .filter((r) => r.text)
+      .map<GoogleReview>((r) => {
+        // Reuse the curated entry's byline ("Local Guide · 30 reviews")
+        // where we have one: the Places API does not return it, and
+        // falling back to a generic label for a review we already had
+        // would read as a downgrade.
+        const curated = googleReviews.find((c) => isSameReview(c, r));
+        return {
+          name: r.name,
+          initial: r.name.charAt(0).toUpperCase() || "G",
+          meta: curated?.meta ?? "Verified Google review",
+          date: r.date,
+          text: r.text,
+          stars: r.stars,
+        };
+      });
+
+    const remaining = googleReviews.filter(
+      (curated) => !live.some((r) => isSameReview(curated, r))
     );
-    const fresh = liveReviews
-      .filter((r) => r.text && !existingKeys.has(dedupeKey(r.name, r.text)))
-      .map<GoogleReview>((r) => ({
-        name: r.name,
-        initial: r.name.charAt(0).toUpperCase() || "G",
-        meta: "Verified Google review",
-        date: r.date,
-        text: r.text,
-        stars: r.stars,
-      }));
-    return [...fresh, ...googleReviews];
+
+    return [...live, ...remaining];
   }, [liveReviews]);
 
   const visibleReviews = expanded ? mergedReviews : mergedReviews.slice(0, INITIAL_COUNT);

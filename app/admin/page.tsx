@@ -172,6 +172,14 @@ export default function AdminDashboard() {
           <p className="text-cream/60 text-sm mb-4">Add new coverage areas. Pages and service listings go live automatically.</p>
           <span className="text-xs text-[var(--gold-light)] font-semibold">Manage areas →</span>
         </a>
+        <a
+          href="/admin/sync"
+          className="block bg-black/20 border border-[var(--gold)]/20 rounded-sm p-6 hover:border-[var(--gold)]/50 transition"
+        >
+          <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-1">Google Sync</p>
+          <p className="text-cream/60 text-sm mb-4">Check whether reviews and photos are pulling from Google, see every run, and trigger a sync by hand.</p>
+          <span className="text-xs text-[var(--gold-light)] font-semibold">View sync status →</span>
+        </a>
         <div className="bg-black/20 border border-[var(--gold)]/20 rounded-sm p-6">
           <p className="text-[var(--gold)] text-xs font-bold uppercase tracking-widest mb-1">Work Gallery</p>
           <p className="text-cream/60 text-sm mb-4">Add, remove and reorder project photos shown on the homepage.</p>

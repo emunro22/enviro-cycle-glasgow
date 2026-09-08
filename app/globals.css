@@ -584,3 +584,25 @@ body::before {
     animation: none;
   }
 }
+
+/* Horizontal services rail.
+   The global ::-webkit-scrollbar rule only sets a width, which does
+   nothing for a horizontal scroller, so the rail would otherwise show a
+   full-height default scrollbar under the cards. The arrows and dots
+   already say where you are, so hide the bar itself. */
+.services-rail {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scroll-padding-left: 1.25rem;
+}
+.services-rail::-webkit-scrollbar {
+  display: none;
+  height: 0;
+}
+@media (min-width: 768px) {
+  .services-rail {
+    scroll-padding-left: 3rem;
+  }
+}
