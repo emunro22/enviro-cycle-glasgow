@@ -221,10 +221,15 @@ export default function Packages() {
           <p className="text-sm" style={{ color: "rgba(245,240,232,0.45)" }}>
             Need something bespoke?{" "}
             <a
-              href="#contact"
+              href="/#contact"
               onClick={(e) => {
-                e.preventDefault();
-                document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+                // Only take over the click if the section is on this page,
+                // otherwise let the link navigate to the homepage anchor.
+                const el = document.querySelector("#contact");
+                if (el) {
+                  e.preventDefault();
+                  el.scrollIntoView({ behavior: "smooth" });
+                }
               }}
               className="underline decoration-dotted transition-colors duration-200"
               style={{ color: "var(--gold)", opacity: 0.8 }}

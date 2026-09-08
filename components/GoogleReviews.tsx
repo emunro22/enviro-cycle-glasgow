@@ -244,6 +244,111 @@ export default function GoogleReviews({ initial }: { initial?: GoogleReviewsData
     return () => observer.disconnect();
   }, [mergedReviews]);
 
+  // Advance the rail on its own, one card at a time, looping back to the
+  // start when it reaches the end.
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail || visibleReviews.length < 2) return;
+
+    // Someone who has asked the OS to reduce motion should not have the
+    // page moving under them unprompted.
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduceMotion.matches) return;
+
+    let paused = false;
+    const pause = () => {
+      paused = true;
+    };
+    const resume = () => {
+      paused = false;
+    };
+
+    let frame = 0;
+    let settle = 0;
+
+    /**
+     * Animated by hand rather than with scrollTo({behavior:"smooth"}).
+     * A smooth programmatic scroll is silently a no-op in some engines,
+     * and the failure mode there is the worst one available: the rail
+     * simply never moves. Driving the offset per frame always moves it.
+     */
+    const glideTo = (target: number) => {
+      const start = rail.scrollLeft;
+      const distance = target - start;
+      if (Math.abs(distance) < 1) return;
+
+      const startedAt = performance.now();
+      const DURATION = 650;
+
+      // Mandatory snapping fights a per-frame offset tween, so it is
+      // switched off for the duration and handed back at the end, which
+      // also lets the snap settle the final position exactly.
+      rail.style.scrollSnapType = "none";
+
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - startedAt) / DURATION);
+        // easeInOutQuad
+        const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        rail.scrollLeft = start + distance * eased;
+
+        if (t < 1) {
+          frame = requestAnimationFrame(tick);
+        } else {
+          rail.style.scrollSnapType = "";
+        }
+      };
+
+      frame = requestAnimationFrame(tick);
+
+      // Guarantee the end state. Animation frames are not produced in
+      // every environment (a backgrounded tab, some embedded webviews,
+      // headless rendering), and there the tween above would leave the
+      // rail sitting still forever. This lands it on the target
+      // regardless, so at worst the carousel steps instead of glides.
+      window.clearTimeout(settle);
+      settle = window.setTimeout(() => {
+        if (Math.abs(rail.scrollLeft - target) > 2) {
+          cancelAnimationFrame(frame);
+          rail.scrollLeft = target;
+        }
+        rail.style.scrollSnapType = "";
+      }, DURATION + 150);
+    };
+
+    const timer = window.setInterval(() => {
+      // Never fight the user: skip a beat while they are hovering,
+      // touching, or tabbed into the rail, and while the tab is hidden.
+      if (paused || document.hidden) return;
+
+      const card = rail.firstElementChild as HTMLElement | null;
+      if (!card) return;
+      const step = card.offsetWidth + 20;
+      const atEnd = rail.scrollLeft >= rail.scrollWidth - rail.clientWidth - 8;
+
+      glideTo(atEnd ? 0 : rail.scrollLeft + step);
+    }, 4000);
+
+    rail.addEventListener("mouseenter", pause);
+    rail.addEventListener("mouseleave", resume);
+    rail.addEventListener("focusin", pause);
+    rail.addEventListener("focusout", resume);
+    rail.addEventListener("touchstart", pause, { passive: true });
+    rail.addEventListener("touchend", resume, { passive: true });
+
+    return () => {
+      window.clearInterval(timer);
+      cancelAnimationFrame(frame);
+      window.clearTimeout(settle);
+      rail.style.scrollSnapType = "";
+      rail.removeEventListener("mouseenter", pause);
+      rail.removeEventListener("mouseleave", resume);
+      rail.removeEventListener("focusin", pause);
+      rail.removeEventListener("focusout", resume);
+      rail.removeEventListener("touchstart", pause);
+      rail.removeEventListener("touchend", resume);
+    };
+  }, [visibleReviews.length]);
+
   return (
     <section
       ref={sectionRef}

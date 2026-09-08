@@ -1,18 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 
 const navLinks = [
-  { href: "#services", label: "Services" },
-  { href: "#our-work", label: "Work" },
+  { href: "/#services", label: "Services" },
+  { href: "/#our-work", label: "Work" },
   { href: "/reviews", label: "Reviews" },
-  { href: "#packages", label: "Packages" },
+  { href: "/#packages", label: "Packages" },
   { href: "/areas", label: "Areas" },
   { href: "/about", label: "About" },
   { href: "/blog", label: "Blog" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 function InstagramIcon({ size = 16 }: { size?: number }) {
@@ -34,6 +35,7 @@ function TikTokIcon({ size = 16 }: { size?: number }) {
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -45,10 +47,22 @@ export default function Navbar() {
     document.body.style.overflow = menuOpen ? "hidden" : "auto";
   }, [menuOpen]);
 
+  // The section links point at "/#services" rather than "#services" so
+  // they work from anywhere on the site. They previously used a bare hash,
+  // which meant that on any page other than the homepage the click handler
+  // cancelled the navigation and then found no such element to scroll to,
+  // leaving Services, Work, Packages and Contact completely dead.
+  const isSectionLink = (href: string) => href.startsWith("/#");
+
+  /** Only smooth-scroll when the section is actually on this page. */
+  const shouldScrollInPage = (href: string) =>
+    isSectionLink(href) && pathname === "/";
+
   const handleNavClick = (href: string) => {
     setMenuOpen(false);
-    if (href.startsWith("#")) {
-      const el = document.querySelector(href);
+    if (shouldScrollInPage(href)) {
+      // Strip the leading slash: "/#services" is not a valid selector.
+      const el = document.querySelector(href.slice(1));
       if (el) el.scrollIntoView({ behavior: "smooth" });
     }
   };
@@ -72,7 +86,9 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => {
-                  if (link.href.startsWith("#")) {
+                  // Off the homepage, let the Link navigate: the browser
+                  // lands on "/" and jumps to the anchor itself.
+                  if (shouldScrollInPage(link.href)) {
                     e.preventDefault();
                     handleNavClick(link.href);
                   }

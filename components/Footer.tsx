@@ -1,29 +1,37 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "#services", label: "Services" },
+  { href: "/#services", label: "Services" },
   { href: "/services", label: "All Services" },
-  { href: "#packages", label: "Packages" },
-  { href: "#gallery", label: "Gallery" },
+  { href: "/#packages", label: "Packages" },
+  { href: "/#gallery", label: "Gallery" },
   { href: "/areas", label: "Areas We Cover" },
   { href: "/about", label: "About Us" },
   { href: "/blog", label: "Blog" },
   { href: "/reviews", label: "Reviews" },
   { href: "/faq", label: "FAQ" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#contact", label: "Contact" },
   { href: "/tip-finder", label: "Tip Finder" },
   { href: "/terms", label: "Terms & Conditions" },
   { href: "/privacy", label: "Privacy Policy" },
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  // Section links are "/#services" rather than "#services" so they work
+  // from every page. The footer appears site-wide, so with a bare hash the
+  // Services, Packages, Gallery and Contact links did nothing at all on
+  // any page other than the homepage.
   const handleNavClick = (href: string) => {
-    if (href.startsWith("#")) {
-      const el = document.querySelector(href);
+    if (href.startsWith("/#") && pathname === "/") {
+      // Strip the leading slash: "/#services" is not a valid selector.
+      const el = document.querySelector(href.slice(1));
       if (el) el.scrollIntoView({ behavior: "smooth" });
     }
   };

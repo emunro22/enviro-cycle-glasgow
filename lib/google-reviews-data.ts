@@ -46,7 +46,8 @@ export function relativeFromIso(iso: string): string {
  * without the Business Profile API. This list backs the /reviews page;
  * the homepage section shows whatever 5 Places is currently serving.
  *
- * Text ending in an ellipsis is truncated on Google's own listing.
+ * Review text is the full text as left by the reviewer, expanded past the
+ * "…More" cutoff Google shows on its own listing.
  */
 export const googleReviews: GoogleReview[] = [
   {
@@ -97,7 +98,7 @@ export const googleReviews: GoogleReview[] = [
     meta: "7 reviews",
     publishedAt: "2026-08-11",
     stars: 5,
-    text: "Brilliant service from Enviro Cycle Glasgow. The uplift was quick, professional…",
+    text: "Brilliant service from Enviro Cycle Glasgow. The uplift was quick, professional and completely hassle-free from start to finish. The team arrived when expected, got everything cleared efficiently and left the area clean and tidy. Friendly, reliable and reasonably priced. Would definitely use them again and highly recommend to anyone needing an uplift in Glasgow. Great job guys! 👏",
     ownerReply:
       "Thanks for the kind review Craig! We pride ourselves on providing a great service to our customers - Thanks again.",
   },
@@ -156,7 +157,7 @@ export const googleReviews: GoogleReview[] = [
     meta: "1 review",
     publishedAt: "2026-08-01",
     stars: 5,
-    text: "Enquired with the guys at Envirocycle to get some trade waste removed from a site I was working on. Within the hour we had agreed a price and the waste was collected and disposed off.…",
+    text: "Enquired with the guys at Envirocycle to get some trade waste removed from a site I was working on. Within the hour we had agreed a price and the waste was collected and disposed off. Always peace of mind knowing your waste is being dealt with by a SEPA licensed waste carrier as-well. Great work lads! Will use again and certainly recommend.",
     ownerReply:
       "Really glad to hear you were happy with the service you received from the team here at ECG! Hope to see you again soon.",
   },
@@ -212,7 +213,7 @@ export const googleReviews: GoogleReview[] = [
     meta: "2 reviews",
     publishedAt: "2026-07-08",
     stars: 5,
-    text: "Excellent service from start to finish! The team was professional and incredibly efficient. They made the whole waste removal process quick and completely hassle-free. Communication was great throughout, and they left everything clean and…",
+    text: "Excellent service from start to finish! The team was professional and incredibly efficient. They made the whole waste removal process quick and completely hassle-free. Communication was great throughout, and they left everything clean and tidy once the job was finished. It's clear they take pride in their work and genuinely care about providing a high standard of service. I wouldn't hesitate to recommend them to anyone looking for a reliable and trustworthy waste management company!",
     ownerReply: "Thank you Natalie!",
   },
   {
@@ -275,7 +276,7 @@ export const googleReviews: GoogleReview[] = [
     meta: "6 reviews · 10 photos",
     publishedAt: "2026-07-08",
     stars: 5,
-    text: "I couldn't recommend Envirocycle enough. Chris and Liam provided a fantastic service from beginning to end. They were professional and kept me updated with great communication throughout the whole process. They were both friendly,…",
+    text: "I couldn't recommend Envirocycle enough. Chris and Liam provided a fantastic service from beginning to end. They were professional and kept me updated with great communication throughout the whole process. They were both friendly, respectful, and made everything straightforward and stress-free. The work was completed efficiently, and the pricing was very fair. They provide high-quality service and i'd definitely use Envirocycle again and would highly recommend them to anyone needing a reliable and trustworthy team. Thank you again!",
     ownerReply:
       "Thank you for the kind review Alina! We strive to provide a good service across the board!",
   },
@@ -303,7 +304,7 @@ export const googleReviews: GoogleReview[] = [
     meta: "6 reviews · 2 photos",
     publishedAt: "2026-07-08",
     stars: 5,
-    text: "The lads at Envirocycle have completed several jobs for us now - clearing sheds, removing old decking etc. The whole process has been quick and easy. I also loved the fact they swept up after themselves, something which most tradesmen seem…",
+    text: "The lads at Envirocycle have completed several jobs for us now - clearing sheds, removing old decking etc. The whole process has been quick and easy. I also loved the fact they swept up after themselves, something which most tradesmen seem to forget these days!! Absolutely recommend the team at Envirocycle, and urge people to get in touch! 👍🏼",
     ownerReply:
       "Thank you for the kind review Max! Thanks for putting your trust in us to be involved in your garden renovations and handling the waste throughout the process!",
   },
@@ -322,7 +323,7 @@ export const googleReviews: GoogleReview[] = [
     meta: "2 reviews",
     publishedAt: "2026-07-08",
     stars: 5,
-    text: "The guys at envirocycle were fast, professional, and priced brilliantly. Came to our unit late hours of the night and really want above and beyond for…",
+    text: "The guys at envirocycle were fast, professional, and priced brilliantly. Came to our unit late hours of the night and really want above and beyond for us. Would highly recommend them for any waste or removal services!",
     ownerReply: "Thanks a lot guys!",
   },
   {
@@ -340,7 +341,7 @@ export const googleReviews: GoogleReview[] = [
     meta: "Local Guide · 7 reviews · 1 photo",
     publishedAt: "2026-07-08",
     stars: 5,
-    text: "Needed a chest of drawers dumped that had started to break mid house move. Contacted late afternoon. Sent pics got very reasonable quote. Guys came a couple hours later. Both extremely polite communicative and friendly. Respected the…",
+    text: "Needed a chest of drawers dumped that had started to break mid house move. Contacted late afternoon. Sent pics got very reasonable quote. Guys came a couple hours later. Both extremely polite communicative and friendly. Respected the property. Brilliant fast turn around. Highly recommend and will use again without fail if need anything else disposed off.",
     ownerReply: "Thank you!",
   },
   {
@@ -394,7 +395,7 @@ export const googleReviews: GoogleReview[] = [
     meta: "12 reviews",
     publishedAt: "2026-06-08",
     stars: 5,
-    text: "I had an excellent experience with Envirocycle Glasgow Ltd, and I wouldn't hesitate to recommend them to anyone looking for a reliable, professional service. I don't usually write reviews but the level of attention to detail received and…",
+    text: "I had an excellent experience with Envirocycle Glasgow Ltd, and I wouldn't hesitate to recommend them to anyone looking for a reliable, professional service. I don't usually write reviews but the level of attention to detail received and the positive customer experience prompted me to leave one. From the outset, they were friendly, knowledgeable and professional. They arrived on time, worked quickly, and handled everything with care and left the space clean and tidy, which made a big difference. Another strong point is their commitment to environmentally responsible practices. It's reassuring to know that waste is being processed thoughtfully and sustainably rather than simply being discarded on a dumping site. Would definitely recommend and use again.",
     ownerReply: "Thank you Gary!",
   },
   {
@@ -518,7 +519,7 @@ export const googleReviews: GoogleReview[] = [
     meta: "2 reviews",
     publishedAt: "2025-12-08",
     stars: 5,
-    text: "Excellent service from start to finish! The team arrived on time, worked efficiently, and left the area spotless. They handled everything professionally and even recycled as much as possible, which I really appreciate. It's great to see a…",
+    text: "Excellent service from start to finish! The team arrived on time, worked efficiently, and left the area spotless. They handled everything professionally and even recycled as much as possible, which I really appreciate. It's great to see a company that genuinely cares about the environment. Highly recommend them for anyone needing reliable rubbish or recycling collection.",
   },
   {
     name: "Alex Connelly",

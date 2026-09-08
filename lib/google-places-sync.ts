@@ -289,3 +289,40 @@ export async function getReviewsForDisplay(): Promise<ReviewsPayload> {
     return { configured: false, rating: null, userRatingCount: null, reviews: [] };
   }
 }
+
+/**
+ * Every review ever cached, not just the batch Places is serving today.
+ *
+ * Places returns 5 reviews per call and rotates which 5 over time, and
+ * each one carries the reviewer's account picture. Keeping the old rows
+ * means the set of reviewers we have a photo for grows with every sync,
+ * so /reviews can show a real picture for anyone Places has ever handed
+ * us rather than only the current five.
+ */
+export async function getAllCachedReviews(): Promise<DisplayReview[]> {
+  try {
+    // Creates the tables and refreshes from Google when stale.
+    await getReviewsForDisplay();
+
+    const rows = await sql`
+      SELECT author_name, rating, review_text, relative_time, publish_time,
+             author_photo_url, author_uri
+      FROM google_reviews_cache
+      ORDER BY publish_time DESC NULLS LAST, synced_at DESC
+    `;
+
+    return rows.map((r) => ({
+      name: r.author_name as string,
+      text: r.review_text as string,
+      stars: r.rating as number,
+      date: relativeTime(
+        r.publish_time as string | null,
+        r.relative_time as string
+      ),
+      photoUrl: (r.author_photo_url as string | null) ?? null,
+      profileUrl: (r.author_uri as string | null) ?? null,
+    }));
+  } catch {
+    return [];
+  }
+}
