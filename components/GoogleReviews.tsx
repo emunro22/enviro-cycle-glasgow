@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import {
   googleReviews,
   googleReviewsUrl,
   googleAverageRating,
   googleReviewCount,
+  relativeFromIso,
   type GoogleReview,
 } from "@/lib/google-reviews-data";
 
@@ -18,11 +20,34 @@ interface LiveReview {
   profileUrl?: string | null;
 }
 
-/** A curated or live review, plus the Google account picture when we have one. */
-type DisplayCard = GoogleReview & {
+/**
+ * A review ready to render. Curated entries carry an ISO publishedAt and
+ * live ones arrive with the age already computed server-side, so the age
+ * is resolved to a label here and both sources share one shape.
+ */
+type DisplayCard = {
+  name: string;
+  initial: string;
+  meta: string;
+  date: string;
+  text: string;
+  stars: number;
+  ownerReply?: string;
   photoUrl?: string | null;
   profileUrl?: string | null;
 };
+
+export function curatedToCard(review: GoogleReview): DisplayCard {
+  return {
+    name: review.name,
+    initial: review.initial,
+    meta: review.meta,
+    date: relativeFromIso(review.publishedAt),
+    text: review.text,
+    stars: review.stars,
+    ownerReply: review.ownerReply,
+  };
+}
 
 function normalize(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
@@ -133,7 +158,6 @@ export interface GoogleReviewsData {
 }
 
 export default function GoogleReviews({ initial }: { initial?: GoogleReviewsData }) {
-  const [expanded, setExpanded] = useState(false);
   const [liveRating, setLiveRating] = useState<number | null>(initial?.rating ?? null);
   const [liveCount, setLiveCount] = useState<number | null>(
     initial?.userRatingCount ?? null
@@ -143,6 +167,7 @@ export default function GoogleReviews({ initial }: { initial?: GoogleReviewsData
   // must not kick in while a client fetch that will never happen "loads".
   const [loaded, setLoaded] = useState(!!initial);
   const sectionRef = useRef<HTMLElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Only when the page did not hand us reviews server-side.
@@ -184,6 +209,7 @@ export default function GoogleReviews({ initial }: { initial?: GoogleReviewsData
             name: r.name,
             initial: r.name.charAt(0).toUpperCase() || "G",
             meta: curated?.meta ?? "Verified Google review",
+            ownerReply: curated?.ownerReply,
             date: r.date,
             text: r.text,
             stars: r.stars,
@@ -196,10 +222,10 @@ export default function GoogleReviews({ initial }: { initial?: GoogleReviewsData
 
   const usingFallback = !loaded || liveDisplayReviews.length === 0;
   const mergedReviews: DisplayCard[] = usingFallback
-    ? googleReviews
+    ? googleReviews.map(curatedToCard)
     : liveDisplayReviews;
 
-  const visibleReviews = expanded ? mergedReviews : mergedReviews.slice(0, INITIAL_COUNT);
+  const visibleReviews = mergedReviews.slice(0, INITIAL_COUNT);
 
   // Re-observe whenever the rendered card set actually changes (new live
   // reviews merged in, or the "show all" toggle reveals more cards):
@@ -216,7 +242,7 @@ export default function GoogleReviews({ initial }: { initial?: GoogleReviewsData
     );
     sectionRef.current?.querySelectorAll(".animate-on-scroll").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
-  }, [mergedReviews, expanded]);
+  }, [mergedReviews]);
 
   return (
     <section
@@ -272,12 +298,18 @@ export default function GoogleReviews({ initial }: { initial?: GoogleReviewsData
           </a>
         </div>
 
-        {/* Review grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {/* One row that scrolls sideways rather than a grid that wraps to
+            3-over-2. Cards are not .animate-on-scroll: anything parked off
+            the right of the rail never intersects the viewport, so a
+            scroll reveal would leave it stuck at opacity 0. */}
+        <div
+          ref={railRef}
+          className="reviews-rail flex items-stretch gap-5 overflow-x-auto snap-x snap-mandatory pb-4"
+        >
           {visibleReviews.map((review, i) => (
             <div
               key={`${review.name}-${i}`}
-              className="animate-on-scroll rounded-2xl p-6 relative flex flex-col"
+              className="rounded-2xl p-6 relative flex flex-col shrink-0 snap-start w-[82vw] sm:w-[340px] lg:w-[360px]"
               style={{
                 background: "linear-gradient(145deg, rgba(26,68,29,0.35), rgba(10,31,11,0.65))",
                 border: "1px solid rgba(212,160,23,0.12)",
@@ -319,24 +351,53 @@ export default function GoogleReviews({ initial }: { initial?: GoogleReviewsData
               >
                 {review.text}
               </p>
+
+              {review.ownerReply && (
+                <div
+                  className="mt-4 pt-3 pl-3 border-l-2"
+                  style={{ borderColor: "rgba(212,160,23,0.3)" }}
+                >
+                  <p
+                    className="text-xs font-semibold mb-1"
+                    style={{ color: "rgba(212,160,23,0.8)" }}
+                  >
+                    Envirocycle replied
+                  </p>
+                  <p
+                    className="text-xs leading-relaxed"
+                    style={{
+                      color: "rgba(245,240,232,0.6)",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                    }}
+                  >
+                    {review.ownerReply}
+                  </p>
+                </div>
+              )}
             </div>
           ))}
         </div>
 
-        {mergedReviews.length > INITIAL_COUNT && (
-          <div className="mt-10 flex justify-center animate-on-scroll">
-            <button
-              onClick={() => setExpanded((v) => !v)}
-              className="rounded-full px-8 py-3 text-sm font-semibold transition-all duration-300"
-              style={{
-                border: "1px solid rgba(212,160,23,0.4)",
-                color: "var(--gold)",
-              }}
-            >
-              {expanded ? "Show fewer reviews" : `Show all ${mergedReviews.length} reviews`}
-            </button>
-          </div>
-        )}
+        {/* Places only serves about 5 reviews, so the way to see the rest
+            is the full page, not an expand toggle on this rail. */}
+        <div className="mt-10 flex justify-center">
+          <Link
+            href="/reviews"
+            className="rounded-full px-8 py-3 text-sm font-semibold transition-all duration-300 inline-flex items-center gap-2"
+            style={{
+              border: "1px solid rgba(212,160,23,0.4)",
+              color: "var(--gold)",
+            }}
+          >
+            Read all {displayCount} reviews
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </Link>
+        </div>
       </div>
     </section>
   );

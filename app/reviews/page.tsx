@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import GoogleReviews from "@/components/GoogleReviews";
+import AllReviews from "@/components/AllReviews";
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import { googleAverageRating, googleReviewCount } from "@/lib/google-reviews-data";
@@ -74,7 +74,7 @@ export default async function ReviewsPage() {
         </p>
       </div>
 
-      <GoogleReviews initial={reviewsData} />
+      <AllReviews live={reviewsData.reviews} />
       <Footer />
     </main>
   );

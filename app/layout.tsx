@@ -160,12 +160,15 @@ const localBusinessSchema = {
     ratingValue: googleAverageRating,
     reviewCount: googleReviewCount,
   },
-  // A sample of real, curated Google reviews as individual Review items:
-  // review dates are stored as relative strings ("2 weeks ago") so are
-  // deliberately omitted here rather than emitted as invalid datePublished.
+  // The 12 most recent Google reviews as individual Review items. These
+  // now carry a real datePublished: review ages used to be stored as
+  // relative strings ("2 weeks ago") which could not be emitted as a
+  // valid date. All 12 are visible on /reviews, which is what Google's
+  // review snippet guidance requires of marked-up reviews.
   review: googleReviews.slice(0, 12).map((r) => ({
     "@type": "Review",
     author: { "@type": "Person", name: r.name },
+    datePublished: r.publishedAt,
     reviewRating: {
       "@type": "Rating",
       ratingValue: r.stars,
