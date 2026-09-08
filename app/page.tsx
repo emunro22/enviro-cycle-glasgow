@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import OurWork from "@/components/Ourwork";
 import ScrollAnimations from "@/components/ScrollAnimations";
 import { sql, type Project } from "@/lib/db";
+import { getReviewsForDisplay } from "@/lib/google-places-sync";
 
 // This is now a Server Component, no "use client".
 // That's what lets metadata (in layout.tsx) and structured data be picked
@@ -29,6 +30,11 @@ export default async function Home() {
     console.error("Failed to load projects", err);
   }
 
+  // Same reasoning as projects above: fetched server-side so the review
+  // text is in the initial HTML for crawlers, and so the section renders
+  // its real content immediately instead of swapping in after hydration.
+  const reviewsData = await getReviewsForDisplay();
+
   return (
     <main className="min-h-screen">
       {/* Drives the .in-view scroll animations from globals.css */}
@@ -41,7 +47,7 @@ export default async function Home() {
       <BeforeAfter />
       <OurWork projects={projects} />
       <Packages />
-      <GoogleReviews />
+      <GoogleReviews initial={reviewsData} />
       <FAQ />
       <Contact />
       <Footer />

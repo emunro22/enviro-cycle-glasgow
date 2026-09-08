@@ -76,14 +76,27 @@ function Stars({ count, size = 16 }: { count: number; size?: number }) {
 
 const INITIAL_COUNT = 9;
 
-export default function GoogleReviews() {
+export interface GoogleReviewsData {
+  rating: number | null;
+  userRatingCount: number | null;
+  reviews: LiveReview[];
+}
+
+export default function GoogleReviews({ initial }: { initial?: GoogleReviewsData }) {
   const [expanded, setExpanded] = useState(false);
-  const [liveRating, setLiveRating] = useState<number | null>(null);
-  const [liveCount, setLiveCount] = useState<number | null>(null);
-  const [liveReviews, setLiveReviews] = useState<LiveReview[]>([]);
+  const [liveRating, setLiveRating] = useState<number | null>(initial?.rating ?? null);
+  const [liveCount, setLiveCount] = useState<number | null>(
+    initial?.userRatingCount ?? null
+  );
+  const [liveReviews, setLiveReviews] = useState<LiveReview[]>(initial?.reviews ?? []);
+  // Server-provided data is already the finished answer, so the fallback
+  // must not kick in while a client fetch that will never happen "loads".
+  const [loaded, setLoaded] = useState(!!initial);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    // Only when the page did not hand us reviews server-side.
+    if (initial) return;
     fetch("/api/google-reviews")
       .then((res) => res.json())
       .then((data) => {
@@ -92,46 +105,45 @@ export default function GoogleReviews() {
         if (Array.isArray(data.reviews)) setLiveReviews(data.reviews);
       })
       .catch(() => {
-        // Silently keep the static fallback values below.
-      });
-  }, []);
+        // Silently keep the curated fallback below.
+      })
+      .finally(() => setLoaded(true));
+  }, [initial]);
 
   const displayRating = liveRating ?? googleAverageRating;
   const displayCount = liveCount ?? googleReviewCount;
 
-  // What Google is serving right now leads the list, and wins on any
-  // duplicate. This ordering is the whole point: the Places API only ever
-  // returns about 5 reviews, and the curated list below was originally
-  // copied off the same Google listing, so letting the curated copy win
-  // meant every live review was discarded as "already known" and nothing
-  // ever looked synced. The curated entries now only fill in behind the
-  // live ones, which keeps the section deep and keeps it rendering if the
-  // API or the database is unreachable.
-  const mergedReviews = useMemo<GoogleReview[]>(() => {
-    const live = liveReviews
-      .filter((r) => r.text)
-      .map<GoogleReview>((r) => {
-        // Reuse the curated entry's byline ("Local Guide · 30 reviews")
-        // where we have one: the Places API does not return it, and
-        // falling back to a generic label for a review we already had
-        // would read as a downgrade.
-        const curated = googleReviews.find((c) => isSameReview(c, r));
-        return {
-          name: r.name,
-          initial: r.name.charAt(0).toUpperCase() || "G",
-          meta: curated?.meta ?? "Verified Google review",
-          date: r.date,
-          text: r.text,
-          stars: r.stars,
-        };
-      });
+  // Exactly what Google is serving right now, newest first, and nothing
+  // else. The Places API only ever returns about 5 reviews, so this
+  // section is short by design: the alternative is padding it with a
+  // hand-copied list whose dates freeze at whatever they said when the
+  // list was written, which is worse than showing five current ones.
+  //
+  // The curated list survives only as a fallback for when the API or the
+  // database is unreachable, so the section never renders empty on a live
+  // site. In normal operation it is not used.
+  const liveDisplayReviews = useMemo<GoogleReview[]>(
+    () =>
+      liveReviews
+        .filter((r) => r.text)
+        .map<GoogleReview>((r) => {
+          // Reuse the curated entry's byline ("Local Guide · 30 reviews")
+          // where we happen to have one: Places does not return it.
+          const curated = googleReviews.find((c) => isSameReview(c, r));
+          return {
+            name: r.name,
+            initial: r.name.charAt(0).toUpperCase() || "G",
+            meta: curated?.meta ?? "Verified Google review",
+            date: r.date,
+            text: r.text,
+            stars: r.stars,
+          };
+        }),
+    [liveReviews]
+  );
 
-    const remaining = googleReviews.filter(
-      (curated) => !live.some((r) => isSameReview(curated, r))
-    );
-
-    return [...live, ...remaining];
-  }, [liveReviews]);
+  const usingFallback = !loaded || liveDisplayReviews.length === 0;
+  const mergedReviews = usingFallback ? googleReviews : liveDisplayReviews;
 
   const visibleReviews = expanded ? mergedReviews : mergedReviews.slice(0, INITIAL_COUNT);
 

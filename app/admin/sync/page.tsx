@@ -141,10 +141,12 @@ export default function AdminSyncPage() {
           has not changed.
         </p>
         <p className="text-cream/70 text-sm leading-relaxed mt-3">
-          Reviews no longer depend on this cron. The reviews section refreshes
-          itself from the same API key when its cache is more than 6 hours old,
-          so whatever 5 reviews Google is currently serving show on the site
-          automatically. The cron still handles photos and keeps the cache warm.
+          Reviews no longer depend on this cron. The site shows exactly the
+          reviews Google served on the most recent sync, newest first, and
+          refreshes itself from the same API key when that is more than 6 hours
+          old. So the reviews section is about 5 cards by design, and a review
+          Google drops from its sample drops off the site too. The cron still
+          handles photos and keeps the cache warm.
         </p>
       </section>
 

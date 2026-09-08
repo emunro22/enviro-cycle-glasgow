@@ -4,6 +4,7 @@ import GoogleReviews from "@/components/GoogleReviews";
 import type { Metadata } from "next";
 import { SITE_URL } from "@/lib/site";
 import { googleAverageRating, googleReviewCount } from "@/lib/google-reviews-data";
+import { getReviewsForDisplay } from "@/lib/google-places-sync";
 
 const META_TITLE = "Reviews | Envirocycle Glasgow";
 const META_DESCRIPTION = `Rated ${googleAverageRating.toFixed(1)}/5 from ${googleReviewCount} Google reviews. See what customers across Glasgow say about our waste removal, uplift and recycling services.`;
@@ -22,7 +23,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ReviewsPage() {
+export default async function ReviewsPage() {
+  const reviewsData = await getReviewsForDisplay();
+
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -71,7 +74,7 @@ export default function ReviewsPage() {
         </p>
       </div>
 
-      <GoogleReviews />
+      <GoogleReviews initial={reviewsData} />
       <Footer />
     </main>
   );
